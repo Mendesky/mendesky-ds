@@ -1,4 +1,19 @@
 import { defineConfig } from 'vitepress';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { exportCoreDocs } from '../../scripts/export-docs.mjs';
+
+// 元件頁的側欄：依規格的分組列出全部元件
+const GROUPS = ['互動元件', '表單元件', '浮層元件', '展示元件', '工具'];
+const specs = exportCoreDocs(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')).specs.map((s: { spec: { id: string; name: string; group: string } }) => s.spec);
+const componentSidebar = [
+  { text: '元件', items: [{ text: '總覽', link: '/components/' }] },
+  ...GROUPS.map((g) => ({
+    text: g,
+    collapsed: true,
+    items: specs.filter((s) => s.group === g).sort((a, b) => a.name.localeCompare(b.name)).map((s) => ({ text: s.name, link: `/components/${s.id}` })),
+  })).filter((g) => g.items.length),
+];
 
 // 每個版本各建一次：DOCS_BASE 例如 /mendesky-ds/v0.1.0/，DOCS_VERSION 例如 v0.1.0 或 main。
 // 本機開發（npm run site:dev）不設，base 為 /。
@@ -28,10 +43,11 @@ export default defineConfig({
     docsVersion: version,
     nav: [
       { text: '指南', link: '/guide/getting-started', activeMatch: '/guide/' },
-      { text: '元件', link: '/guide/choosing-components' },
+      { text: '元件', link: '/components/', activeMatch: '/components/' },
       { text: '版本說明', link: 'https://github.com/Mendesky/mendesky-ds/releases' },
     ],
     sidebar: {
+      '/components/': componentSidebar,
       '/guide/': [
         {
           text: '入門',

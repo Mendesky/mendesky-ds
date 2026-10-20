@@ -21,7 +21,17 @@ export default {
     return {
       components: core.specs.map(({ spec }: { spec: { id: string } }) => ({ ...spec, ...(angular.get(spec.id) ?? {}) })),
       frameworks: Object.fromEntries(
-        Object.entries(frameworks).map(([name, fw]) => [name, { label: fw.label, ref: fw.ref, storybook: fw.storybook }]),
+        Object.entries(frameworks).map(([name, fw]) => [
+          name,
+          {
+            label: fw.label,
+            ref: fw.ref,
+            storybook: fw.storybook,
+            // 元件頁的「這個框架怎麼用」分頁：用法欄位＋範例清單
+            docs: Object.fromEntries(fw.docs.map((d: { id: string }) => [d.id, d])),
+            stories: fw.stories,
+          },
+        ]),
       ),
       tokens: core.tokens,
       typography: core.typography,

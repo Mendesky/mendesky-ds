@@ -1,19 +1,19 @@
+import { withBase } from 'vitepress';
 import { data } from '../ds.data.mts';
 
-// 元件的說明頁與可操作範例目前放在 Angular 版的範例網站（Storybook），網址由 site/frameworks.json 設定。
-const storybook = (): string => data.frameworks.angular.storybook;
-
-/** 元件說明頁（Storybook）的網址；id 是元件規格的 id */
+/** 站內的元件頁；id 是元件規格的 id */
 export function componentDocsUrl(id: string): string {
-  return `${storybook()}?path=/docs/${encodeURIComponent(id)}--${encodeURIComponent('說明')}`;
+  return withBase(`/components/${encodeURIComponent(id)}`);
 }
 
-/** 單一範例的網址（可嵌入 iframe） */
-export function storyUrl(storyId: string): string {
-  return `${storybook()}iframe.html?id=${encodeURIComponent(storyId)}&viewMode=story`;
+const defaultStorybook = (): string => data.frameworks.angular.storybook;
+
+/** 範例網站（Storybook）裡這個元件的說明頁 */
+export function storybookDocsUrl(id: string, storybook: string = defaultStorybook()): string {
+  return `${storybook}?path=/docs/${encodeURIComponent(id)}--${encodeURIComponent('說明')}`;
 }
 
-/** 元件總覽（Storybook 首頁） */
-export function componentsHomeUrl(): string {
-  return storybook();
+/** 單一範例的網址（可嵌入 iframe）；預設用 Angular 版的範例網站 */
+export function storyUrl(storyId: string, storybook: string = defaultStorybook()): string {
+  return `${storybook}iframe.html?id=${encodeURIComponent(storyId)}&viewMode=story`;
 }

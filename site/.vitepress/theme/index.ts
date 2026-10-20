@@ -10,6 +10,7 @@ import ComponentTable from './components/ComponentTable.vue';
 import ComponentLink from './components/ComponentLink.vue';
 import StoryEmbed from './components/StoryEmbed.vue';
 import IconGallery from './components/IconGallery.vue';
+import ComponentPage from './components/ComponentPage.vue';
 import './custom.css';
 
 export default {
@@ -24,5 +25,6 @@ export default {
     app.component('ComponentLink', ComponentLink);
     app.component('StoryEmbed', StoryEmbed);
     app.component('IconGallery', IconGallery);
+    app.component('ComponentPage', ComponentPage);
   },
 } satisfies Theme;

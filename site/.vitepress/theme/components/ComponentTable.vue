@@ -17,7 +17,7 @@ const rows = computed(() =>
     <thead><tr><th>元件</th><th>什麼時候用</th></tr></thead>
     <tbody>
       <tr v-for="c in rows" :key="c.id" data-testid="component-row">
-        <td><a :href="componentDocsUrl(c.id)" target="_self"><code>{{ c.selector }}</code></a></td>
+        <td><a :href="componentDocsUrl(c.id)"><code>{{ c.selector }}</code></a></td>
         <td>{{ c.whenText }}</td>
       </tr>
     </tbody>

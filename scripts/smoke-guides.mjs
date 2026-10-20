@@ -3,7 +3,7 @@
 //
 // 用法：npm run site:build（或 scripts/build-site.sh main）之後
 //       node scripts/smoke-guides.mjs <網站目錄，預設 site/.vitepress/dist> <網站 base，預設 /main/>
-// components/（舊版元件頁位置）與 404.html 不在這裡檢查；元件範例在各框架的範例網站，由各框架 repo 檢查。
+// 指南與元件頁都檢查；404.html 與 assets/ 不檢查。元件頁裡嵌入的範例來自各框架的範例網站，由各框架 repo 檢查。
 import { createServer } from 'node:http';
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -23,7 +23,7 @@ function listPages(dir, rel = '') {
   const out = [];
   for (const name of readdirSync(path.join(dir, rel))) {
     const r = path.posix.join(rel, name);
-    if (r === 'components' || r === 'assets' || r === '404.html') continue;
+    if (r === 'assets' || r === '404.html') continue;
     if (statSync(path.join(dir, r)).isDirectory()) out.push(...listPages(dir, r));
     else if (name.endsWith('.html')) out.push(r);
   }

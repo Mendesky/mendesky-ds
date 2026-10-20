@@ -8,7 +8,7 @@ import { smokeGuides } from './smoke-guides.mjs';
 
 const fixtures = path.join(path.dirname(fileURLToPath(import.meta.url)), '__fixtures__', 'smoke-guides');
 
-test('每頁都畫出內容、沒有錯誤 → 通過；components 與 404 不檢查', async () => {
+test('每頁都畫出內容、沒有錯誤 → 通過；404 不檢查', async () => {
   const result = await smokeGuides(path.join(fixtures, 'ok'), '/main/');
   assert.equal(result.visited, 2);
   assert.deepEqual(result.failures, []);

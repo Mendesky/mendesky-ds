@@ -16,6 +16,27 @@ function pickApi(doc) {
   return Object.fromEntries(API_KEYS.filter((k) => k in doc).map((k) => [k, doc[k]]));
 }
 
+/**
+ * 範例網站（Storybook）的範例清單：元件 id → [{ id, name }]（依範例網站的順序，第一支是主範例）。
+ * 讀範例網站發布的 index.json；連不上時回傳空物件，元件頁就只顯示用法、不嵌入範例。
+ */
+export async function loadStories(storybook) {
+  try {
+    const res = await fetch(new URL('index.json', storybook));
+    if (!res.ok) return {};
+    const { entries } = await res.json();
+    const byComponent = {};
+    for (const e of Object.values(entries)) {
+      if (e.type !== 'story') continue;
+      const componentId = e.id.split('--')[0];
+      (byComponent[componentId] ??= []).push({ id: e.id, name: e.name });
+    }
+    return byComponent;
+  } catch {
+    return {};
+  }
+}
+
 export async function loadFrameworkDocs(root) {
   const config = JSON.parse(readFileSync(path.join(root, 'site', 'frameworks.json'), 'utf8'));
   const result = {};
@@ -29,7 +50,7 @@ export async function loadFrameworkDocs(root) {
     const docs = mod.exportFrameworkDocs
       ? mod.exportFrameworkDocs(dir)
       : mod.exportDocs(dir).components.map((c) => pickApi(c.doc));
-    result[name] = { label: fw.label, ref: fw.ref, storybook: fw.storybook, docs };
+    result[name] = { label: fw.label, ref: fw.ref, storybook: fw.storybook, docs, stories: await loadStories(fw.storybook) };
   }
   return result;
 }

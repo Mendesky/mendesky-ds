@@ -10,14 +10,14 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: 元件
-      link: /guide/choosing-components
+      link: /components/
     - theme: alt
       text: GitHub
       link: https://github.com/Mendesky/mendesky-ds
 features:
   - title: 元件
     details: 互動、表單、浮層、展示元件與工具，每個元件一頁：可操作的範例、屬性表、程式碼範例、注意事項。
-    link: /guide/choosing-components
+    link: /components/
     linkText: 看元件
   - title: 設計基礎
     details: 元件怎麼選、色彩 token、字型、動效、圖示。
