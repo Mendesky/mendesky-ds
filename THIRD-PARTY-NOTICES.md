@@ -3,7 +3,7 @@
 本 repository 的部分圖示取自以下第三方圖示庫。這些圖示依其原授權條款使用，
 不受本 repository `LICENSE` 的「保留所有權利」條款約束。
 
-圖示位置：`src/app/shared/components/icon/icon.registry.ts`。下表依該檔註解標示整理；
+圖示位置：`src/icons/icons.ts`。下表依該檔註解標示整理；
 新增取自第三方的圖示時，請在 registry 註解標明來源與授權，並同步更新本檔。
 
 | 圖示 key | 來源 | 授權 |
