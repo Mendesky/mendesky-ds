@@ -1,0 +1,8 @@
+{
+  "angular": {
+    "label": "Angular",
+    "repo": "https://github.com/Mendesky/mendesky-ds-angular.git",
+    "ref": "v0.2.0",
+    "storybook": "https://mendesky.github.io/mendesky-ds-angular/v0.2.0/components/"
+  }
+}

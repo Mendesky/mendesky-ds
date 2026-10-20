@@ -1,0 +1,90 @@
+name: CI
+
+# PR 與每次 push 都跑。公開 repo 一律用 GitHub 提供的主機（自架主機會讓外部 fork 的 PR 執行任意程式碼）。
+#   typecheck   型別檢查
+#   dist        dist/ 是否跟 src/ 的建置結果一致（dist/ 進版控，使用端安裝時不會建置）
+#   check-docs  說明檢查：元件規格、token、字型、互動原則一致；含檢查腳本自身的測試
+#   unit-test   工具程式的測試（Vitest，真的 Chromium）
+#   smoke       建置文件網站，逐頁打開指南確認畫得出來、沒有錯誤
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    name: tsc --noEmit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+
+  dist:
+    name: dist 同步
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run check:dist
+
+  check-docs:
+    name: 說明檢查
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:scripts
+      - run: npm run check:docs
+
+  unit-test:
+    name: 單元測試
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+
+  smoke:
+    name: 文件網站建置與冒煙測試
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node --test scripts/smoke-guides.browser.mjs
+      - run: DOCS_REPO_BASE=/ bash scripts/build-site.sh main
+      - run: node scripts/smoke-guides.mjs site/.vitepress/dist /main/
