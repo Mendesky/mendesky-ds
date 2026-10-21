@@ -3,7 +3,8 @@
 //
 // 用法：npm run site:build（或 scripts/build-site.sh main）之後
 //       node scripts/smoke-guides.mjs <網站目錄，預設 site/.vitepress/dist> <網站 base，預設 /main/>
-// 指南與元件頁都檢查；404.html 與 assets/ 不檢查。元件頁裡嵌入的範例來自各框架的範例網站，由各框架 repo 檢查。
+// 指南與元件頁都檢查；404.html 與 assets/ 不檢查。元件頁裡嵌入的範例來自各框架的範例網站，由各框架 repo 檢查，
+// 所以測試時對外連線一律擋掉：結果只反映本體自己的頁面，不受網路或外部網站影響。
 import { createServer } from 'node:http';
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -67,6 +68,7 @@ export async function smokeGuides(dir, base = '/main/', { timeout = 15000 } = {}
   let visited = 0;
   try {
     const page = await browser.newPage();
+    await page.route('**/*', (route) => (route.request().url().startsWith(`${origin}/`) ? route.continue() : route.abort()));
     for (const rel of pages) {
       const errors = [];
       const onError = (e) => errors.push(e.message);

@@ -2,6 +2,9 @@
 // 用法：node --test scripts/smoke-guides.browser.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { createServer } from 'node:http';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { smokeGuides } from './smoke-guides.mjs';
@@ -19,6 +22,30 @@ test('頁面有「找不到」的資料元件或丟錯 → 失敗並指出哪一
   assert.equal(result.failures.length, 2);
   assert.match(result.failures.join('\n'), /guide\/missing/);
   assert.match(result.failures.join('\n'), /guide\/throws/);
+});
+
+test('元件頁嵌入的外部範例出錯 → 不算本體的錯（測試時對外連線一律擋掉）', async () => {
+  // 外部範例網站：另一個 origin，頁面一載入就丟錯
+  const external = createServer((req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+    res.end('<!doctype html><script>throw new Error("外部範例丟錯")</script>');
+  });
+  await new Promise((resolve) => external.listen(0, '127.0.0.1', resolve));
+  const site = mkdtempSync(path.join(tmpdir(), 'smoke-guides-'));
+  try {
+    mkdirSync(path.join(site, 'components'));
+    writeFileSync(
+      path.join(site, 'components', 'embed.html'),
+      `<!doctype html><html><head><meta charset="utf-8"></head><body><div id="app"><div class="VPContent">元件頁` +
+        `<iframe src="http://localhost:${external.address().port}/iframe.html"></iframe></div></div></body></html>`,
+    );
+    const result = await smokeGuides(site, '/main/');
+    assert.equal(result.visited, 1);
+    assert.deepEqual(result.failures, []);
+  } finally {
+    external.close();
+    rmSync(site, { recursive: true, force: true });
+  }
 });
 
 test('一頁都沒有 → 失敗', async () => {
