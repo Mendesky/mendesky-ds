@@ -4,7 +4,7 @@
 
 ## 這個套件是什麼
 
-設計系統分成「本體」與「各框架的套件」（見[版本與升級](./versioning)）。目前提供 Angular 版：`@mendesky/ds-angular` 是 Mendesky 設計系統的 Angular 元件庫，它依賴本體 `@mendesky/ds`（色彩、字型、圖示、工具程式），安裝時本體會自動一起裝，不用另外指定。
+設計系統分成「本體」與「各框架的套件」（見[版本與升級](./versioning)）。目前提供 Angular 版（Vue 版試做中，元件頁可以切換看 Vue 的寫法，但還不供專案安裝）：`@mendesky/ds-angular` 是 Mendesky 設計系統的 Angular 元件庫，它依賴本體 `@mendesky/ds`（色彩、字型、圖示、工具程式），安裝時本體會自動一起裝，不用另外指定。
 
 它是「原始碼套件」：套件裡放的是元件的 `.ts`、`.html`、`.scss` 原始碼，不是編譯好的檔案。
 

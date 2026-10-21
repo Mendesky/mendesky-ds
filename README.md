@@ -14,6 +14,7 @@ Mendesky Design System 的本體：跟框架無關的部分。
 | 框架 | 套件 | repo |
 |---|---|---|
 | Angular | `@mendesky/ds-angular` | [mendesky-ds-angular](https://github.com/Mendesky/mendesky-ds-angular) |
+| Vue（試做中，8 個元件，不供專案安裝） | `@mendesky/ds-vue` | [mendesky-ds-vue](https://github.com/Mendesky/mendesky-ds-vue) |
 
 本體不依賴任何框架，加新框架只要開一個新的框架 repo、依賴本套件。
 
