@@ -46,7 +46,7 @@
     "@vitest/browser": "3.2.7",
     "pdfjs-dist": "3.11.174",
     "playwright": "~1.59.0",
-    "sass": "^1.106.0",
+    "sass": "~1.99.0",
     "typescript": "~5.4.2",
     "vitepress": "^1.6.4",
     "vitest": "3.2.7",
