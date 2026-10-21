@@ -8,7 +8,7 @@ const current = theme.value.docsVersion as string;
 const options = ref<string[]>([]);
 // 文件網站出現前的舊版只有一頁 README（legacy），切過去時開該版首頁
 const legacy = ref<Set<string>>(new Set());
-// base 形如 /mendesky-ds-angular/v0.1.12/；上一層是網站根目錄
+// base 形如 /mendesky-ds/v0.1.0/；上一層是網站根目錄
 const base = import.meta.env.BASE_URL;
 const siteRoot = base.replace(/[^/]+\/$/, '');
 
