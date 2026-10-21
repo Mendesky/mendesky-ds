@@ -33,6 +33,7 @@
     "test:scripts": "node --test scripts/",
     "check:docs": "node scripts/check-docs.mjs",
     "check:dist": "node scripts/check-dist.mjs",
+    "check:styles": "node scripts/check-component-styles.mjs",
     "site:dev": "vitepress dev site",
     "site:build": "bash scripts/build-site.sh",
     "smoke:guides": "node scripts/smoke-guides.mjs"
@@ -45,6 +46,7 @@
     "@vitest/browser": "3.2.7",
     "pdfjs-dist": "3.11.174",
     "playwright": "~1.59.0",
+    "sass": "^1.106.0",
     "typescript": "~5.4.2",
     "vitepress": "^1.6.4",
     "vitest": "3.2.7",

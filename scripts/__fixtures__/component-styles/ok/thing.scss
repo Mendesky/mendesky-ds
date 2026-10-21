@@ -1,0 +1,5 @@
+.ds-thing {
+  & { display: inline-flex; }
+  .thing__part { color: red; }
+}
+@keyframes thing-spin { to { transform: rotate(360deg); } }

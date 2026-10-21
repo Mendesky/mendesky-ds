@@ -1,0 +1,21 @@
+// 表單錯誤提示的浮層容器（掛在 body 底下）。提示框與箭頭（.form-error-tooltip__*）與進場動畫在 core.scss。
+// 來源：mendesky-ds-angular error-tooltip.directive.ts 的 FormErrorPortalComponent（v0.3.0）；:host → .ds-form-error。
+.ds-form-error {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  max-width: 280px;
+  min-width: 100px;
+
+  &.form-error-portal--bottom { animation: formErrorIn    300ms var(--ease-enter) both; }
+  &.form-error-portal--top    { animation: formErrorInUp  300ms var(--ease-enter) both; }
+
+  .form-error-tooltip__list {
+    margin: 0;
+    padding: 0 0 0 14px;
+    font-size: inherit;
+  }
+  .form-error-tooltip__list li + li { margin-top: 2px; }
+}
