@@ -8,7 +8,7 @@
   "vue": {
     "label": "Vue（試做）",
     "repo": "https://github.com/Mendesky/mendesky-ds-vue.git",
-    "ref": "v0.1.0-beta.3",
-    "storybook": "https://mendesky.github.io/mendesky-ds-vue/v0.1.0-beta.3/components/"
+    "ref": "v0.1.0",
+    "storybook": "https://mendesky.github.io/mendesky-ds-vue/v0.1.0/components/"
   }
 }
