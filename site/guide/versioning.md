@@ -10,6 +10,7 @@
 |---|---|---|
 | `@mendesky/ds`（本體） | [mendesky-ds](https://github.com/Mendesky/mendesky-ds) | 跟框架無關的樣式、圖示、工具程式、元件規格、這個文件網站 |
 | `@mendesky/ds-angular` | [mendesky-ds-angular](https://github.com/Mendesky/mendesky-ds-angular) | Angular 元件與 Angular 用法 |
+| `@mendesky/ds-vue`（試做中） | [mendesky-ds-vue](https://github.com/Mendesky/mendesky-ds-vue) | Vue 3 元件與 Vue 用法；目前只有 8 個元件，還不供專案安裝 |
 
 使用端只要裝自己框架的套件。框架套件會指定它搭配的本體版本，安裝時自動一起裝。兩種套件的版本號各自獨立。
 

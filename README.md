@@ -14,6 +14,7 @@ Mendesky Design System 的本體：跟框架無關的部分。
 | 框架 | 套件 | repo |
 |---|---|---|
 | Angular | `@mendesky/ds-angular` | [mendesky-ds-angular](https://github.com/Mendesky/mendesky-ds-angular) |
+| Vue（試做中，8 個元件，不供專案安裝） | `@mendesky/ds-vue` | [mendesky-ds-vue](https://github.com/Mendesky/mendesky-ds-vue) |
 
 本體不依賴任何框架，加新框架只要開一個新的框架 repo、依賴本套件。
 
@@ -35,6 +36,7 @@ Mendesky Design System 的本體：跟框架無關的部分。
 
 - `import { ICON_REGISTRY, printPdfBlob, COMPONENT_SPECS } from '@mendesky/ds'`：圖示、工具程式、元件規格（`dist/`）
 - `@use '@mendesky/ds/styles/core'`：全域樣式；`@use '@mendesky/ds/styles/mixins'`、`'@mendesky/ds/styles/breakpoints'`：SCSS 工具
+- `@use '@mendesky/ds/styles/components/<元件>'`：元件的共用樣式（Vue 版試做中，目前有 icon、label、button、input、field、checkbox、select、dialog）。整份包在 `.ds-<元件>` 底下，各框架元件在根元素加上這個 class；Angular 版目前仍用自己的元件樣式
 - `@mendesky/ds/scripts/export-docs.mjs`：匯出元件規格、基礎說明、互動原則、圖示名稱（框架套件的說明匯出與使用端的 AI 協作索引會用）
 
 ## 開發
@@ -47,6 +49,7 @@ npm test               # 工具程式的測試（Vitest，真的 Chromium）
 npm run test:scripts   # 檢查腳本自身的測試
 npm run check:docs     # 規格、token、字型、互動原則是否一致
 npm run check:dist     # dist/ 是否跟 src/ 的建置結果一致
+npm run check:styles   # 元件共用樣式能編譯、規則都在 .ds-<元件> 底下
 npm run site:dev       # 文件網站
 ```
 

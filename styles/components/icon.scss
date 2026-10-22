@@ -1,0 +1,14 @@
+// 圖示（icon）的共用樣式。各框架的圖示元件在根元素加上 .ds-icon，寬高由元件依 size 設定。
+// 來源：mendesky-ds-angular icon.component.scss（v0.3.0）；:host → .ds-icon。
+.ds-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
