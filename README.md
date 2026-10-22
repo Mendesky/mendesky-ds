@@ -47,9 +47,10 @@ npm run build          # src/ → dist/（dist/ 要一起 commit）
 npm run typecheck
 npm test               # 工具程式的測試（Vitest，真的 Chromium）
 npm run test:scripts   # 檢查腳本自身的測試
-npm run check:docs     # 規格、token、字型、互動原則是否一致
+npm run check:docs     # 規格、token、字型、互動原則是否一致，而且只寫跨框架的內容（指元件寫 #元件id）
 npm run check:dist     # dist/ 是否跟 src/ 的建置結果一致
 npm run check:styles   # 元件共用樣式能編譯、規則都在 .ds-<元件> 底下
+npm run check:guides   # 指南文字跟框架無關，框架範例都在分頁裡、也對得上各框架的元件（會取 site/frameworks.json 指定的框架 repo）
 npm run site:dev       # 文件網站
 ```
 

@@ -6,15 +6,15 @@ export const inlineConfirmSpec = {
     notes: [
         {
             type: 'info',
-            content: '元件不控制外部主按鈕 disabled，消費者自行 [disabled]="!confirmed()"',
+            content: '元件不控制外部主按鈕 disabled，消費者自行把主按鈕的 disabled 設為「還沒勾選」（confirmed 為 false 時停用）',
         },
         {
             type: 'info',
-            content: 'bullets 用 <ng-content select="[inlineConfirmDetails]"> 投影，支援超連結 / <strong> / <app-label> 等 rich markup',
+            content: 'bullets 以放入自訂內容的方式提供，支援超連結 / <strong> / #label 等 rich markup',
         },
         {
             type: 'warn',
-            content: '父層職責：離開頁面再回來必須 signal.set(false) 清空 stale state；元件不自動重置',
+            content: '父層職責：離開頁面再回來必須把 confirmed 重設為 false，清空 stale state；元件不自動重置',
         },
     ],
     customTables: [
@@ -30,7 +30,7 @@ export const inlineConfirmSpec = {
                 [
                     'required',
                     '淡灰底 + Alert icon + label 加重',
-                    '[disabled]="!confirmed()"',
+                    '還沒勾選時 disabled',
                     '阻塞型前提：發布前確認已審核、匯入前確認格式、同意條款後才能繼續',
                 ],
                 [

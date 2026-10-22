@@ -62,7 +62,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (failures.length) {
     console.error(`元件樣式檢查失敗：`);
     for (const f of failures) console.error(`  - ${f}`);
-    process.exit(1);
+    // 用 exitCode 而不是 process.exit：輸出接到管線時，process.exit 會截斷還沒寫完的訊息
+    process.exitCode = 1;
+  } else {
+    console.log(`元件樣式檢查通過：${checked} 份都能編譯，規則都在各自的 .ds-<名稱> 底下`);
   }
-  console.log(`元件樣式檢查通過：${checked} 份都能編譯，規則都在各自的 .ds-<名稱> 底下`);
 }

@@ -4,13 +4,13 @@ export const portalTeleportSpec: ComponentSpec = {
   id: 'portal-teleport',
   name: 'Portal Teleport 元素外送',
   group: '工具',
-  when: '元素必須脫離目前 DOM 位置才能正確顯示時用（祖先有 transform、backdrop-filter 或 overflow:hidden）。需要跟著觸發點定位與追蹤捲動時改用 PortalPositioningService。',
-  description: `把套用此 directive 的元素在 ngOnInit 時 appendChild 到 document.body，在 ngOnDestroy 時移除。
+  when: '元素必須脫離目前 DOM 位置才能正確顯示時用（祖先有 transform、backdrop-filter 或 overflow:hidden）。需要跟著觸發點定位與追蹤捲動時改用浮層定位服務。',
+  description: `把套用此工具的元素在元素建立並放進父層後 appendChild 到 document.body，在銷毀時移除。
 用於「元素必須脫離目前 DOM 位置才能正確顯示」的情境——祖先有 transform、backdrop-filter 或 overflow:hidden 時，position:fixed 會以該祖先為基準或被裁切。`,
   notes: [
     {
       type: 'info',
-      content: '沒有任何 @Input。純副作用 directive，全長 21 行。',
+      content: '沒有任何屬性，是純副作用的工具。',
     },
     {
       type: 'warning',
@@ -18,11 +18,11 @@ export const portalTeleportSpec: ComponentSpec = {
     },
     {
       type: 'warning',
-      content: 'ngOnDestroy 只在「元素的 parent 仍是 document.body」時才移除。若中途被別的程式搬走，這個 directive 不會清掉它。',
+      content: '銷毀時只在「元素的 parent 仍是 document.body」時才移除。若中途被別的程式搬走，這個工具不會清掉它。',
     },
     {
       type: 'info',
-      content: '需要「跟著某個 trigger 定位並追蹤捲動」時不要用這個，用 PortalPositioningService——它除了搬移還會處理定位、翻轉、捲動追蹤與 z-index。本 directive 只負責搬家。',
+      content: '需要「跟著某個 trigger 定位並追蹤捲動」時不要用這個，用浮層定位服務——它除了搬移還會處理定位、翻轉、捲動追蹤與 z-index。本工具只負責搬家。',
     },
   ],
 };

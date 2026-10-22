@@ -6,7 +6,7 @@ export const processModalSpec = {
     notes: [
         {
             type: 'info',
-            content: 'running 狀態不可關閉（系統處理中阻擋操作）；congratulation 點擊背景可觸發 (dismissed)。',
+            content: 'running 狀態不可關閉（系統處理中阻擋操作）；congratulation 點擊背景會送出 dismissed 事件。',
         },
     ],
     customTables: [

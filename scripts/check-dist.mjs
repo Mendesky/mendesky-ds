@@ -51,7 +51,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (problems.length) {
     console.error(`dist 沒有跟 src 同步（${problems.length} 項）。請執行 npm run build 後一起 commit：`);
     for (const p of problems) console.error(`  - ${p}`);
-    process.exit(1);
+    // 用 exitCode 而不是 process.exit：輸出接到管線時，process.exit 會截斷還沒寫完的訊息
+    process.exitCode = 1;
+  } else {
+    console.log('dist 與 src 的建置結果一致');
   }
-  console.log('dist 與 src 的建置結果一致');
 }

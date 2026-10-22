@@ -8,7 +8,7 @@ export const emptyStateSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: 'default ng-content slot 可投影任意內容（按鈕、含 inline CTA 的訊息段落等），投影內容顯示在 message 文字下方。',
+      content: '可以放入任意自訂內容（按鈕、含 inline CTA 的訊息段落等），放入的內容顯示在 message 文字下方。',
     },
   ],
   customTables: [],

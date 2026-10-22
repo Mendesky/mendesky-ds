@@ -16,5 +16,8 @@
 .ds-pattern h3 { margin-top: 16px; }
 .ds-principle { background: var(--vp-c-tip-soft); border-left: 4px solid var(--vp-c-tip-1); padding: 8px 14px; border-radius: 4px; }
 .ds-anti li { color: var(--vp-c-danger-1); }
+/* 互動原則下方的框架做法（框架 repo 的 pattern-notes） */
+.ds-pattern-fw { border-top: 1px dashed var(--vp-c-divider); margin-top: 12px; }
+.ds-pattern-fw__warn { color: var(--vp-c-warning-1); }
 .ds-story { width: 100%; border: 1px solid var(--vp-c-divider); border-radius: 8px; background: #fff; margin: 12px 0; }
 .ds-version select { height: 30px; border: 1px solid var(--vp-c-divider); border-radius: 6px; padding: 0 8px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 13px; margin-left: 12px; }

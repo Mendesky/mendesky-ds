@@ -8,7 +8,7 @@ export const numberListSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: '**條件式 tooltip 已恢復**（2026-10-13）：label 與 text 掛 `[appTooltip]` ＋ `[appTooltipOnlyWhenTruncated]`（只在真的被截斷時顯示、才給 `tabindex=0`）＋ `[appTooltipWrap]`（tooltip 文字最寬 520px 換行）。2026-08-18 撤除的那一版改在元件內部量測；這版把量測放進 tooltip directive，其他截斷文字元件也能直接用。消費端**不要**再自己對 `.nl-text` 掛 tooltip。',
+      content: '**條件式 tooltip 已恢復**（2026-10-13）：label 與 text 掛 #tooltip-directive，並開啟「只在截斷時顯示」（只在真的被截斷時顯示、才給 `tabindex=0`）與「換行」（tooltip 文字最寬 520px 換行）兩個選項。2026-08-18 撤除的那一版改在元件內部量測；這版把量測放進 #tooltip-directive，其他截斷文字元件也能直接用。消費端**不要**再自己對 `.nl-text` 掛 tooltip。',
     },
     {
       type: 'info',
@@ -20,11 +20,11 @@ export const numberListSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: '**手機（小於 768px）按鈕只留圖示**（S 寬 24px、M 寬 28px），文字隱藏；按鈕名稱由 `aria-label`（檢視／下載／編輯／刪除）提供給螢幕閱讀器。所有使用此元件的畫面都適用，含 `app-file-list` 的消費端（2026-10-13 使用者選定「全部畫面一起改」）。',
+      content: '**手機（小於 768px）按鈕只留圖示**（S 寬 24px、M 寬 28px），文字隱藏；按鈕名稱由 `aria-label`（檢視／下載／編輯／刪除）提供給螢幕閱讀器。所有使用此元件的畫面都適用，含 #file-list 的消費端（2026-10-13 使用者選定「全部畫面一起改」）。',
     },
     {
       type: 'warn',
-      content: '寫版面測試要自己設定視窗寬度：截斷／換行／手機排法都看 media query（視窗寬），不是元件寬。Karma 在 iframe 裡跑、預設約 800px（已落在 <1024），量截斷的測試要先把 `window.frameElement` 設寬（DS spec 的 `setViewportWidth()` 做法）。',
+      content: '寫版面測試要自己設定視窗寬度：截斷／換行／手機排法都看 media query（視窗寬），不是元件寬。',
     },
   ],
   customTables: [],

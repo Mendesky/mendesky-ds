@@ -300,7 +300,7 @@ export const DS_TOKENS: TokenGroup[] = [
       {
         name: '--badge\\/unread',
         value: '#cc5252',
-        desc: '未讀徽章（app-badge）。與 --button/error 同值但語意不同：未讀不是錯誤也不是警告，獨立成 token 才能日後分開調',
+        desc: '未讀徽章（#badge）。與 --button/error 同值但語意不同：未讀不是錯誤也不是警告，獨立成 token 才能日後分開調',
       },
     ],
   },

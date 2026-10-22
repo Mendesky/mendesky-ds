@@ -6,7 +6,7 @@ export const drawerShellSpec = {
     notes: [
         {
             type: 'info',
-            content: '內部已處理 ESC 關閉、enter/leave 動畫狀態切換、overlay 點擊。各 Drawer 元件只需在 <app-drawer-shell> 內放置自己的 content，不需要自行處理 isClosing、setTimeout、@HostListener ESC。',
+            content: '內部已處理 ESC 關閉、enter/leave 動畫狀態切換、overlay 點擊。各 Drawer 元件只需把自己的內容放進 #drawer-shell，不需要自行處理關閉中狀態、延遲計時、ESC 鍵監聽。',
         },
     ],
     customTables: [

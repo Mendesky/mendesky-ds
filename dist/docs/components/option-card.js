@@ -2,7 +2,7 @@ export const optionCardSpec = {
     id: 'option-card',
     name: 'Option Card',
     group: '表單元件',
-    when: '單張可選插圖卡。一般不單獨使用，由 app-option-card-group 組成互斥群組（radiogroup）。hover 揭露純 CSS、無 JS；prefers-reduced-motion 下停用動效。',
+    when: '單張可選插圖卡。一般不單獨使用，由 #option-card-group 組成互斥群組（radiogroup）。hover 揭露純 CSS、無 JS；prefers-reduced-motion 下停用動效。',
     notes: [
         {
             type: 'info',

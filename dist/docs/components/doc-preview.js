@@ -6,7 +6,7 @@ export const docPreviewSpec = {
     notes: [
         {
             type: 'info',
-            content: 'z-index 2000。低於 app-toast-container 的 2100（2026-08-13 定案：預覽開著時的操作回饋必須看得到），低於 tooltip 與使用端全域 API 錯誤浮層的 9999。',
+            content: 'z-index 2000。低於 #toast-container 的 2100（2026-08-13 定案：預覽開著時的操作回饋必須看得到），低於 tooltip 與使用端全域 API 錯誤浮層的 9999。',
         },
         {
             type: 'warning',
@@ -18,7 +18,7 @@ export const docPreviewSpec = {
         },
         {
             type: 'info',
-            content: '注入 ModalStackService，所以它算在 modal 堆疊裡：ESC 只關最上層、開啟時外層 modal 不會同時被關。',
+            content: '使用 modal 堆疊服務登記自己，所以它算在 modal 堆疊裡：ESC 只關最上層、開啟時外層 modal 不會同時被關。',
         },
     ],
 };

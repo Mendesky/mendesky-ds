@@ -77,3 +77,35 @@ test('說明裡的 token 值跟 core.scss 不同 → 失敗', () => {
   assert.match(errors[0], /--text\\\/body/);
   assert.match(errors[0], /#000000/);
 });
+
+// ── 本體只寫跨框架的內容 ───────────────────────────────────────
+
+test('文字只用 #元件id 指元件、屬性只寫名稱（色碼、網址、本體 class 不算）→ 通過', () => {
+  const { errors } = run('neutral-ok');
+  assert.deepEqual(errors, []);
+});
+
+test('規格文字出現 Angular 寫法 → 失敗，指出檔案、欄位與那段寫法', () => {
+  const { errors } = run('neutral-framework-syntax');
+  const text = errors.join('\n');
+  assert.match(text, /components\/demo\.ts：when：.*Angular 元件標籤「app-button」/);
+  assert.match(text, /notes\[0\]\.content：.*Angular 屬性綁定「\[disabled\]」/);
+  assert.match(text, /notes\[0\]\.content：.*Angular 的 API「ngModel」/);
+  assert.match(text, /notes\[1\]：.*Angular 的 API「@defer」/);
+  assert.match(text, /notes\[2\]：.*Angular 的 API「Signal」/);
+  assert.match(text, /notes\[3\]：.*Angular 的 API「Karma」/);
+  assert.match(text, /notes\[4\]：.*Angular 事件綁定「\(add\)」/);
+  assert.match(text, /notes\[5\]：.*Angular 內容投影選擇器「\[slot=left\]」/);
+  assert.match(text, /notes\[6\]：.*Angular 屬性綁定「\[attr\.aria-label\]」/);
+});
+
+test('#元件id 指到不存在的元件（拼錯）→ 失敗', () => {
+  const { errors } = run('neutral-bad-ref');
+  assert.equal(errors.length, 1);
+  assert.match(errors[0], /when：#buton 不是任何元件的 id/);
+});
+
+test('一段文字都讀不到 → 失敗，不得顯示通過（檢查本身失效）', () => {
+  const { errors } = run('neutral-unreadable');
+  assert.match(errors.join('\n'), /框架寫法檢查讀到 0 段文字/);
+});

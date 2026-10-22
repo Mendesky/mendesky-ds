@@ -1,15 +1,23 @@
 # 圖示
 
-這篇說明圖示怎麼用：`app-icon` 的寫法、尺寸、顏色、怎麼查名稱，以及要新增圖示時的流程。
+這篇說明圖示怎麼用：<ComponentLink id="icon" /> 的寫法、尺寸、顏色、怎麼查名稱，以及要新增圖示時的流程。
 第一次放圖示之前讀一次。找不到想要的圖示時，回來看[新增圖示](#新增圖示)。
 
 ## 用法
 
 所有圖示都用 <ComponentLink id="icon" />，給 `name` 與 `size`：
 
-```html
+::: code-group
+
+```html [Angular]
 <app-icon name="DownArrow" size="16"></app-icon>
 ```
+
+```vue [Vue]
+<DsIcon name="DownArrow" size="16" />
+```
+
+:::
 
 - `name`：圖示名稱。查法見[查名稱](#查名稱)。
 - `size`：顯示尺寸，字串。不給時是 `"24"`。
@@ -30,7 +38,9 @@
 
 大小一律用 `size` 控制。不要用 inline style 的 `width`／`height` 或 `font-size`。
 
-```html
+::: code-group
+
+```html [Angular]
 <!-- ✅ 用 size -->
 <app-icon name="DownArrow" size="16"></app-icon>
 
@@ -38,18 +48,37 @@
 <app-icon name="DownArrow" style="width: 16px; height: 16px"></app-icon>
 ```
 
+```vue [Vue]
+<!-- ✅ 用 size -->
+<DsIcon name="DownArrow" size="16" />
+
+<!-- ❌ 用 inline style 控制大小 -->
+<DsIcon name="DownArrow" style="width: 16px; height: 16px" />
+```
+
+:::
+
 ## 顏色
 
 圖示用 `currentColor` 上色，顏色跟著 CSS 的 `color` 走。
 在圖示本身或父層設 `color` 即可；顏色用 token。
 
-```html
+::: code-group
+
+```html [Angular]
 <!-- 設在圖示本身 -->
 <app-icon name="Search" size="24" style="color: var(--icon\/body)"></app-icon>
 ```
 
+```vue [Vue]
+<!-- 設在圖示本身 -->
+<DsIcon name="Search" size="24" style="color: var(--icon\/body)" />
+```
+
+:::
+
 ```scss
-// 設在父層：裡面的 app-icon 跟著變色
+// 設在父層：裡面的圖示跟著變色
 .toolbar {
   color: var(--icon\/body);
 }
@@ -74,7 +103,7 @@
 
 ## 不要安裝其他圖示庫
 
-不要安裝 Font Awesome、Material Icons 等任何圖示庫。圖示一律用 `app-icon` 與 DS 的圖示清單。
+不要安裝 Font Awesome、Material Icons 等任何圖示庫。圖示一律用 <ComponentLink id="icon" /> 與 DS 的圖示清單。
 
 ## 新增圖示
 
