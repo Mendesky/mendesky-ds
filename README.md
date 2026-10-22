@@ -38,6 +38,7 @@ Mendesky Design System 的本體：跟框架無關的部分。
 - `@use '@mendesky/ds/styles/core'`：全域樣式；`@use '@mendesky/ds/styles/mixins'`、`'@mendesky/ds/styles/breakpoints'`：SCSS 工具
 - `@use '@mendesky/ds/styles/components/<元件>'`：元件的共用樣式（Vue 版試做中，目前有 icon、label、button、input、field、checkbox、select、dialog）。整份包在 `.ds-<元件>` 底下，各框架元件在根元素加上這個 class；Angular 版目前仍用自己的元件樣式
 - `@mendesky/ds/scripts/export-docs.mjs`：匯出元件規格、基礎說明、互動原則、圖示名稱（框架套件的說明匯出與使用端的 AI 協作索引會用）
+- `@mendesky/ds/scripts/component-refs.mjs`：解析說明文字裡的 `#元件id`。框架套件用它換成自己的元件名稱（例如 Angular 換成 `app-xxx`），不要各自重寫規則
 
 ## 開發
 

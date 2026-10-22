@@ -8,6 +8,8 @@
 //   - 網址裡的 #（https://…#warning）
 //   - 前面緊接英數字、/、&、# 的 #（例如 a#b、&#x27;）
 // 這支檔案不依賴 Node，文件網站的瀏覽器端也直接用。
+// 它也隨套件發布（@mendesky/ds/scripts/component-refs.mjs，型別在 component-refs.d.mts），
+// 框架 repo 用它把 #元件id 換成自己的名稱，不要各自重寫一份規則。
 const REF = /(?<![\w/&#])#([a-z][a-z0-9]*(?:-[a-z0-9]+)*)(?![\w-])/g;
 const HEX_COLOR = /^(?:[0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/;
 const URL = /https?:\/\/\S+/g;
