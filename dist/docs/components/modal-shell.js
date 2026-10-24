@@ -10,11 +10,11 @@ export const modalShellSpec = {
         },
         {
             type: 'info',
-            content: 'app-dialog 適合固定格式的小型確認對話框；app-modal-shell 適合需要自訂 header / body / footer 的大型 Modal（例：多步驟精靈、詳情面板）。',
+            content: '#dialog 適合固定格式的小型確認對話框；#modal-shell 適合需要自訂 header / body / footer 的大型 Modal（例：多步驟精靈、詳情面板）。',
         },
         {
             type: 'warning',
-            content: 'modal-shell 會把 host element 搬到 document.body（防止 overflow:hidden 裁切 backdrop-filter），因此父層 ::ng-deep 無法打到 .modal-card 內部樣式。如需修改卡片行為請用 @Input（例：overflowVisible）。',
+            content: 'modal-shell 會把元件本身的元素搬到 document.body（防止 overflow:hidden 裁切 backdrop-filter），因此父層穿透元件樣式封裝的寫法無法打到 .modal-card 內部樣式。如需修改卡片行為請用元件屬性（例：overflowVisible）。',
         },
     ],
     customTables: [

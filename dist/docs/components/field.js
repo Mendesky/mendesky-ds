@@ -6,7 +6,7 @@ export const fieldSpec = {
     notes: [
         {
             type: 'info',
-            content: 'app-field 是表單欄位的包裝元件，負責統一管理標題列與必填 badge。將 app-input、app-textarea、app-autocomplete 等放入 <ng-content> 即可。選填欄位不加任何 badge，只顯示 label 文字。',
+            content: '#field 是表單欄位的包裝元件，負責統一管理標題列與必填 badge。把 #input、#textarea、#autocomplete 等表單元件放進它裡面即可。選填欄位不加任何 badge，只顯示 label 文字。',
         },
     ],
     customTables: [],

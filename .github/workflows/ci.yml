@@ -1,6 +1,7 @@
 name: CI
 
 # PR 與每次 push 都跑。公開 repo 一律用 GitHub 提供的主機（自架主機會讓外部 fork 的 PR 執行任意程式碼）。
+# 主機版本固定 ubuntu-24.04：2026-10 起 ubuntu-latest 換成 26.04，Playwright 1.59 在上面裝不起 Chromium。升級 Playwright 並確認支援後再改回。
 #   typecheck   型別檢查
 #   dist        dist/ 是否跟 src/ 的建置結果一致（dist/ 進版控，使用端安裝時不會建置）
 #   check-docs  說明檢查：元件規格、token、字型、互動原則一致；含檢查腳本自身的測試
@@ -21,7 +22,7 @@ concurrency:
 jobs:
   typecheck:
     name: tsc --noEmit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +35,7 @@ jobs:
 
   dist:
     name: dist 同步
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +48,7 @@ jobs:
 
   check-docs:
     name: 說明檢查
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -58,10 +59,12 @@ jobs:
       - run: npm ci
       - run: npm run test:scripts
       - run: npm run check:docs
+      # 指南的框架範例交給各框架 repo 的檢查器驗證（依 site/frameworks.json 取各框架 repo）
+      - run: npm run check:guides
 
   unit-test:
     name: 單元測試
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -75,7 +78,7 @@ jobs:
 
   smoke:
     name: 文件網站建置與冒煙測試
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4

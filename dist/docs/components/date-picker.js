@@ -6,7 +6,7 @@ export const datePickerSpec = {
     notes: [
         {
             type: 'info',
-            content: "值格式：year='114'、month='114-3'、day='114-3-15'，空值 ''；實作 ControlValueAccessor，支援 ngModel",
+            content: "值格式：year='114'、month='114-3'、day='114-3-15'，空值 ''；可以跟表單雙向綁定值",
         },
         {
             type: 'info',
@@ -18,11 +18,11 @@ export const datePickerSpec = {
         },
         {
             type: 'info',
-            content: "（2026-04 更新）鍵盤操作：Enter/Space 開關 panel、Tab/Shift+Tab 關閉 panel 並標記 touched（讓 Angular form validation 正確觸發）、Escape 關閉 panel。trigger 設定 role='combobox' + aria-expanded + aria-haspopup='listbox'。",
+            content: "（2026-04 更新）鍵盤操作：Enter/Space 開關 panel、Tab/Shift+Tab 關閉 panel 並標記 touched（讓表單驗證正確觸發）、Escape 關閉 panel。trigger 設定 role='combobox' + aria-expanded + aria-haspopup='listbox'。",
         },
         {
             type: 'warning',
-            content: 'host 已設定 display: block，放入 flex 容器時會自動伸展；需固定寬度時請在父層設定 width。',
+            content: '元件本身的元素已設定 display: block，放入 flex 容器時會自動伸展；需固定寬度時請在父層設定 width。',
         },
     ],
     customTables: [],

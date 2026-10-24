@@ -70,13 +70,25 @@ Micro 等級（hover、focus、toggle 這類）進出場都可以用減速（eas
 
 DS 提供現成的工具 class <ComponentLink id="ds-collapse" />。它是 Component 等級的 300ms，進出場共用 `var(--ease-enter)`。
 
-```html
+::: code-group
+
+```html [Angular]
 <div class="ds-collapse" [class.ds-collapse--expanded]="isExpanded">
   <div class="ds-collapse__inner">
     <!-- 可收合的內容 -->
   </div>
 </div>
 ```
+
+```vue [Vue]
+<div class="ds-collapse" :class="{ 'ds-collapse--expanded': isExpanded }">
+  <div class="ds-collapse__inner">
+    <!-- 可收合的內容 -->
+  </div>
+</div>
+```
+
+:::
 
 - `.ds-collapse`：外殼，負責 `grid-template-rows` 的轉場。
 - `.ds-collapse--expanded`：加上就展開，拿掉就收合。

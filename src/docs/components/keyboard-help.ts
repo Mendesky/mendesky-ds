@@ -8,7 +8,7 @@ export const keyboardHelpSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: '內建搜尋框，輸入關鍵字即時篩選 items（比對 description）。搜尋無結果時顯示 app-empty-state。',
+      content: '內建搜尋框，輸入關鍵字即時篩選 items（比對 description）。搜尋無結果時顯示 #empty-state。',
     },
     {
       type: 'warning',
@@ -16,7 +16,7 @@ export const keyboardHelpSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: '面板本身用 app-modal-shell + app-modal-close-btn 組成，所以 ESC 與 backdrop 行為直接沿用 modal.dismissal pattern。',
+      content: '面板本身用 #modal-shell + #modal-close-btn 組成，所以 ESC 與 backdrop 行為直接沿用 modal.dismissal pattern。',
     },
   ],
 };

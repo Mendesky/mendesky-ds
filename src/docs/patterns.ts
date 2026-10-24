@@ -37,8 +37,8 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'editingDirty',
         description: '編輯型且含未儲存變動（dirty=true）',
         rule: [
-          '右上角 X 按鈕必須顯示（明確出口）— 用共用 app-modal-close-btn（No-X-Cancel + propClass="Modal"）',
-          'backdrop 不可直接關閉（app-modal-shell [canDismiss]="!isDirty()" 擋；ESC 不受此 gate）',
+          '右上角 X 按鈕必須顯示（明確出口）— 用共用的 #modal-close-btn（No-X-Cancel，propClass 設為 Modal）',
+          'backdrop 不可直接關閉（#modal-shell 的 canDismiss 設為「沒有未儲存變動」來擋；ESC 不受此 gate）',
           'X / ESC 行為依填寫成本分層：大型 / 多步驟 wizard（如多頁設定精靈、新增資料精靈）→ 二次確認（保留 / 捨棄）；小型單一用途 modal（如重新命名、封存、合併、拆分）→ X / ESC 直接關（backdrop 鎖已足夠防誤觸）',
         ],
         rationale: '誤觸 backdrop 代價 = 整份表單資料遺失 → 一律鎖 backdrop。但 X / ESC 是明確意圖：大 wizard 填寫成本高，二次確認把成本從「重填」降到「多一次 click」；小 modal 成本低，二次確認反而過度打擾（見 antiPattern「空白表單也被打擾」之對偶），故僅大 wizard 二次確認',
@@ -71,7 +71,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       'backdrop 關閉前沒檢查 dirty → 資料靜默遺失',
       '儲存中仍允許 ESC 關閉 → 儲存結果不明、資料狀態 race',
       '強制閱讀聲明 modal 給 backdrop 關閉 → 使用者繞過合規互動',
-      'nested modal 開啟時，下層 disabled-tooltip portal 未關閉 → tooltip 穿透到上層 modal（修法：tooltip portal 監聽 ModalStackService.stackSize，開啟時 snapshot 深度，stack 增層時主動 close portal）',
+      'nested modal 開啟時，下層 disabled-tooltip portal 未關閉 → tooltip 穿透到上層 modal（修法：tooltip portal 監聽 modal 堆疊服務的 stackSize，開啟時 snapshot 深度，stack 增層時主動 close portal）',
     ],
     a11y: {
       keyboard: [
@@ -125,7 +125,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         description: '輕量可還原操作：事件可 replay、重建成本低、無下游副作用（刪除清單項、移除欄位、取消標記、解散組合等）',
         rule: [
           '操作立即執行（不先問）且 API 同步寫入；成功才顯示 success toast，失敗顯示 error toast',
-          '執行後顯示 app-process-toast，含「復原」action',
+          '執行後顯示 #process-toast，含「復原」action',
           '復原視窗預設 5 秒（可延長至 10 秒，視操作成本）',
           'toast 消失 = UI 計時結束，動作早已寫入；期間按「復原」= 呼叫還原 API 反轉（非取消 pending 寫入）',
           '同一操作連續觸發 → 以最新的 toast 取代，不堆疊（避免累積一排已失效的「復原」鈕）',
@@ -138,12 +138,12 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'destructiveBlocking',
         description: '逆流程 / 高重建成本操作：技術可追溯但使用者重做成本高，且常帶下游副作用（封存項目、撤回已送出的申請）',
         rule: [
-          '點擊觸發按鈕 → 開 app-dialog（propClass: Warning）',
+          '點擊觸發按鈕 → 開 #dialog（propClass: Warning）',
           'Dialog 內容必須寫出「會發生什麼 + 重建需要的步驟」，不只寫「確定嗎？」',
           'backdrop 鎖死（不可點擊關閉）',
           'ESC 可關閉 = 取消；唯一推進路徑是點「確認」按鈕',
           '確認按鈕文案具體化（「封存此項目」而非「確認」）',
-          '高風險操作建議加 app-process-modal 顯示後續處理進度',
+          '高風險操作建議加 #process-modal 顯示後續處理進度',
         ],
         rationale: 'Dialog 的用意是「打斷 + 警告後果 + 強制聚焦」。backdrop 可關 = 使用者以手滑為由略過警告；按鈕文案寫「確認」= 使用者不知在確認什麼。這兩個細節任一鬆開，dialog 就退化成 toast 的劣化版',
       },
@@ -202,16 +202,16 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
   'action.precondition-acknowledge': {
     name: '前提聲明確認',
     principle: '動作本身風險低，但需要使用者主動宣告某個前提為真（發布前確認內容已經過審核、送出前再看一次金額與條款）。設計目標不是「阻止使用者誤操作」，而是讓使用者多看一眼並正式簽名，避免「容易忘記前提」的情境。',
-    when: '設計任何「動作可執行，但執行前需要使用者確認某個外部前提為真」的互動——如合規聲明、資料前提確認、送出前複核等。對應元件：app-inline-confirm。',
+    when: '設計任何「動作可執行，但執行前需要使用者確認某個外部前提為真」的互動——如合規聲明、資料前提確認、送出前複核等。對應元件：#inline-confirm。',
     scenarios: [
       {
         type: 'preconditionAck',
         description: '前提依賴型確認：動作本身風險低，但需要使用者主動宣告某個前提為真（發布前確認內容已經過審核、送出前再看一次設定）',
         rule: [
-          '使用 app-inline-confirm 元件',
-          '元件由四個區塊組成：label（前提聲明主訴）+ description / bullets（補充說明或列點）+ check（勾選控制）+ 外部 app-button（由消費者控制 disabled）',
+          '使用 #inline-confirm 元件',
+          '元件由四個區塊組成：label（前提聲明主訴）+ description / bullets（補充說明或列點）+ check（勾選控制）+ 外部 #button（由消費者控制 disabled）',
           '前提聲明用宣告句式（「我已確認 XXX」），不用問句（「XXX 嗎？」）',
-          'requirement 分兩級：required（高後果，如正式發布）→ 視覺較強、消費者以 [disabled]="!confirmed()" 鎖主按鈕；optional（低後果，如送出前設定複核）→ 視覺中性、checkLabel 自動附加「（選填）」，主按鈕常 enabled',
+          'requirement 分兩級：required（高後果，如正式發布）→ 視覺較強、消費者把主按鈕的 disabled 設為「尚未勾選確認」來鎖住；optional（低後果，如送出前設定複核）→ 視覺中性、checkLabel 自動附加「（選填）」，主按鈕常 enabled',
           '不組合 dialog（重複摩擦）',
           '離開頁面再回來，confirmed 由父層清空（不保留 stale state）',
         ],
@@ -257,15 +257,15 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
   'form.inline-custom-add': {
     name: 'Inline 新增自訂項',
     principle: '在既有選項清單（chip 群組 / tag 列）尾端讓使用者新增「自訂項」時，用 inline 輸入（觸發鈕原地變輸入框）而非 native window.prompt、也不在 modal 內疊 dialog。單行自由文字的新增應就地完成、不打斷流程；committed 後即生效（optimistic）。',
-    when: '設計任何「預設選項 + 可新增自訂項」的多選 chip / tag / 清單尾端新增。對應元件：app-inline-add。',
+    when: '設計任何「預設選項 + 可新增自訂項」的多選 chip / tag / 清單尾端新增。對應元件：#inline-add。',
     scenarios: [
       {
         type: 'inlineCustomAdd',
-        description: 'chip 群組尾端新增自訂 chip：點 ghost 觸發鈕 → 原地變 inline app-input → Enter 提交成一顆已勾選 chip',
+        description: 'chip 群組尾端新增自訂 chip：點 ghost 觸發鈕 → 原地變 inline #input → Enter 提交成一顆已勾選 chip',
         rule: [
-          '使用 app-inline-add 元件',
+          '使用 #inline-add 元件',
           '僅 Enter 提交（trim 後非空才 emit）；Esc / blur 一律取消丟棄（最不意外）',
-          '元件只管「輸入 affordance」，不持有清單 / 勾選；去重、加入清單、勾選由父層 (add) handler 處理（展示櫃原則）',
+          '元件只管「輸入 affordance」，不持有清單 / 勾選；去重、加入清單、勾選由父層的 add 事件 handler 處理（展示櫃原則）',
           'committed 後自動勾選 + 立即送後端（對應 mutation.feedback.optimisticAtomic）',
           '輸入態 keydown stopPropagation，避免方向鍵被 chip 群組 roving focus（wizard.keyboard）攔截',
           'reopen / 換頁回來：自訂項需由 read-path 併回渲染清單（後端回傳的非預設條目 union 進預設清單），否則 checked 但不渲染',
@@ -289,7 +289,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         'blur 離開輸入框 → 取消編輯態並還原為觸發鈕',
       ],
       aria: [
-        '輸入框沿用 app-input 標準語意；外層 chip 群組維持 role="group"',
+        '輸入框沿用 #input 標準語意；外層 chip 群組維持 role="group"',
       ],
     },
     relatedComponents: [
@@ -321,7 +321,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
       {
         type: 'buttonGroup',
-        description: '焦點在 app-button-group 的選項按鈕',
+        description: '焦點在 #button-group 的選項按鈕',
         rule: [
           '第一次 Enter（選項未選中）→ preventDefault，切換為該選項',
           '第二次 Enter（焦點在已選中的選項）→ 不 preventDefault，事件冒泡給外層 wizard 的 onFormEnter，由 wizard 把焦點丟到下一步按鈕',
@@ -343,7 +343,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         description: '焦點在非 button-group 的一般按鈕（如「新增聯絡窗口」、footer 取消鍵等）',
         rule: [
           'Enter 保留原生 click 行為，不觸發跳焦',
-          'onFormEnter 以 closest("app-button-group") 判斷是否為 button-group 子按鈕',
+          'onFormEnter 往上找祖先元素（closest）判斷是否為 #button-group 的子按鈕',
         ],
         rationale: '一般按鈕的 Enter = 按下該按鈕，不該被攔截到其他地方',
       },
@@ -386,7 +386,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         '下一步按鈕 disabled 時 → 不把焦點丟上去，避免視覺「卡住」',
       ],
       aria: [
-        'app-button-group 使用 role="group" + aria-pressed',
+        '#button-group 使用 role="group" + aria-pressed',
         '下一步 / 送出按鈕使用 type="button"（wizard 不靠原生 form submit）',
         '目前有驗證錯誤時，錯誤訊息透過 aria-describedby 連結到欄位',
       ],
@@ -420,22 +420,22 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
   // KEY: loading.api-hydration-skeleton — API 水合期間用 skeleton 遮罩 race window，避免 blur/select 寫入覆蓋尚未載入的後端值
   'loading.api-hydration-skeleton': {
     name: 'API 水合 Skeleton',
-    principle: 'Section 同時具備「開啟瞬間打 GET API 取得預填值」與「欄位 blur/select 觸發寫入 API」時，GET 未回 + 使用者先操作 = 寫入會把 null/空字串送回後端覆蓋真值。用 Loading Signal 驅動 skeleton 遮罩整段 section 在 race window 內不可互動，API 回來才切換到真實表單。禁止用反向 hydrated 旗標（雙重否定、可讀性差）。',
-    when: 'Section 內同時有「讀取 API 預填」與「寫入 API（blur/select/debounce 觸發）」；或任何 signal 在 API 回來前被使用者互動讀走會造成資料損失的情境。',
+    principle: 'Section 同時具備「開啟瞬間打 GET API 取得預填值」與「欄位 blur/select 觸發寫入 API」時，GET 未回 + 使用者先操作 = 寫入會把 null/空字串送回後端覆蓋真值。用「載入中」旗標（loading）驅動 skeleton 遮罩整段 section 在 race window 內不可互動，API 回來才切換到真實表單。禁止用反向 hydrated 旗標（雙重否定、可讀性差）。',
+    when: 'Section 內同時有「讀取 API 預填」與「寫入 API（blur/select/debounce 觸發）」；或任何狀態值在 API 回來前被使用者互動讀走會造成資料損失的情境。',
     scenarios: [
       {
         type: 'apiHydratedReadWrite',
-        description: 'Section 同時讀 API（GET 填 signals）且寫 API（blur/select 觸發 edit）',
+        description: 'Section 同時讀 API（GET 回來填入欄位狀態）且寫 API（blur/select 觸發 edit）',
         rule: [
-          'loadingSignal = signal(true)；loadFromApi 第一行 set(true)',
-          '對應的套用函式（apply*）尾端、把完整狀態 emit 給父層之後 set(false)',
-          'loadFromApi 的 .catch 必 set(false)，否則 API 失敗 → skeleton 永卡',
-          'HTML 用 @if (loadingSignal()) { <skeleton> } @else { <real form> }，不可並存',
-          'ngOnChanges initialState restore 分支 set(false)（snapshot 已含值、不必等 GET）',
-          'ngOnChanges reset 分支用 loadFromApiFiring 判斷：若本輪會觸發 loadFromApi，set(false) 交給 loadFromApi；否則主動 set(false)',
-          '清單型 section 同理：GET 回來用 set(...) 整份覆寫清單，會把使用者剛上傳或新增的項目沖掉，同樣要用 skeleton 遮住 race window',
+          '載入中旗標初始為 true；loadFromApi 第一行設為 true',
+          '對應的套用函式（apply*）尾端、把完整狀態 emit 給父層之後設為 false',
+          'loadFromApi 的 .catch 必設為 false，否則 API 失敗 → skeleton 永卡',
+          '模板只用一個條件分支切換：載入中顯示 skeleton，否則顯示真實表單，兩者不可並存',
+          '父層傳入 initialState 時（含第一次傳入與之後每次變動）、走「從 snapshot 還原」分支時設為 false（snapshot 已含值、不必等 GET）',
+          '父層傳入資料時（含第一次傳入與之後每次變動）的 reset 分支用 loadFromApiFiring 判斷：若本輪會觸發 loadFromApi，設為 false 交給 loadFromApi；否則主動設為 false',
+          '清單型 section 同理：GET 回來整份覆寫清單，會把使用者剛上傳或新增的項目沖掉，同樣要用 skeleton 遮住 race window',
         ],
-        rationale: '四個同步點（init true / loadFromApi set(true) / apply set(false) / catch set(false)）缺一就會造成卡死或 race；消費者單點（@if）避免散落的 computed 洩漏中間態',
+        rationale: '四個同步點（初始 true / loadFromApi 設 true / apply 設 false / catch 設 false）缺一就會造成卡死或 race；只在單一處判斷（一個條件分支）避免散落的衍生狀態洩漏中間態',
       },
       {
         type: 'apiHydratedReadOnly',
@@ -450,8 +450,8 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'localSnapshotOnly',
         description: 'Section 從 parent 的 initialState 快照還原，整段不打 API',
         rule: [
-          'ngOnChanges 偵測到 initialState 存在 → 直接從 snapshot set signals + Loading set(false)',
-          '若 snapshot 不完整仍需 GET 補 → 走 apiHydratedReadWrite，snapshot 分支也要 set(false)（因為 UI 可立即顯示，GET 只補背景資料）',
+          '偵測到父層傳入的 initialState 存在 → 直接從 snapshot 寫回欄位狀態，並把載入中旗標設為 false',
+          '若 snapshot 不完整仍需 GET 補 → 走 apiHydratedReadWrite，snapshot 分支也要設為 false（因為 UI 可立即顯示，GET 只補背景資料）',
         ],
         rationale: 'Snapshot 是 UI 草稿，不是後端真值；但 UI 可立即顯示，skeleton 沒有存在理由',
       },
@@ -459,7 +459,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'failSilent',
         description: 'API 失敗 / 離線 / timeout',
         rule: [
-          '.catch callback 內第一件事：loadingSignal.set(false)',
+          '.catch callback 內第一件事：把載入中旗標設為 false',
           '接著 console.error 記錄失敗原因',
           'UI 顯示空白表單（使用者可手動輸入、blur 會觸發重試）',
           '不彈 toast / dialog（避免打斷；parent 層若需 retry UI 再另外處理）',
@@ -470,22 +470,22 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'raceRetryRead',
         description: 'Read API 對應 CQRS aggregate，剛 POST 建立後 read model 尚未就緒（race window < 1s），會回 503',
         rule: [
-          'Service 層 read pipe 套 retry(RACE_RETRY)；RACE_RETRY 是使用端共用的 retry 設定常數，由使用端自行提供、不在 DS 套件內（它綁定的是後端的 retry 約定與 503 語意，屬於 app 與後端之間的協定而非 UI 行為）',
-          'HttpContext 同時帶「抑制錯誤 UI」旗標（抑制 retry 期間的 503 dialog）＋「抑制 404 UI」旗標（保留 404 → null fallback 行為）',
-          'pipe 順序：retry(RACE_RETRY) 在前、catchError 在後（404 不 retry、其他 status 跑完 retry 才落到 catchError）',
+          '讀取用的 service 層對 GET 套用重試設定 RACE_RETRY；RACE_RETRY 是使用端共用的 retry 設定常數，由使用端自行提供、不在 DS 套件內（它綁定的是後端的 retry 約定與 503 語意，屬於 app 與後端之間的協定而非 UI 行為）',
+          '請求同時帶「抑制錯誤 UI」旗標（抑制 retry 期間的 503 dialog）＋「抑制 404 UI」旗標（保留 404 → null fallback 行為）',
+          '順序：先重試、後做錯誤處理（404 不 retry、其他 status 跑完 retry 才進錯誤處理）',
           'retry 用盡仍 503 → 拋給呼叫端 → 元件 catch 走 failSilent（console.error + skeleton 收起 + 不彈 dialog）',
-          '不適用 PATCH / POST — 只適用 GET read model；寫入端的並行撞擊要用 serialize（concatMap）而非 retry',
+          '不適用 PATCH / POST — 只適用 GET read model；寫入端的並行撞擊要用依序送出（serialize）而非 retry',
         ],
         rationale: '對齊後端 API 規格「呼叫端應有 retry 策略」的約定；指數退避讓 projection 提前就緒時更快結束，總上限約 1.4s（200×2^(n-1) 退避三次加總）對後端 race window < 1s 規格留約 40% margin。實際值以共用 const（RACE_RETRY）為準，避免每個 service 重抄 delay 數字',
       },
     ],
     antiPatterns: [
-      '用反向旗標 `hydrated = signal(false)` → 雙重否定；@if (!hydrated()) 易讀性差，ngOnChanges 分支容易忘記翻轉',
-      '忘記在 catch 內 set(false) → 網路一掉使用者看到永恆 skeleton，只能重整頁面',
-      'Loading signal 被散落消費（多處 computed / 多個 @if 分散判斷）→ 中間態洩漏，skeleton 閃爍',
+      '用反向旗標 hydrated（初始 false）→ 雙重否定；模板判斷「還沒 hydrated」易讀性差，父層資料變動的分支容易忘記翻轉',
+      '忘記在 catch 內設為 false → 網路一掉使用者看到永恆 skeleton，只能重整頁面',
+      '載入中旗標被散落消費（多處衍生狀態 / 多個條件分支分散判斷）→ 中間態洩漏，skeleton 閃爍',
       'Skeleton 畫太細（1:1 對應每個欄位）→ 表單類型切換時 skeleton 欄位數不對，比真實表單還難維護',
-      'apply* 的 set(false) 放在「emit 完整狀態給父層」之前 → 先關 skeleton 再 emit，中間一瞬間 @if 切到 @else 但 signals 還沒寫完，使用者看到空表單',
-      'ngOnChanges reset 分支無條件 set(false) → 覆蓋後置的 loadFromApi set(true)，skeleton 根本不會亮',
+      'apply* 設為 false 的位置放在「emit 完整狀態給父層」之前 → 先關 skeleton 再 emit，中間一瞬間畫面切到真實表單但欄位狀態還沒寫完，使用者看到空表單',
+      '父層傳入資料時（含第一次傳入與之後每次變動）的 reset 分支無條件設為 false → 覆蓋後置的 loadFromApi 設 true，skeleton 根本不會亮',
     ],
     a11y: {
       keyboard: [
@@ -537,7 +537,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '右側：確認、送出、下一步、發布（推進流程的主動作）',
           '多步驟 wizard：上一步在左，下一步在右；取消在左與上一步並列',
           '單一主動作 dialog（如刪除確認）：左側取消，右側破壞性動作',
-          '左側群組與右側群組必須以 display:flex + align-items:center 包裹，不可讓 app-button 以 inline-flex 散排 — inline-flex 的 baseline 由各按鈕第一個 inline-level 子元素決定（有 icon 的與無 icon 的 baseline 不同），必然錯位',
+          '左側群組與右側群組必須以 display:flex + align-items:center 包裹，不可讓 #button 以 inline-flex 散排 — inline-flex 的 baseline 由各按鈕第一個 inline-level 子元素決定（有 icon 的與無 icon 的 baseline 不同），必然錯位',
         ],
         rationale: '對齊 Material / Atlassian / Apple HIG：右側是視覺重心與拇指熱區，放主動作降低操作成本；左側被動動作符合「往左＝退出」的空間語意；flex container 規則來自實測：wizard 的上一步（有 icon）與取消（無 icon）以 inline-flex 排列時文字基線錯位，加 flex 包裹後消除',
       },
@@ -545,7 +545,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'disabledWithFeedback',
         description: '主動作條件不足時的 disabled 狀態與回饋',
         rule: [
-          '主動作按鈕使用 app-button [clickableWhenDisabled]="true" [disabledMessage]="..." (disabledClick)="..."',
+          '主動作按鈕使用 #button：clickableWhenDisabled 設為 true，並設定 disabledMessage、監聽 disabledClick 事件',
           '外觀仍顯示 disabled（灰底灰字），但 click / tap 可穿透',
           '點擊後觸發兩層回饋：全域錯誤顯示在按鈕正上方 tooltip；欄位級錯誤預設顯示在該欄位下方（欄位元件 errorPosition 預設 bottom；版面放不下時才改 top，2026-10-14 定案）+ scroll 到第一個欄位錯誤',
           '多個錯誤同時存在：全部 tooltip 同時顯示，scroll 到第一個欄位級錯誤',
@@ -578,19 +578,19 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'unifiedSizeAndVariant',
         description: 'Footer 按鈕統一 size，群組內 variant 一致',
         rule: [
-          'Footer 內所有 app-button 使用相同的 size prop（推薦全部 size="M"）',
+          'Footer 內所有 #button 使用相同的 size（推薦全部設為 M）',
           '左側退出群組（取消／返回／上一步）內所有按鈕使用同一個 variant',
           '左右兩群組之間的 variant 應在 default 狀態下視覺重心對等；避免一邊 default 透明、一邊 default 重色背景',
           '推薦組合：左群組 elevated（白底+陰影 hover）+ 右側 filled；或左群組 outlined（default 即帶邊框）+ 右側 filled',
           'elevated variant 的 hover 才出現 box-shadow，相鄰按鈕只 hover 其中一顆時會視覺跳動 — 若體感過於明顯，改用 outlined 讓 default 即帶邊框',
         ],
-        rationale: 'app-button size 直接控制 height（btn--m=36px、btn--l=40px）—混用 size 必然文字基線錯位；同 size 但群組內混用 variant、或左右群組視覺重心差異過大，相鄰 hover 切換時會出現視覺跳動，使用者會抱怨「看起來高度不齊」即使 CSS height 完全相同',
+        rationale: '#button 的 size 直接控制 height（btn--m=36px、btn--l=40px）—混用 size 必然文字基線錯位；同 size 但群組內混用 variant、或左右群組視覺重心差異過大，相鄰 hover 切換時會出現視覺跳動，使用者會抱怨「看起來高度不齊」即使 CSS height 完全相同',
       },
       {
         type: 'adjacentSameSideDivider',
         description: '同側相鄰按鈕之間加 vertical divider 避免誤觸',
         rule: [
-          '同一側群組有 ≥ 2 顆 button 時，相鄰 button 之間插入 <app-divider display="Column" propClass="Grey20">',
+          '同一側群組有 ≥ 2 顆 button 時，相鄰 button 之間插入 #divider（display 設為 Column、propClass 設為 Grey20）',
           'divider 由 flex 容器的 gap 自然隔開兩側（gap: 8px），不需手動設定 divider margin',
           '右側群組若有 ≥ 2 顆 button（如「另存草稿」+ 「送出」），同樣適用本規則',
           'disabled 狀態的相鄰 button 之間 divider 仍需保留，不因 disabled 移除',
@@ -604,7 +604,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       'footer 放常駐警示文字（如「請至少選取一個項目」）→ 改用點擊觸發 tooltip',
       '連續儲存型 modal 強加取消按鈕 → 語意混淆，使用者誤以為可以「不儲存離開」',
       'hover tooltip 作為唯一錯誤回饋 → 觸控裝置看不到',
-      'footer 內 app-button 用不同 size（如左 size="S" 右 size="M"）→ 文字基線錯位',
+      'footer 內 #button 用不同 size（如左 S 右 M）→ 文字基線錯位',
       '左群組混用 variant（如上一步用 ghost、取消用 elevated）→ 視覺重心不一致；hover 其一時視覺差異更明顯',
       '左/右群組的 button container 沒有 display:flex + align-items:center → 有 leftIcon 的按鈕與沒 icon 的按鈕 inline-flex baseline 不同，default 狀態就對不齊',
       '同側相鄰兩顆 button 直接緊貼、無 divider 分隔 → 誤觸率高，觸控裝置尤甚',
@@ -659,7 +659,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         rule: [
           '單一完成動作（如「完成建立資料」）放左側 sidebar 導航最底部，常駐顯示',
           '不綁在任一頁的內容區 footer——頁面可自由切換，送出點不該隨「當前在第幾頁」變動',
-          'disabled 外觀但可點（app-button [clickableWhenDisabled]="true" + [disabledMessage] + (disabledClick)），沿用 modal.footer-buttons.disabledWithFeedback 的就地回饋機制',
+          'disabled 外觀但可點（#button 的 clickableWhenDisabled 設為 true，並設定 disabledMessage、監聽 disabledClick 事件），沿用 modal.footer-buttons.disabledWithFeedback 的就地回饋機制',
           'CTA 身上只掛「一個」總結 tooltip（如「尚有 N 位成員未完成」/「尚有 N 個頁面待完成」），不在每個導航項各掛 tooltip',
         ],
         rationale: '非循序表單沒有「最後一頁」的概念，完成動作是跨所有頁/實體的單一閘門；放 sidebar 底部讓它與當前位置脫鉤、隨時可送。單一總結 tooltip 對齊 footer-buttons「不放常駐警示文字」原則。',
@@ -668,8 +668,8 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'twoLevelErrorMap',
         description: '跨頁/跨實體錯誤用兩層導航地圖呈現，而非單一錯誤清單',
         rule: [
-          '頁層級：導航樹（app-stepper）未完成頁的 pill 顯示紅框 warning 狀態',
-          '實體層級（多位成員）：實體切換器（成員面板）每個實體顯示完成綠勾 / 「缺 N 項」徽章（app-label，純文字不加 icon）',
+          '頁層級：導航樹（#stepper）未完成頁的 pill 顯示紅框 warning 狀態',
+          '實體層級（多位成員）：實體切換器（成員面板）每個實體顯示完成綠勾 / 「缺 N 項」徽章（#label，純文字不加 icon）',
           '點完成 CTA 時把所有未完成頁/實體一次點亮（常駐、可掃視），不靠暫態 tooltip 列舉',
           '徽章用文字 + 顏色雙重編碼（不只用顏色），色盲友善',
         ],
@@ -703,7 +703,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       '多成員錯誤只用單層導航紅框（pill）→ 只反映當前實體，看不到其他未完成實體；需補實體切換器徽章',
       '把「摺進頁序」結構（by-實體頁＋共用頁）硬套 sidebar 完成 CTA → 它有單一最後一頁，完成應在最後一頁底，不套本 pattern',
       '把連續自動儲存的多頁 modal 命名/設計成 wizard → 它逐步寫 API，是 modal，見 interaction.overlay-archetypes',
-      '徽章只用顏色（紅點）不加文字 → 色盲不友善；用 app-label 文字「缺 N 項」',
+      '徽章只用顏色（紅點）不加文字 → 色盲不友善；用 #label 文字「缺 N 項」',
     ],
     a11y: 'disabled CTA 用 aria-disabled="true"（非原生 disabled），鍵盤仍可 Tab/Enter 觸發回饋；tooltip 出現不搶焦點；自動鑽取切換實體/頁後焦點與 scroll 目標移至第一個錯誤欄位；導航徽章文字 + 顏色雙重編碼。',
     relatedComponents: [
@@ -741,12 +741,12 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
     scenarios: [
       {
         type: 'useDialog',
-        description: 'Dialog：打斷 + 強制表態（app-dialog DS 元件）',
+        description: 'Dialog：打斷 + 強制表態（#dialog DS 元件）',
         rule: [
           '典型傾向：不給 backdrop 出口、必須 confirm/dismiss/完成 required action 才關（精確規則依 modal.dismissal.readOnlyBlocking）',
           '破壞性動作二次確認（刪除/封存/撤回）、強制閱讀（法律聲明）、系統事件通知（逾時/斷線）',
           '單步驟、明確 Y/N，流程本身不需多步',
-          '對應 DS 元件：app-dialog（Warning / Confirm / Info variant）',
+          '對應 DS 元件：#dialog（Warning / Confirm / Info variant）',
           '行為細節 → modal.dismissal.readOnlyBlocking；破壞性確認 → action.confirm-destructive',
         ],
         rationale: '核心是「中斷」與「確認」：使用者主要動作被暫停，必須先表態。干擾性最高，用於高風險或需專注的場合。',
@@ -759,13 +759,13 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '常搭 stepper（非必備）；引導使用者設定/收集資料，中間值可跳回修改但不 fire write API',
           '只有最後完成 action 才 fire write model API（一次性提交）',
           '例子：新增資料精靈、開啟多頁 modal 前的前導設定頁、範本編輯精靈',
-          '對應命名：*WizardComponent；提交策略 → mutation.feedback.pessimisticWizard；鍵盤 → wizard.keyboard',
+          '對應命名：名稱以 Wizard 結尾（*Wizard；框架慣例加在類別名稱後面的後綴不算）；提交策略 → mutation.feedback.pessimisticWizard；鍵盤 → wizard.keyboard',
         ],
         rationale: '核心是「聚焦一件事直到關閉」+「資料暫存於前端、完成才落地」。失敗保留表單、重試成本低（見 mutation.feedback）。',
       },
       {
         type: 'useModal',
-        description: 'Modal：最通用，連續自動儲存的多頁編輯（app-modal-shell）',
+        description: 'Modal：最通用，連續自動儲存的多頁編輯（#modal-shell）',
         rule: [
           '連續自動儲存：編輯即逐步寫後端 / 自動存草稿（與 wizard 最大差別）',
           'backdrop/ESC/X 關閉行為一律依 modal.dismissal：editingClean 可關、editingDirty 跳二次確認 bar、savingLocked 全鎖（不是「一律二次確認」）',
@@ -774,7 +774,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '  · 無實體維度 或 實體摺進頁序（by-實體頁 + 共用頁，一條頁序）→ 完成 CTA 在最後一頁底。例：每位成員各一頁＋共用頁排成一條頁序，送出鈕在最後一頁的預覽底部',
           '  · 實體為正交切換器（每實體重複整套頁）→ 完成 CTA 在左側欄底。例：每位成員各有整套頁、用切換器切換（見 modal.nonlinear-completion）',
           '簡單 modal（純展示/無完成閘門）→ close = 完成，無 completion CTA',
-          '對應命名：*ModalComponent',
+          '對應命名：名稱以 Modal 結尾（*Modal）',
         ],
         rationale: '最廣的原型，可單純可複雜。連續自動儲存是通則；完成 CTA 的位置由「實體維度如何長進頁面結構」決定，而非維度數量。',
       },
@@ -802,10 +802,10 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
     ],
     antiPatterns: [
-      '把多步驟資料收集命名為 *DialogComponent → 應為 *WizardComponent',
-      '把破壞性動作確認命名為 *WizardComponent → 應為 app-dialog + action.confirm-destructive',
-      '用 app-dialog 承載多欄位表單 → dialog 不是表單容器，改用 wizard 或 modal-shell',
-      '把「連續自動儲存的多頁編輯本體」叫 *WizardComponent → 它逐步寫 API，是 modal，應為 *ModalComponent',
+      '把多步驟資料收集命名為 *Dialog → 應為 *Wizard',
+      '把破壞性動作確認命名為 *Wizard → 應為 #dialog + action.confirm-destructive',
+      '用 #dialog 承載多欄位表單 → dialog 不是表單容器，改用 wizard 或 #modal-shell',
+      '把「連續自動儲存的多頁編輯本體」叫 *Wizard → 它逐步寫 API，是 modal，應為 *Modal',
       '把「中間不寫、完成才一次寫」的前導收集叫 modal → 它是 wizard',
       '以導航是否自由跳轉判斷 wizard/modal → 判準是 write API 時機，不是導航自由度',
       '以 modal 大小或「有沒有 CTA」判斷原型 → 應以 dismissal + API 時機 + 目的三軸判斷',
@@ -838,12 +838,12 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         type: 'pessimisticWizard',
         description: 'Wizard / dialog / 多欄位表單的確認按鈕觸發 mutation',
         rule: [
-          '按下「確認建立」→ button 進入 [loading] 狀態（app-button loading prop，自動阻擋重複 click）',
+          '按下「確認建立」→ button 進入 loading 狀態（#button 的 loading 屬性，自動阻擋重複 click）',
           'await API call（不先更新前端 state）',
           '成功 → 關 wizard / dialog；插入新資料（含後端回傳的 id）；顯示 success toast（文案：「已新增」）',
           '失敗 → 保留 wizard / dialog 開啟；保留表單所有欄位值；顯示 error toast（文案：「建立失敗，請重試」）；button 退出 loading',
           '提交進行中：wizard 的 X / ESC / backdrop 全鎖（modal.dismissal.savingLocked）',
-          '以 wizardSubmitting signal 驅動 [isSubmitting] → button loading；cancel guard；父元件 try/await/finally 控制',
+          '以 wizardSubmitting 狀態驅動 isSubmitting → button loading；cancel guard；父元件 try/await/finally 控制',
         ],
         rationale: '多欄位收集代表使用者有明確意圖；失敗後看不到表單 = 必須重填所有欄位（代價高）。pessimistic 把「狀態一致性」拉到 API 確認後，failure path 保留表單讓重試成本趨近於 0。',
       },
@@ -856,9 +856,9 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '失敗 → rollback UI 回舊值；顯示 error toast',
           '成功 → 通常不需 toast（除非是高重建成本操作，例如某個開關要實際寫入後才算生效）',
           '**例外：自動存檔介面（無存檔按鈕、逐欄 blur/選取即存後端）成功必發 per-field toast**——這類介面沒有「送出」動作，toast 是使用者唯一能知道「資料真的存進去了」的訊號。文案「<欄位名稱> 已儲存」。清空欄位也一律發 toast，否則使用者以為清空沒生效',
-          '同上例外的兩個實作紀律：(1) toast 必貼在 API `await` 之後、同一個 `try` 內——多數 handler 的 early-return（`if (!id) return`）在 try 之外，放錯位置會對「根本沒打 API」的路徑發假回饋；(2) **一欄一顆、依序堆疊**（`ToastService.show()`），不得取代——「存了電話」與「存了地址」是兩件事。逐欄存檔 toast 的封裝（例如 SaveToastService）由使用端實作，不在 DS 套件內',
-          '逐欄存檔的 toast 不套用「取代不堆疊」：(a) `reversibleToast` 的「同一操作連續觸發 → 取代不堆疊」限定在**帶「復原」action 的可還原操作**，取代是為了不累積一排失效的復原鈕；(b) `ToastService.update()` 的用途是**同一件事的「進行中→完成」原地轉場**（例如產生 PDF：生成中→已開始下載），那是一件事的兩個階段、不是兩件事',
-          'duration 由型別決定，呼叫端不自帶：success / loading → 3000ms、error → 5000ms、有 action → 5000ms（由元件統一決定，避免各呼叫點手打、漏帶就退回 3 秒）。實作於 `ToastService` 的 `resolveDuration()`，`show()` 與 `update()` 共用——`update()` 會改 type（loading→error），只改一處會讓轉場後的 error 只停 3 秒',
+          '同上例外的兩個實作紀律：(1) toast 必貼在 API `await` 之後、同一個 `try` 內——多數 handler 的 early-return（`if (!id) return`）在 try 之外，放錯位置會對「根本沒打 API」的路徑發假回饋；(2) **一欄一顆、依序堆疊**（toast 服務的 `show()`），不得取代——「存了電話」與「存了地址」是兩件事。逐欄存檔 toast 的封裝（例如使用端自己包一層的存檔 toast 服務）由使用端實作，不在 DS 套件內',
+          '逐欄存檔的 toast 不套用「取代不堆疊」：(a) `reversibleToast` 的「同一操作連續觸發 → 取代不堆疊」限定在**帶「復原」action 的可還原操作**，取代是為了不累積一排失效的復原鈕；(b) toast 服務 `update()` 的用途是**同一件事的「進行中→完成」原地轉場**（例如產生 PDF：生成中→已開始下載），那是一件事的兩個階段、不是兩件事',
+          'duration 由型別決定，呼叫端不自帶：success / loading → 3000ms、error → 5000ms、有 action → 5000ms（由元件統一決定，避免各呼叫點手打、漏帶就退回 3 秒）。實作於 toast 服務內部的同一個 resolveDuration 函式，`show()` 與 `update()` 共用——`update()` 會改 type（loading→error），只改一處會讓轉場後的 error 只停 3 秒',
           '文案長度：`.toast__msg` 有 `-webkit-line-clamp: 2`，過長**不報錯、直接靜默截斷**；硬截斷點約 29 全形寬（size S 桌機兩行）。插值的 runtime 長度必須有界——不定長清單（`join`）、名稱、檔名不得塞進 toast，改用「N 個／N 筆」計數，明細改 dialog 或頁面內呈現。各類型的字數上限（例如 success/loading 16 全形寬、error 24、有 action 18）與是否用腳本守門由使用端自訂、不在 DS 套件內——DS 交付的是「兩行截斷」這個視覺約束事實，上限幾字取決於各產品的語言與語境（中英文容忍度不同）。參考：Ant Design 有文案規範頁但只有定性建議、無字數上限、無工具；Bootstrap 完全不提文案；Atlassian 的 ESLint plugin 明文「並非內容或文案規範」——三個主流 DS 都不用工具管文案長度',
           '進行中可選：spinner 覆蓋原子元件（如 select）或維持 optimistic 無 spinner',
         ],
@@ -882,7 +882,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         description: 'Wizard / dialog 的 loading 中斷保護（與 modal.dismissal.savingLocked 對齊）',
         rule: [
           'wizardSubmitting = true 時：X 按鈕、ESC、backdrop 點擊全部 no-op（見 modal.dismissal.savingLocked）',
-          'ng-content 的「取消」按鈕也需 guard：if (this.wizardSubmitting()) return;',
+          '放進 wizard 自訂內容區的「取消」按鈕也需 guard：wizardSubmitting 為 true 時直接 return',
           '保護範圍：整個 try/await/finally 區間，不只是 API call 本身',
         ],
         rationale: '使用者在 API in-flight 時關掉 wizard 會導致「後端建立成功但前端不知道」的 ghost state；全鎖比允許部分互動更可預測。',
@@ -895,7 +895,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       '成功或失敗都不給 toast → 使用者無法確認「動作有沒有成功」，需回頁面驗證',
       'API 失敗時清空 wizard 表單值 → 使用者必須重填所有欄位，重試成本高',
       'Pessimistic wizard 但 wizardSubmitting guard 未覆蓋 X / ESC / backdrop → API in-flight 時可關掉 wizard，產生 ghost state',
-      '用文字切換 button text 代替 [loading] prop → 缺少 spinner 視覺、缺少自動 click 阻擋、語意不明確',
+      '用文字切換 button text 代替 loading 屬性 → 缺少 spinner 視覺、缺少自動 click 阻擋、語意不明確',
     ],
     a11y: {
       keyboard: [
@@ -935,19 +935,19 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
   'interaction.contextual-selection-toolbar': {
     name: '情境選取工具列（邊緣把手）',
     principle: '對表格列/欄這類「結構化重複區塊」，在其邊緣 hover（桌面）或 tap/鍵盤進入（觸控）浮出情境把手；點把手得到「只與該列/欄相關」的操作選單（非一次全出）；選單開啟時以整塊外框 + 淡底高亮該列/欄，讓使用者清楚知道操作範圍。把手是就地、非破壞的 affordance——不佔版面、不改內容，收合靠 hover-intent。',
-    when: '設計「就地對某個重複結構單元（表格列/欄、清單項、看板欄）施加一組情境操作」的互動；尤其在 rich-text / 畫布類元件內。對應：app-rich-text-editor 的 tableStructureEditing、app-rte-table-grip。',
+    when: '設計「就地對某個重複結構單元（表格列/欄、清單項、看板欄）施加一組情境操作」的互動；尤其在 rich-text / 畫布類元件內。對應：#rich-text-editor 的 tableStructureEditing，以及它內部的表格把手子元件。',
     scenarios: [
       {
         type: 'edgeGripReveal',
         description: '雙軌觸發浮出把手：桌面 hover cell → 於列左緣 / 欄上緣浮出把手；觸控 tap 或鍵盤移入 cell（selectionUpdate）→ 同樣浮出（觸控無 hover）',
         rule: [
-          '桌面 mousemove + 觸控/鍵盤 selectionUpdate 雙軌，兩者都導向同一 showGripsForCell',
+          '桌面 mousemove + 觸控/鍵盤 selectionUpdate 雙軌，兩者都導向同一個顯示把手的處理',
           '收把手用 hover-intent 延遲（~250ms），讓滑鼠來得及移到浮出的把手/選單；把手 mouseenter 取消收起',
           '選單開啟中鎖住把手（不被 hover-intent 收）——否則滑鼠移向浮出選單離開把手 button 時把手被收、選單秒關',
-          '把手 portal 到 document.body（避免被 overflow / transform 祖先裁切），命令式 createComponent；zone 外掛載必須 changeDetectorRef.detectChanges() 才 render',
-          '把手 host :host{display:block}（不可 display:contents，否則 portal 定位失效）',
+          '把手 portal 到 document.body（避免被 overflow / transform 祖先裁切），由程式命令式建立並掛載；掛載點不在框架自動更新畫面的範圍內時，必須手動觸發一次畫面更新，把手才會 render（是否需要與寫法見框架說明）',
+          '把手元件的外層元素要是 display:block（不可 display:contents，否則 portal 定位失效）',
         ],
-        rationale: 'Notion 式邊緣把手是「就地、不佔版面」的情境操作入口；雙軌確保觸控裝置（無 hover）也能觸發。portal + detectChanges + display:block 三者是 zone 外命令式掛載浮層的固定坑。',
+        rationale: 'Notion 式邊緣把手是「就地、不佔版面」的情境操作入口；雙軌確保觸控裝置（無 hover）也能觸發。portal + 確定觸發畫面更新 + display:block 三者是命令式掛載浮層常見的坑（畫面更新這一項是否會踩到依框架而定）。',
       },
       {
         type: 'scopedMenu',
@@ -975,7 +975,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
     antiPatterns: [
       'edgeGripReveal 只掛 mousemove（無 selectionUpdate）→ 觸控裝置永遠看不到把手',
       'edgeGripReveal 選單開啟時仍照常 hover-intent 收把手 → 滑鼠移向選單即秒關',
-      'edgeGripReveal 把手 display:contents 或 zone 外掛載不 detectChanges → 把手掛了卻不顯示 / 定位失效',
+      'edgeGripReveal 把手 display:contents 或命令式掛載後沒觸發畫面更新 → 把手掛了卻不顯示 / 定位失效',
       'scopedMenu 把整表操作 + 全部列欄操作塞同一選單 → 認知負擔高、危險操作易誤觸',
       'scopedMenu 把「刪除整個表格」放進浮出選單 → 不可逆操作放在易誤觸入口',
       'rangeHighlight 用 classList / inline style 直接改 PM 管理的 cell DOM → 被 PM 重繪抹掉，真實 app 完全不顯示（unit test 無 wrapper 測不出）',

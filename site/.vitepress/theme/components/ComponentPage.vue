@@ -1,15 +1,17 @@
 <script setup lang="ts">
 // 元件頁：上半是跟框架無關的規格（何時用、說明、注意事項、對照表），
-// 下半用分頁切換各框架的用法（元件標籤、屬性、事件、範例程式碼）與可操作範例。
+// 下半用分頁切換各框架的用法（元件標籤、屬性、事件、範例程式碼、這個框架專屬的注意事項）與可操作範例。
+// 規格文字裡的 `#元件id` 由 RefText 換成元件名稱與連結。
 import { computed, ref } from 'vue';
 import { data } from '../../ds.data.mts';
 import { storyUrl, storybookDocsUrl } from '../links';
+import RefText from './RefText.vue';
 
 type Note = { type: 'info' | 'warn' | 'warning'; content: string } | string;
 type Table = { title: string; columns: string[]; rows: string[][] };
 type Prop = { name: string; type: string; default?: string; desc?: string; description?: string; isOutput?: boolean };
 type Usage = { label?: string; code: string };
-type Api = { selector: string; summary?: string; props: Prop[]; events?: { name: string; type: string; description: string }[]; usage: Usage[] };
+type Api = { selector: string; summary?: string; props: Prop[]; events?: { name: string; type: string; description: string }[]; usage: Usage[]; usageNotes?: Note[] };
 
 const props = defineProps<{ id: string }>();
 const spec = computed(() => data.components.find((c: { id: string }) => c.id === props.id));
@@ -28,8 +30,8 @@ const noteType = (n: Note) => (typeof n === 'string' ? 'info' : n.type === 'warn
 
 <template>
   <div v-if="spec" class="ds-component-page" data-testid="component-page">
-    <p v-if="spec.when" class="ds-when">{{ spec.when }}</p>
-    <p v-if="spec.description">{{ spec.description }}</p>
+    <p v-if="spec.when" class="ds-when"><RefText :text="spec.when" /></p>
+    <p v-if="spec.description"><RefText :text="spec.description" /></p>
 
     <template v-if="frameworks.length">
       <h2 id="usage">用法</h2>
@@ -77,13 +79,20 @@ const noteType = (n: Note) => (typeof n === 'string' ? 'info' : n.type === 'warn
             <div class="language-html"><pre><code>{{ u.code }}</code></pre></div>
           </div>
         </template>
+
+        <div v-if="current.api.usageNotes?.length" data-testid="framework-notes">
+          <h3>{{ current.label }} 注意事項</h3>
+          <div v-for="(n, i) in current.api.usageNotes" :key="i" class="custom-block" :class="noteType(n)">
+            <p>{{ noteText(n) }}</p>
+          </div>
+        </div>
       </div>
     </template>
 
     <template v-if="spec.notes?.length">
       <h2 id="notes">注意事項</h2>
       <div v-for="(n, i) in spec.notes" :key="i" class="custom-block" :class="noteType(n)">
-        <p>{{ noteText(n) }}</p>
+        <p><RefText :text="noteText(n)" /></p>
       </div>
     </template>
 
@@ -93,7 +102,7 @@ const noteType = (n: Note) => (typeof n === 'string' ? 'info' : n.type === 'warn
         <table class="ds-table">
           <thead><tr><th v-for="c in t.columns" :key="c">{{ c }}</th></tr></thead>
           <tbody>
-            <tr v-for="(r, i) in t.rows" :key="i"><td v-for="(cell, j) in r" :key="j">{{ cell }}</td></tr>
+            <tr v-for="(r, i) in t.rows" :key="i"><td v-for="(cell, j) in r" :key="j"><RefText :text="String(cell)" /></td></tr>
           </tbody>
         </table>
       </div>

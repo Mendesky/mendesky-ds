@@ -4,7 +4,7 @@ export const richTextEditorSpec: ComponentSpec = {
   id: 'rich-text-editor',
   name: 'Rich Text Editor',
   group: '表單元件',
-  when: '需要 rich text 輸入的場景（markdown 語法、表格、圖片由 wrapper 擴充）。純文字用 app-textarea；含範本變數用 app-template-editor；含圖片上傳時自行包一層 wrapper，透過 extraExtensions 與 extraToolbar 擴充。',
+  when: '需要 rich text 輸入的場景（markdown 語法、表格、圖片由 wrapper 擴充）。純文字用 #textarea；含範本變數用 #template-editor；含圖片上傳時自行包一層 wrapper，透過 extraExtensions 與 extraToolbar 擴充。',
   notes: [
     {
       type: 'info',
@@ -12,15 +12,15 @@ export const richTextEditorSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: '文字顏色提供固定色票（預設＝清除，其餘為紅/橘/黃/綠/藍/紫/灰），點顏色鈕以 app-action-menu portal 浮層選色，在 modal 內不被裁切；色票定義 SSOT 在 rich-text-editor.helpers.ts 的 TEXT_COLORS（component 只轉出給 template），實際色值以該常數為準',
+      content: '文字顏色提供固定色票（預設＝清除，其餘為紅/橘/黃/綠/藍/紫/灰），點顏色鈕以 #action-menu portal 浮層選色，在 modal 內不被裁切；色票定義 SSOT 是各框架實作裡的色票常數 TEXT_COLORS（檔案位置見框架說明），實際色值以該常數為準',
     },
     {
       type: 'info',
-      content: 'ng-content slot 三個：extraToolbar（toolbar 左側末尾）、toolbarRight（toolbar 右側）、default（body 底部，如 template-var-panel）',
+      content: '可放入自訂內容的位置有三個：extraToolbar（toolbar 左側末尾）、toolbarRight（toolbar 右側）、default（body 底部，如 template-var-panel）',
     },
     {
       type: 'info',
-      content: 'wrapper 可透過 @ViewChild(RichTextEditorComponent) 呼叫 getEditor() 取得 Editor instance、runSuppressed(fn) 執行不觸發 valueChange 的操作',
+      content: 'wrapper 可取得本元件的實例，呼叫 getEditor() 取得 Editor instance、runSuppressed(fn) 執行不觸發 valueChange 的操作',
     },
     {
       type: 'info',
@@ -28,7 +28,7 @@ export const richTextEditorSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: 'paste pipeline（2026-08-03 改版）分四段，順序有意義：①Excel 表格清洗（四個閘門全過才接手：meta 指紋確認是 Excel／schema 有 table node／clipboard 只有一張表／清洗後真的抽到內容）②有語意 HTML → 交還 ProseMirror 預設解析（Office 來源已先經 transformPastedHTML 正規化）③純圖片且宿主已訂閱 imagePasted 才接手 ④markdown 純文字自動轉格式（fallback）',
+      content: 'paste pipeline（2026-08-03 改版）分四段，順序有意義：①Excel 表格清洗（四個閘門全過才接手：meta 指紋確認是 Excel／schema 有 table node／clipboard 只有一張表／清洗後真的抽到內容）②有語意 HTML → 交還 ProseMirror 預設解析（Office 來源已先經 transformPastedHTML 正規化）③純圖片且使用端有監聽 imagePasted 事件才接手 ④markdown 純文字自動轉格式（fallback）',
     },
     {
       type: 'info',
@@ -48,7 +48,7 @@ export const richTextEditorSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: '要轉成 Notion blocks 的欄位可直接使用 base：hiddenTools 隱藏 underline/color/table（Notion 轉換不支援），送出時以 proseMirrorToMarkdown 序列化；放在 eager 載入的元件裡（例如常駐 header 的 dialog）時，template 以 @defer 包裹讓 TipTap 留在 lazy chunk',
+      content: '要轉成 Notion blocks 的欄位可直接使用 base：hiddenTools 隱藏 underline/color/table（Notion 轉換不支援），送出時以 proseMirrorToMarkdown 序列化；放在 eager 載入的元件裡（例如常駐 header 的 dialog）時，要延遲載入本元件，讓 TipTap 留在 lazy chunk',
     },
     {
       type: 'info',
@@ -60,7 +60,7 @@ export const richTextEditorSpec: ComponentSpec = {
     },
     {
       type: 'warn',
-      content: 'RTE 文字色票 hex 為寫死值（contenteditable inline style 無法套 CSS var），與 DS token 為手動同步；SSOT 是 rich-text-editor.helpers.ts 的 TEXT_COLORS，改色時同步兩件事：(a) 該常數（component 與貼上顏色吸附的 snapPasteColor 都由它推導，改一處即生效）(b) rich-text-editor.component.spec.ts 的色票斷言',
+      content: 'RTE 文字色票 hex 為寫死值（contenteditable inline style 無法套 CSS var），與 DS token 為手動同步；SSOT 是各框架實作裡的色票常數 TEXT_COLORS（檔案位置見框架說明），改色時同步兩件事：(a) 該常數（component 與貼上顏色吸附的 snapPasteColor 都由它推導，改一處即生效）(b) 元件測試裡的色票斷言',
     },
   ],
   customTables: [],

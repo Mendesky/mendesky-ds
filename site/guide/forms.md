@@ -8,7 +8,7 @@
 
 | 你要做的事 | 做法 | 用什麼 |
 | --- | --- | --- |
-| 欄位要有標題、必填標示 | 外層包一層。標題只放欄位名稱；單位、限制、提示放 `hint`；必填傳 `[required]="true"` | <ComponentLink id="field" /> |
+| 欄位要有標題、必填標示 | 外層包一層。標題只放欄位名稱；單位、限制、提示放 `hint`；必填把 `required` 設為 `true` | <ComponentLink id="field" /> |
 | 某個欄位驗證沒通過 | 在欄位元件傳 `errorMessage`。有值就進入錯誤狀態，空字串就清除 | <ComponentLink id="input" />、<ComponentLink id="select" />、<ComponentLink id="date-picker" /> 等，見下一節 |
 | 按送出時條件還不足 | 主按鈕維持停用外觀但可以點，點了說明原因並捲到第一個錯誤欄位 | <ComponentLink id="button" /> 的 `clickableWhenDisabled`，見[浮層怎麼選](./overlays) |
 | 在選項清單尾端新增自訂項 | 觸發鈕原地變成輸入框，按 Enter 送出。不用 `window.prompt`，也不在 Modal 裡再疊 Dialog | <ComponentLink id="inline-add" /> |
@@ -16,7 +16,7 @@
 
 ## 欄位錯誤訊息怎麼顯示
 
-錯誤訊息掛在欄位元件本身，不掛在 `app-field`。`app-field` 只管標題與必填標示。選填欄位不加任何標示。
+錯誤訊息掛在欄位元件本身，不掛在 <ComponentLink id="field" />。<ComponentLink id="field" /> 只管標題與必填標示。選填欄位不加任何標示。
 
 共通的寫法：
 
@@ -47,7 +47,9 @@
 
 <StoryEmbed id="date-picker--error-state" :height="420" title="日期欄位的錯誤狀態" />
 
-```html
+::: code-group
+
+```html [Angular]
 <app-field label="出生日期" [required]="true">
   <app-date-picker
     mode="day"
@@ -58,9 +60,17 @@
 </app-field>
 ```
 
-`app-input`、`app-select` 的寫法一樣：
+```text [Vue]
+尚無 Vue 版：#date-picker
+```
 
-```html
+:::
+
+<ComponentLink id="input" />、<ComponentLink id="select" /> 的寫法一樣：
+
+::: code-group
+
+```html [Angular]
 <app-field label="項目名稱" [required]="true">
   <app-input
     size="L"
@@ -80,18 +90,42 @@
 </app-field>
 ```
 
+```vue [Vue]
+<DsField label="項目名稱" :required="true">
+  <DsInput
+    size="L"
+    placeholder="請輸入項目名稱"
+    :errorMessage="form.nameError"
+    @value-change="onNameChange($event)"
+  ></DsInput>
+</DsField>
+
+<DsField label="部門" :required="true">
+  <DsSelect
+    :options="departmentOptions"
+    placeholder="請選擇部門"
+    :errorMessage="form.departmentError"
+    v-model="form.department"
+  ></DsSelect>
+</DsField>
+```
+
+:::
+
 ### 在選項清單尾端新增自訂項
 
 點「＋ 新增其他項目」，按鈕會原地變成輸入框。輸入後按 Enter，新項目會加進清單並勾選。
 
 <StoryEmbed id="inline-add--in-chip-group" :height="260" title="在選項清單尾端新增自訂項" />
 
-- 只有 Enter 會送出。內容去掉前後空白後不是空字串，才會發出 `(add)`。
+- 只有 Enter 會送出。內容去掉前後空白後不是空字串，才會發出 `add` 事件。
 - 按 Esc 或點到別處（blur）一律取消，輸入的內容丟掉。
-- 元件只負責輸入。去重、加入清單、勾選都在父層的 `(add)` 處理。
+- 元件只負責輸入。去重、加入清單、勾選都在父層的 `add` 事件處理。
 - 新增後立刻勾選並送後端。失敗時怎麼處理，見[載入與回饋](./feedback)。
 
-```html
+::: code-group
+
+```html [Angular]
 <div class="chip-wrap">
   @for (opt of options(); track opt) {
     <app-check-chip [text]="opt" [(ngModel)]="checked[opt]"></app-check-chip>
@@ -100,7 +134,15 @@
 </div>
 ```
 
-```ts
+```text [Vue]
+尚無 Vue 版：#check-chip、#inline-add
+```
+
+:::
+
+::: code-group
+
+```ts [Angular]
 // 父層：去重 + 加入清單 + 勾選（資料留在父層）
 addCustom(name: string) {
   if (this.options().includes(name)) return;
@@ -108,6 +150,12 @@ addCustom(name: string) {
   this.onToggle(name, true); // 自動勾選並送後端
 }
 ```
+
+```text [Vue]
+尚無 Vue 版：#check-chip、#inline-add
+```
+
+:::
 
 ### Wizard 裡的 Enter 鍵
 
@@ -118,7 +166,7 @@ Wizard 的 Enter 分兩段，避免使用者打完一格就誤觸換頁：
 - 焦點在多行文字框（textarea）時，Enter 保留換行。
 - 輸入法正在選字時，Enter 是確認選字，不攔截。
 
-`app-button-group` 已內建對應的鍵盤行為：方向鍵在選項之間移動，Space 只切換選項。對未選中的選項按 Enter 會切換過去；對已選中的選項再按一次 Enter，事件會往外傳給 Wizard，由 Wizard 把焦點移到下一步按鈕。
+<ComponentLink id="button-group" /> 已內建對應的鍵盤行為：方向鍵在選項之間移動，Space 只切換選項。對未選中的選項按 Enter 會切換過去；對已選中的選項再按一次 Enter，事件會往外傳給 Wizard，由 Wizard 把焦點移到下一步按鈕。
 
 下面的範例可以用方向鍵、Space、Enter 試試看。範例外層沒有 Wizard，所以對已選中的選項再按 Enter 不會有反應。
 

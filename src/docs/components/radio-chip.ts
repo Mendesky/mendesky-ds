@@ -8,7 +8,7 @@ export const radioChipSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: 'app-radio-chip 實作單選語意：點擊後 selected → true，不支援自身再次點擊取消（Radio 語意）。若需取消選中，開啟 [showCancel]="true"，並監聽 (cancelClick) 事件由父元件清空整個群組的選中值。',
+      content: '#radio-chip 實作單選語意：點擊後 selected → true，不支援自身再次點擊取消（Radio 語意）。若需取消選中，showCancel 設為 true，並監聽 cancelClick 事件由父元件清空整個群組的選中值。',
     },
   ],
   customTables: [],

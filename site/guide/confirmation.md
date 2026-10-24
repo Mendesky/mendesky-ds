@@ -12,7 +12,7 @@
 
 | 情況 | 例子 | 做法 | 元件 |
 | --- | --- | --- | --- |
-| 重建成本低、沒有下游副作用 | 刪除清單項、移除欄位、取消標記 | 直接執行，成功後跳出含「復原」的 toast | <ComponentLink id="process-toast" />（透過 `ToastService`） |
+| 重建成本低、沒有下游副作用 | 刪除清單項、移除欄位、取消標記 | 直接執行，成功後跳出含「復原」的 toast | <ComponentLink id="process-toast" />（透過 toast 服務） |
 | 逆流程、重建成本高，常帶下游副作用 | 封存項目、撤回已送出的申請 | 先開警示 Dialog 打斷，寫清楚後果 | <ComponentLink id="dialog" />，`propClass="Warning"` |
 | 動作風險低，但要使用者聲明某個前提成立 | 發布前確認內容已經過審核；送出前再看一次設定 | 在主按鈕旁放勾選聲明，不開 Dialog | <ComponentLink id="inline-confirm" /> |
 
@@ -30,7 +30,9 @@
 - 停留時間由類型決定，不用自己傳。帶「復原」的 toast 停留 5 秒。
 - 只有帶 action 的 toast 可以點。
 
-```ts
+::: code-group
+
+```ts [Angular]
 private readonly toast = inject(ToastService);
 
 this.toast.show({
@@ -40,11 +42,19 @@ this.toast.show({
 });
 ```
 
+```text [Vue]
+尚無 Vue 版：#toast-container、#process-toast
+```
+
+:::
+
 ### 逆流程、高重建成本：用警示 Dialog 打斷
 
 <StoryEmbed id="dialog--warning-open" :height="320" title="警示 Dialog" />
 
-```html
+::: code-group
+
+```html [Angular]
 <app-dialog
   [isOpen]="showDialog"
   header="刪除聯絡窗口資料"
@@ -57,12 +67,27 @@ this.toast.show({
 ></app-dialog>
 ```
 
+```vue [Vue]
+<DsDialog
+  :isOpen="showDialog"
+  header="刪除聯絡窗口資料"
+  content="此動作無法復原，請確認是否刪除該位聯絡窗口資料"
+  propClass="Warning"
+  confirmText="確認刪除"
+  :loading="deleting"
+  @cancel="showDialog = false"
+  @confirm="onDelete()"
+></DsDialog>
+```
+
+:::
+
 - `propClass="Warning"`：確認按鈕變紅。它只代表嚴重程度，不等於「刪除」。
 - `confirmIcon`：預設是垃圾桶，只留給真的刪除或移除資料的動作。其他確認（取消封存、復原、送出、匯入）傳 `confirmIcon=""`，紅色仍保留。
 - `confirmText`：寫出具體動作，例如「封存此項目」，不要只寫「確認」。
 - `content`：寫出會發生什麼、要恢復得做哪些事，不要只問「確定嗎？」。
 - `cancelText`：預設「取消並關閉」，可以依情境改。
-- `[loading]`：API 送出中，確認按鈕顯示轉圈並停用；取消按鈕不受影響。
+- `loading`：API 送出中，確認按鈕顯示轉圈並停用；取消按鈕不受影響。
 
 觸發按鈕放在選單裡時，危險項目用 `variant="ghost"`、`color="danger"`，見 <ComponentLink id="action-menu" /> 說明的「內容元件規範」。
 
@@ -72,7 +97,9 @@ this.toast.show({
 
 <StoryEmbed id="inline-confirm--required-premise" :height="240" title="勾選前提後才能繼續" />
 
-```html
+::: code-group
+
+```html [Angular]
 <app-inline-confirm
   requirement="required"
   label="發布前請確認內容已經過審核"
@@ -83,8 +110,14 @@ this.toast.show({
 <app-button text="下一步" [disabled]="!reviewed()"></app-button>
 ```
 
+```text [Vue]
+尚無 Vue 版：#inline-confirm
+```
+
+:::
+
 - 文案用宣告句，例如「我已確認內容已經過審核」，不用問句。
-- 元件不控制主按鈕。父層自己綁 `[disabled]="!reviewed()"`。
+- 元件不控制主按鈕。父層自己把主按鈕的 `disabled` 設為「還沒勾選」，寫法見上方範例（目前只有 Angular 版）。
 - `requirement="required"`：主按鈕依賴這個勾選。`requirement="optional"`：複核式提醒，元件自動加上「（選填）」，主按鈕通常保持可按。
 - 離開頁面再回來，父層要把勾選狀態設回 `false`。元件不會自己重置。
 

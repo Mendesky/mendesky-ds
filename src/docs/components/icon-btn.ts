@@ -8,7 +8,7 @@ export const iconBtnSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: '（2026-04 更新）tooltip 已綁在外層 wrapper div 而非 button 本身，disabled 狀態下 tooltip 仍正常顯示。內部使用 [appTooltip] directive（portal 模式）。',
+      content: '（2026-04 更新）tooltip 已綁在外層 wrapper div 而非 button 本身，disabled 狀態下 tooltip 仍正常顯示。內部使用 #tooltip-directive（portal 模式）。',
     },
     {
       type: 'info',
