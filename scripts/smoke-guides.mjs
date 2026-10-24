@@ -1,6 +1,7 @@
 // 指南冒煙測試：逐一打開建好的指南網站（VitePress）每一頁，確認畫出內容、沒有頁面錯誤、
 // 也沒有「找不到元件說明／互動原則」的資料元件（代表文章引用了不存在的 id），
 // 而且頁面文字（程式碼除外）沒有還沒換成元件名稱的 `#元件id`（代表某處直接印出說明原文、沒經過 RefText）。
+// 元件頁另外確認：規格的第 2 版欄位（部位、狀態、無障礙、可以／不要這樣做）每一項都畫出來，項數跟規格一致。
 //
 // 用法：npm run site:build（或 scripts/build-site.sh main）之後
 //       node scripts/smoke-guides.mjs <網站目錄，預設 site/.vitepress/dist> <網站 base，預設 /main/>
@@ -12,6 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
 import { findRefs } from './component-refs.mjs';
+import { exportCoreDocs } from './export-docs.mjs';
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -63,10 +65,29 @@ function repoComponentIds() {
   return new Set(readdirSync(dir).filter((n) => n.endsWith('.ts') && n !== 'index.ts').map((n) => n.replace(/\.ts$/, '')));
 }
 
-/** 逐頁檢查；回傳 { visited, failures }。componentIds：未翻譯檢查要認得的元件 id，預設讀本 repo */
-export async function smokeGuides(dir, base = '/main/', { timeout = 15000, componentIds = repoComponentIds() } = {}) {
+/** 本 repo 的元件規格 */
+function repoSpecs() {
+  return exportCoreDocs(path.join(path.dirname(fileURLToPath(import.meta.url)), '..')).specs.map(({ spec }) => spec);
+}
+
+/** 規格的第 2 版欄位 → 元件頁上每一項的 data-testid 與應有的項數 */
+const V2_SECTIONS = [
+  ['anatomy', 'spec-anatomy-item', (s) => s.anatomy?.length ?? 0],
+  ['states', 'spec-state-item', (s) => s.states?.length ?? 0],
+  ['a11y', 'spec-a11y-item', (s) => Object.values(s.a11y ?? {}).reduce((n, items) => n + items.length, 0)],
+  ['dos', 'spec-do-item', (s) => s.dos?.length ?? 0],
+  ['donts', 'spec-dont-item', (s) => s.donts?.length ?? 0],
+];
+
+/**
+ * 逐頁檢查；回傳 { visited, failures }。
+ * componentIds：未翻譯檢查要認得的元件 id；specs：元件頁要畫出哪些第 2 版欄位。兩者預設都讀本 repo
+ */
+export async function smokeGuides(dir, base = '/main/', { timeout = 15000, componentIds = repoComponentIds(), specs = repoSpecs() } = {}) {
   const root = path.resolve(dir);
   if (componentIds.size === 0) return { visited: 0, failures: ['讀不到任何元件 id，未翻譯的 #元件id 檢查沒有執行'] };
+  if (specs.length === 0) return { visited: 0, failures: ['讀不到任何元件規格，元件頁的第 2 版欄位檢查沒有執行'] };
+  const specById = new Map(specs.map((s) => [s.id, s]));
   const pages = listPages(root);
   if (pages.length === 0) return { visited: 0, failures: [`${root} 裡有 0 頁指南，網站沒有內容`] };
 
@@ -101,6 +122,13 @@ export async function smokeGuides(dir, base = '/main/', { timeout = 15000, compo
           return content.textContent ?? '';
         });
         for (const id of new Set(findRefs(text).filter((id) => componentIds.has(id)))) errors.push(`有沒換成元件名稱的 #${id}`);
+        const spec = specById.get(rel.match(/^components\/([^/]+)\.html$/)?.[1]);
+        for (const [key, testid, expected] of spec ? V2_SECTIONS : []) {
+          const want = expected(spec);
+          if (want === 0) continue;
+          const got = await page.locator(`.VPContent [data-testid="${testid}"]`).count();
+          if (got !== want) errors.push(`第 2 版欄位 ${key} 有 ${want} 項，頁面畫出 ${got} 項`);
+        }
       } catch (e) {
         errors.push(`沒有畫出內容（等不到 .VPContent）`);
       }

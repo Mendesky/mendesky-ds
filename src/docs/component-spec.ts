@@ -18,7 +18,12 @@
  * 6. 框架的語法與生命週期（Angular 的 signal、@if、ngOnChanges、::ng-deep、inject…）不寫進本體：
  *    使用端要知道的放各框架的 usageNotes；元件內部做法寫在框架的元件程式碼註解。
  * 7. 網頁專屬細節（DOM、CSS、z-index、ARIA）目前保留在本體，但不用框架語法描述。
+ *    無障礙寫在 `a11y`：網頁和 APP 都要做到的行為寫 keyboard／focus／screenReader／motion／touch，
+ *    網頁才有的 ARIA 屬性與 HTML 語意寫 aria。
  * 互動原則的框架實作步驟放在各框架的 pattern-notes（Angular：src/docs/pattern-notes.ts），以原則的 key 對應。
+ *
+ * 第 2 版欄位（anatomy、states、a11y、dos、donts）都是選填，先在試做的元件上寫，再逐步補到其他元件。
+ * 各框架用法說明的欄位（selector、props、events、usage、usageNotes…）不得跟規格欄位同名：合併時用法說明會蓋掉規格。
  */
 export type DocGroup = '互動元件' | '表單元件' | '浮層元件' | '展示元件' | '工具';
 
@@ -33,6 +38,49 @@ export interface DocTable {
   rows: string[][];
 }
 
+/** 元件的一個部位，例如外框、文字、圖示 */
+export interface SpecPart {
+  name: string;
+  /** 這個部位是什麼、什麼時候出現 */
+  description: string;
+}
+
+/** 元件的一個狀態，例如滑過、停用、載入中 */
+export interface SpecState {
+  name: string;
+  /** 這個狀態長怎樣、什麼時候出現、能不能操作 */
+  description: string;
+}
+
+/**
+ * 無障礙。分類跟互動原則的 a11y 相同，另加 screenReader。
+ * 除了 aria，都是網頁和 APP 都要做到的行為；aria 是網頁才有的 ARIA 屬性與 HTML 語意。
+ */
+export interface SpecA11y {
+  /** 按哪個鍵做什麼 */
+  keyboard?: string[];
+  /** 焦點能不能停留、停在哪、移到哪 */
+  focus?: string[];
+  /** 報讀軟體要念出的名稱、角色、狀態 */
+  screenReader?: string[];
+  /** 動態效果，以及使用者設定「減少動態」時怎麼做 */
+  motion?: string[];
+  /** 觸控範圍與手勢 */
+  touch?: string[];
+  /** 網頁專屬：ARIA 屬性與 HTML 語意 */
+  aria?: string[];
+}
+
+/** 「可以這樣做」或「不要這樣做」的一個例子 */
+export interface SpecExample {
+  text: string;
+  /**
+   * 對應的範例：各框架範例網站裡這個元件的範例代號，就是範例網址 `?id=<元件id>--<代號>` 的代號
+   * （小寫英數與連字號，例如 `filled-primary`）。文件網站在範例網站找到時嵌入顯示。
+   */
+  story?: string;
+}
+
 export interface ComponentSpec {
   /** 規格的識別字；說明文字與互動原則以 `#<id>` 引用，各框架的用法說明以同一個 id 對應 */
   id: string;
@@ -45,4 +93,14 @@ export interface ComponentSpec {
   /** 字串為無分類的備註 */
   notes: Array<DocNote | string>;
   customTables?: DocTable[];
+  /** 第 2 版：部位，依畫面上由左到右、由外到內的順序 */
+  anatomy?: SpecPart[];
+  /** 第 2 版：狀態 */
+  states?: SpecState[];
+  /** 第 2 版：無障礙 */
+  a11y?: SpecA11y;
+  /** 第 2 版：可以這樣做 */
+  dos?: SpecExample[];
+  /** 第 2 版：不要這樣做 */
+  donts?: SpecExample[];
 }
