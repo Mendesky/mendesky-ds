@@ -14,5 +14,5 @@ export * from './utils/safe-uuid.util.js';
 export * from './utils/template-text.util.js';
 export * from './utils/template-var-key.js';
 
-export type { ComponentSpec, DocGroup, DocNote, DocTable } from './docs/component-spec.js';
+export type { ComponentSpec, DocGroup, DocNote, DocTable, SpecA11y, SpecExample, SpecPart, SpecState } from './docs/component-spec.js';
 export { COMPONENT_SPECS } from './docs/components/index.js';
