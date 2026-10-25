@@ -8,7 +8,7 @@
 
 | 內容 | 放在哪裡 |
 |---|---|
-| 元件規格（何時用、注意事項、選用表格） | 本體：`src/docs/components/<id>.ts`，格式見 `src/docs/component-spec.ts` |
+| 元件規格（何時用、注意事項、選用表格；第 2 版另有部位、狀態、無障礙、可以／不要這樣做） | 本體：`src/docs/components/<id>.ts`，格式見 `src/docs/component-spec.ts` |
 | 色彩與 token、字型、動效 | 本體：樣式在 `styles/core.scss`，說明在 `src/docs/foundations/` |
 | 互動原則 | 本體：`src/docs/patterns.ts` |
 | 圖示 | 本體：`src/icons/icons.ts` |
@@ -53,6 +53,27 @@ export const fieldSpec: ComponentSpec = {
 
 新增規格時，在 `src/docs/components/index.ts` 的總表加一行。說明檢查會比對總表與檔案是否一致。
 
+### 第 2 版欄位（選填）
+
+下面幾個欄位讓人和 AI 不看程式碼也能理解元件。都是選填，先在試做的元件寫，再逐步補到其他元件。文件網站的元件頁會依序顯示「部位」「狀態」「可以這樣做、不要這樣做」，用法之後顯示「無障礙」。
+
+| 欄位 | 寫什麼 | 格式 |
+|---|---|---|
+| `anatomy` | 部位：元件由哪些部分組成，依畫面上由左到右、由外到內 | `{ name, description }` 的陣列 |
+| `states` | 狀態：每個狀態長怎樣、什麼時候出現、能不能操作 | `{ name, description }` 的陣列 |
+| `a11y` | 無障礙 | 物件，分類寫在 key；每個分類是文字陣列 |
+| `dos` | 可以這樣做 | `{ text, story? }` 的陣列 |
+| `donts` | 不要這樣做 | `{ text, story? }` 的陣列 |
+
+`a11y` 的分類跟互動原則相同，另加 `screenReader`：
+
+- 網頁和 APP 都要做到的行為：`keyboard`（按哪個鍵做什麼）、`focus`（焦點能不能停留、移到哪）、`screenReader`（報讀軟體念出的名稱、角色、狀態）、`motion`（動態與「減少動態」設定）、`touch`（觸控範圍與手勢）。
+- 網頁才有的：`aria`（ARIA 屬性與 HTML 語意）。
+
+`story` 是範例網站裡這個元件的範例代號，就是範例網址 `?id=<元件id>--<代號>` 的代號，例如 `full-width`。文件網站在各框架的範例網站找到這個範例時，會嵌在文字下方；範例網站有這個元件的範例清單、卻找不到這個代號時，冒煙測試會失敗。
+
+寫法跟其他欄位相同：寫目前的實際行為，不寫還沒做的功能；指其他元件寫 `#元件id`，不寫框架語法。欄位名稱拼錯、格式不對，說明檢查都會擋下；文件網站少畫任何一項，冒煙測試會失敗。完整範例見 `src/docs/components/button.ts`。
+
 規格只能 `import type`，不能在執行期 import 其他檔案：文件網站與匯出腳本會直接讀這些檔案。
 
 ## 樣式、token、字型
@@ -89,7 +110,7 @@ DOCS_REPO_BASE=/ npm run site:build -- main                  # 建文件網站
 node scripts/smoke-guides.mjs site/.vitepress/dist /main/   # 指南逐頁冒煙測試
 ```
 
-冒煙測試是逐頁打開網站，確認每頁都畫得出來、沒有錯誤。
+冒煙測試是逐頁打開網站，確認每頁都畫得出來、沒有錯誤；元件頁另外確認規格的第 2 版欄位每一項都畫出來。
 
 邊寫邊看文件網站：
 
