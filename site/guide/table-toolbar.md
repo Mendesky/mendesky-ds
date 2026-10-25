@@ -10,7 +10,7 @@
 
 | 你的需求 | 做法 | 用什麼 |
 | --- | --- | --- |
-| 富文字編輯器裡的表格，要讓使用者增刪列與欄 | 開啟表格結構編輯（預設關閉，需要時才開） | <ComponentLink id="rich-text-editor" /> 的 `[tableStructureEditing]="true"` |
+| 富文字編輯器裡的表格，要讓使用者增刪列與欄 | 開啟表格結構編輯（預設關閉，需要時才開） | <ComponentLink id="rich-text-editor" /> 的 `tableStructureEditing` 設為 `true` |
 | 儲存的格式不支援表格 | 連表格工具一起隱藏，快捷鍵與貼上也進不來 | <ComponentLink id="rich-text-editor" /> 的 `hiddenTools` 傳入 `'table'` |
 | 對其他重複結構（清單項、看板欄）就地施加一組操作 | 套用同一個原則：邊緣把手＋只列相關操作的選單＋範圍高亮 | 下方規則「情境選取工具列」 |
 | 刪除一列或一欄 | 靠復原，不彈確認 Dialog | 見[確認與破壞性動作](./confirmation) |
@@ -24,7 +24,9 @@
 
 <StoryEmbed id="rich-text-editor--table-structure-editing" :height="520" title="表格結構編輯" />
 
-```html
+::: code-group
+
+```html [Angular]
 <app-rich-text-editor
   [value]="contentDoc"
   placeholder="請輸入背景說明…"
@@ -34,6 +36,12 @@
   (composedBlur)="onBlur()">
 </app-rich-text-editor>
 ```
+
+```text [Vue]
+尚無 Vue 版：#rich-text-editor
+```
+
+:::
 
 使用時注意：
 

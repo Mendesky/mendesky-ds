@@ -6,18 +6,18 @@ export const ctrlBarSpec = {
     notes: [],
     customTables: [
         {
-            title: 'Content Projection Slots',
+            title: '放入位置',
             columns: [
-                'Slot',
+                '位置',
                 '說明',
             ],
             rows: [
                 [
-                    '[slot=left]',
+                    'left',
                     '左對齊區塊，items flex-wrap，適合篩選 chips、toggle、排序按鈕',
                 ],
                 [
-                    '[slot=right]',
+                    'right',
                     '右對齊區塊，flex-shrink: 0，適合搜尋欄、視角切換',
                 ],
             ],

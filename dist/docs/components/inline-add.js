@@ -6,7 +6,7 @@ export const inlineAddSpec = {
     notes: [
         {
             type: 'info',
-            content: '展示櫃原則：本元件只管「輸入 affordance」，不持有清單 / 勾選。去重、加入清單、勾選由父層 (add) handler 處理。',
+            content: '展示櫃原則：本元件只管「輸入 affordance」，不持有清單 / 勾選。去重、加入清單、勾選由父層的 add 事件處理。',
         },
         {
             type: 'info',

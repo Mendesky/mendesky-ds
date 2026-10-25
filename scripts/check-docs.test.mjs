@@ -77,3 +77,79 @@ test('說明裡的 token 值跟 core.scss 不同 → 失敗', () => {
   assert.match(errors[0], /--text\\\/body/);
   assert.match(errors[0], /#000000/);
 });
+
+// ── 本體只寫跨框架的內容 ───────────────────────────────────────
+
+test('文字只用 #元件id 指元件、屬性只寫名稱（色碼、網址、本體 class 不算）→ 通過', () => {
+  const { errors } = run('neutral-ok');
+  assert.deepEqual(errors, []);
+});
+
+test('規格文字出現 Angular 寫法 → 失敗，指出檔案、欄位與那段寫法', () => {
+  const { errors } = run('neutral-framework-syntax');
+  const text = errors.join('\n');
+  assert.match(text, /components\/demo\.ts：when：.*Angular 元件標籤「app-button」/);
+  assert.match(text, /notes\[0\]\.content：.*Angular 屬性綁定「\[disabled\]」/);
+  assert.match(text, /notes\[0\]\.content：.*Angular 的 API「ngModel」/);
+  assert.match(text, /notes\[1\]：.*Angular 的 API「@defer」/);
+  assert.match(text, /notes\[2\]：.*Angular 的 API「Signal」/);
+  assert.match(text, /notes\[3\]：.*Angular 的 API「Karma」/);
+  assert.match(text, /notes\[4\]：.*Angular 事件綁定「\(add\)」/);
+  assert.match(text, /notes\[5\]：.*Angular 內容投影選擇器「\[slot=left\]」/);
+  assert.match(text, /notes\[6\]：.*Angular 屬性綁定「\[attr\.aria-label\]」/);
+});
+
+test('#元件id 指到不存在的元件（拼錯）→ 失敗', () => {
+  const { errors } = run('neutral-bad-ref');
+  assert.equal(errors.length, 1);
+  assert.match(errors[0], /when：#buton 不是任何元件的 id/);
+});
+
+test('一段文字都讀不到 → 失敗，不得顯示通過（檢查本身失效）', () => {
+  const { errors } = run('neutral-unreadable');
+  assert.match(errors.join('\n'), /框架寫法檢查讀到 0 段文字/);
+});
+
+// ── 規格第 2 版欄位（部位、狀態、無障礙、可以／不要這樣做）──────────────
+
+test('第 2 版欄位格式正確 → 通過，並算出幾份規格用了第 2 版欄位', () => {
+  const result = run('spec-v2-ok');
+  assert.deepEqual(result.errors, []);
+  assert.equal(result.v2Specs, 1);
+});
+
+test('沒有用第 2 版欄位的規格 → 照舊通過（欄位都是選填）', () => {
+  const result = run('fnd-ok');
+  assert.deepEqual(result.errors, []);
+  assert.equal(result.v2Specs, 0);
+});
+
+test('第 2 版欄位格式不對 → 逐項失敗，指出檔案與欄位', () => {
+  const text = run('spec-v2-bad').errors.join('\n');
+  assert.match(text, /demo\.ts：anatomy\[0\]：要有 name 與 description（文字）/);
+  assert.match(text, /demo\.ts：states\[1\]：要有 name 與 description（文字）/);
+  assert.match(text, /demo\.ts：a11y\.keyboard：要是文字陣列/);
+  assert.match(text, /demo\.ts：a11y：不認得的分類「voice」/);
+  assert.match(text, /demo\.ts：dos\[0\]：要有 text（文字）/);
+  assert.match(text, /demo\.ts：donts\[0\]\.story：「Filled Primary」/);
+  // 第 2 版欄位的文字一樣要跨框架、#元件id 一樣要指到存在的元件
+  assert.match(text, /demo\.ts：a11y\.aria\[0\]：有Angular 屬性綁定「\[attr\.aria-pressed\]」/);
+  assert.match(text, /demo\.ts：dos\[1\]\.text：#buton 不是任何元件的 id/);
+  // 部位與狀態的 name 是畫面上的文字，不是識別字：一樣要檢查
+  assert.match(text, /demo\.ts：anatomy\[1\]\.name：#buton 不是任何元件的 id/);
+  assert.match(text, /demo\.ts：states\[2\]\.name：有Angular 事件綁定「\(click\)」/);
+  assert.doesNotMatch(text, /dos\[0\]\.story/);
+});
+
+test('第 2 版欄位型別整個寫錯（文字、null）→ 失敗，不得當成沒寫而略過', () => {
+  const text = run('spec-v2-wrong-types').errors.join('\n');
+  assert.match(text, /demo\.ts：anatomy：要是陣列/);
+  assert.match(text, /demo\.ts：a11y：要是物件/);
+  assert.match(text, /demo\.ts：dos：要是陣列/);
+});
+
+test('規格有不認得的欄位（例如把 anatomy 拼錯）→ 失敗，不得靜默略過', () => {
+  const { errors } = run('spec-unknown-key');
+  assert.equal(errors.length, 1, errors.join('\n'));
+  assert.match(errors[0], /demo\.ts：不認得的欄位：anatomies/);
+});

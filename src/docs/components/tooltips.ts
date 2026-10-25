@@ -8,7 +8,7 @@ export const tooltipsSpec: ComponentSpec = {
   notes: [
     {
       type: 'warning',
-      content: '（2026-04 更新）新開發建議改用 [appTooltip] directive（portal 模式），自動 portal 到 document.body 避免 overflow:hidden 裁切。app-tooltips component 保留向後相容，但新功能不再使用。',
+      content: '（2026-04 更新）新開發建議改用 #tooltip-directive（portal 模式），自動 portal 到 document.body 避免 overflow:hidden 裁切。#tooltips 保留向後相容，但新功能不再使用。',
     },
   ],
   customTables: [

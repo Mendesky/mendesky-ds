@@ -6,7 +6,7 @@ export const footerSpec = {
     notes: [
         {
             type: 'info',
-            content: '全域版權頁尾，登入頁與 Shell 共用。父層可用 CSS 自訂屬性覆寫 RWD 樣式，不需 ::ng-deep。',
+            content: '全域版權頁尾，登入頁與 Shell 共用。父層可用 CSS 自訂屬性覆寫 RWD 樣式，不需要穿透元件的樣式封裝。',
         },
     ],
     customTables: [

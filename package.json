@@ -14,6 +14,10 @@
     },
     "./styles/*": "./styles/*",
     "./scripts/export-docs.mjs": "./scripts/export-docs.mjs",
+    "./scripts/component-refs.mjs": {
+      "types": "./scripts/component-refs.d.mts",
+      "default": "./scripts/component-refs.mjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -22,6 +26,8 @@
     "src/docs",
     "src/icons/icons.ts",
     "scripts/export-docs.mjs",
+    "scripts/component-refs.mjs",
+    "scripts/component-refs.d.mts",
     "README.md",
     "LICENSE",
     "THIRD-PARTY-NOTICES.md"
@@ -34,6 +40,7 @@
     "check:docs": "node scripts/check-docs.mjs",
     "check:dist": "node scripts/check-dist.mjs",
     "check:styles": "node scripts/check-component-styles.mjs",
+    "check:guides": "node scripts/check-guides.mjs",
     "site:dev": "vitepress dev site",
     "site:build": "bash scripts/build-site.sh",
     "smoke:guides": "node scripts/smoke-guides.mjs"

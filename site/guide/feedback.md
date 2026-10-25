@@ -41,11 +41,13 @@
 
 <StoryEmbed id="page-skeleton--default" :height="360" title="整頁 skeleton" />
 
-`app-page-skeleton` 是整頁載入用的佔位元件，沒有任何屬性。區塊層級的 skeleton 怎麼跟載入狀態同步，看下方規則「API 水合 Skeleton」。重點是 API 失敗時也要收起 skeleton，否則畫面會永遠卡在載入中。
+<ComponentLink id="page-skeleton" /> 是整頁載入用的佔位元件，沒有任何屬性。區塊層級的 skeleton 怎麼跟載入狀態同步，看下方規則「API 水合 Skeleton」。重點是 API 失敗時也要收起 skeleton，否則畫面會永遠卡在載入中。
 
 ### 送出中：按鈕 loading
 
-```html
+::: code-group
+
+```html [Angular]
 <app-button
   variant="filled"
   color="primary"
@@ -56,41 +58,72 @@
 ></app-button>
 ```
 
+```vue [Vue]
+<DsButton
+  variant="filled"
+  color="primary"
+  size="M"
+  text="確認建立"
+  :loading="submitting"
+  @btn-click="confirm()"
+></DsButton>
+```
+
+:::
+
 - `loading` 為 `true` 時，轉圈取代 icon，底色不變，點擊無效，所以不會重複送出。
 - 要在 loading 時換文字，用 `loadingText`。
-- `app-dialog` 的確認按鈕也有 `[loading]`。
-- 送出中，Wizard 的 X、ESC、背景都不能關。X 鈕傳 `[disabled]`；ESC、背景與自訂的「取消」按鈕，處理函式在送出中直接 return。
+- <ComponentLink id="dialog" /> 的確認按鈕也有 `loading`。
+- 送出中，Wizard 的 X、ESC、背景都不能關。X 鈕傳 `disabled`；ESC、背景與自訂的「取消」按鈕，處理函式在送出中直接 return。
 
 ### 操作結果：toast
 
 按下面的按鈕，看成功、錯誤、含復原三種 toast。
 
-<StoryEmbed id="toast-container--interactive" :height="320" title="呼叫 ToastService 顯示 toast" />
+<StoryEmbed id="toast-container--interactive" :height="320" title="呼叫 toast 服務顯示 toast" />
 
-```ts
+::: code-group
+
+```ts [Angular]
 private readonly toast = inject(ToastService);
 
 this.toast.show({ type: 'success', message: '已儲存' });
 ```
 
-- 整個 app 只在 app root 掛一次 `<app-toast-container />`。要顯示 toast 就呼叫 `ToastService.show()`。不要自建 toast 堆疊，否則兩套堆疊會互相遮蓋。
+```text [Vue]
+尚無 Vue 版：#toast-container、#process-toast
+```
+
+:::
+
+- 整個 app 只在 app root 掛一次 <ComponentLink id="toast-container" />。要顯示 toast 就呼叫 toast 服務的 `show()`。不要自建 toast 堆疊，否則兩套堆疊會互相遮蓋。
 - 停留時間由類型決定，不用自己傳：成功與載入中 3 秒；錯誤與帶 action 的 5 秒。
 - 只有帶 action 的 toast 可以點。其他 toast 不接收點擊，避免擋住底下的按鈕。
 - 訊息最多顯示兩行，超過的部分會直接被截掉，不會報錯。
 - 同一件事的「進行中 → 完成」用一顆 toast 原地轉換。不同的事各自一顆，依序堆疊。
 
-```ts
+::: code-group
+
+```ts [Angular]
 // 同一件事的兩個階段：先顯示進行中，完成後原地更新
 const id = this.toast.show({ type: 'loading', message: '文件產生中', persist: true });
 // …完成後
 this.toast.update(id, { type: 'success', message: '已開始下載' });
 ```
 
+```text [Vue]
+尚無 Vue 版：#toast-container、#process-toast
+```
+
+:::
+
 ### 耗時操作：擋住整個畫面
 
 <StoryEmbed id="process-modal--running-open" :height="300" title="處理中的 Process Modal" />
 
-```html
+::: code-group
+
+```html [Angular]
 <app-process-modal
   type="running"
   message="執行中請稍候"
@@ -99,8 +132,14 @@ this.toast.update(id, { type: 'success', message: '已開始下載' });
 ></app-process-modal>
 ```
 
+```text [Vue]
+尚無 Vue 版：#process-modal
+```
+
+:::
+
 - `type="running"`：白底小卡加轉圈，蓋住整個畫面，處理中不能關閉。
-- `type="congratulation"`：綠底慶祝卡，點背景會觸發 `(dismissed)`。
+- `type="congratulation"`：綠底慶祝卡，點背景會觸發 `dismissed` 事件。
 
 ## 規則
 

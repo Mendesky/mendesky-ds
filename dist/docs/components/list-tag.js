@@ -6,7 +6,7 @@ export const listTagSpec = {
     notes: [
         {
             type: 'info',
-            content: '用於 app-list 行中的標籤插槽，搭配 app-label 使用。',
+            content: '用於 #list 行中的標籤插槽，搭配 #label 使用。',
         },
     ],
     customTables: [],

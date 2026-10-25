@@ -2,7 +2,7 @@ export const buttonSpec = {
     id: 'button',
     name: 'Button',
     group: '互動元件',
-    when: '任何可點擊操作。禁止原生 <button>。loading=true 時 spinner 取代 icon、底色不變、點擊無效。**用投影內容（不給 text，例如選單選項放「標籤＋名稱」）時，裡面的文字顏色寫 color: inherit**，否則 ghost／elevated 的滑過、按下文字色套不到（2026-10-02：寫死深色字 → ghost 滑過變深灰底配黑字）。',
+    when: '任何可點擊操作。禁止原生 <button>。loading=true 時 spinner 取代 icon、改成停用的灰底、點擊無效。**放入自訂內容（不給 text，例如選單選項放「標籤＋名稱」）時，裡面的文字顏色寫 color: inherit**，否則 ghost／elevated 的滑過、按下文字色套不到（2026-10-02：寫死深色字 → ghost 滑過變深灰底配黑字）。',
     notes: [
         {
             type: 'info',
@@ -12,10 +12,53 @@ export const buttonSpec = {
             type: 'warn',
             content: '驗證重點：hover 時所有 icon 顏色應與文字同步變白，不得保留灰色。若 icon 有 style="color:#686868" 寫死，hover 不會變色 — 請改為 style="color:currentColor" 或 color:inherit。',
         },
-        {
-            type: 'info',
-            content: 'ViewEncapsulation.None — 外部可透過 CSS 覆寫樣式。',
-        },
+    ],
+    anatomy: [
+        { name: '外框', description: '可以點的範圍。高度依 size：XXS 17、XS 24、S 32、M 36、L 40 px。' },
+        { name: '左側圖示', description: 'leftIcon，選填。顏色跟著按鈕的文字色（有說明時例外，見「說明」）。' },
+        { name: '左側標籤', description: 'leftLabel、centerLabel，選填。文字前面的小標籤，用 #label 顯示。' },
+        { name: '文字', description: 'text，說明這個操作。沒有 text 時，這個位置可以放入自訂內容。' },
+        { name: '說明', description: 'description，選填。顯示在文字下方，整個按鈕改成靠左對齊。文字改用較深的標題色，說明用較淺的灰色，圖示維持按鈕原本的顏色；滑過時文字與說明都改用按鈕的文字色。左側的圖示與標籤排在文字上一行，右側的標籤、圖示與快速鍵提示排在說明下一行，所以按鈕可能超過兩行。' },
+        { name: '右側標籤', description: 'rightLabel，選填。' },
+        { name: '右側圖示', description: 'rightIcon，選填。顏色跟著按鈕的文字色（有說明時例外，見「說明」）。' },
+        { name: '快速鍵提示', description: 'shortcut，選填。只顯示提示文字，不會綁定快速鍵；主要用在 #action-menu 的選項。' },
+        { name: '載入轉圈', description: '只在 loading 時出現。載入中只顯示轉圈與 loadingText，其他部位都不顯示。' },
+    ],
+    states: [
+        { name: '預設', description: '底色與文字色依 variant 與 color。' },
+        { name: '滑過', description: 'filled 的底色變深一階；tonal、outlined、ghost 變成實心底配淺色字（outlined 的 success 例外：維持白底、框線變綠）；elevated 浮起並出現陰影。' },
+        { name: '按下', description: '底色再深一階。例外：outlined 的 neutral 與 elevated 變成藍底配淺色字，elevated 的陰影也消失；outlined 的 success 從白底變成實心綠底配淺色字。' },
+        { name: '焦點', description: '用鍵盤移到按鈕時，外圍出現焦點框；用滑鼠點不會出現。' },
+        { name: '停用', description: 'disabled。灰底灰字，點了沒有反應，鍵盤也移不到上面。' },
+        { name: '停用但可點', description: 'disabled 加 clickableWhenDisabled。外觀同停用，但仍能點、鍵盤也移得到；點了不執行操作，改在按鈕上方顯示 disabledMessage 說明原因，直到按鈕恢復可用。' },
+        { name: '載入中', description: 'loading。改成停用的灰底，轉圈與文字是深灰色；有 loadingText 時顯示 loadingText，沒有時只剩轉圈，其他部位都不顯示。點了沒有反應，鍵盤也移不到上面。' },
+    ],
+    a11y: {
+        keyboard: ['Tab 移到按鈕，Enter 或空白鍵觸發。', '停用與載入中的按鈕，Tab 會跳過。停用但可點的按鈕，Tab 仍會停留，按 Enter 會顯示不能用的原因。'],
+        focus: ['用鍵盤移到按鈕時，外圍顯示焦點框（DS 共用的焦點框樣式）。'],
+        screenReader: [
+            '念出按鈕上的文字與「按鈕」。圖示不會被念出。',
+            '只有圖示、沒有文字時，報讀軟體念不出名稱。這種按鈕改用 #icon-btn，它可以設定可讀名稱。',
+            '載入中沒有 loadingText 時只剩轉圈，報讀軟體念不出名稱。',
+            '停用但可點時，報讀軟體會念出停用狀態，但仍然可以按。按了之後出現的原因說明，報讀軟體不會念出。',
+        ],
+        motion: ['載入轉圈每 0.6 秒轉一圈。目前不會因為使用者設定「減少動態」而停止。'],
+        touch: ['高度 XXS 17、XS 24、S 32、M 36、L 40 px，都小於 iOS 建議的 44 點與 Android 建議的 48 dp 觸控範圍。'],
+        aria: [
+            '用原生 button 元素，type="button"，放在表單裡不會送出表單。',
+            '停用與載入中用原生 disabled。停用但可點時改用 aria-disabled="true"，保留焦點與點擊。',
+            '目前不能設定 aria-label、aria-pressed、aria-current。只有圖示，或需要「按下／未按下」狀態時，改用 #icon-btn。',
+        ],
+    },
+    dos: [
+        { text: '載入中給 loadingText（例如「儲存中…」）。只剩轉圈時，報讀軟體念不出按鈕在做什麼。' },
+        { text: '要讓使用者知道為什麼不能按時，用 clickableWhenDisabled 加 disabledMessage：按鈕看起來停用，點了會在上方說明原因。' },
+        { text: '需要撐滿容器寬度時用 fullWidth。', story: 'full-width' },
+    ],
+    donts: [
+        { text: '只有圖示、沒有文字時不要用按鈕：報讀軟體念不出名稱。改用 #icon-btn，它可以設定可讀名稱。' },
+        { text: '不要在按鈕裡放另一個可以點的東西（連結、按鈕、勾選框）。鍵盤與報讀軟體無法分別操作按鈕裡面的東西。' },
+        { text: '不要以為設了 shortcut，按快速鍵就會觸發。它只顯示提示，快速鍵要另外綁定。' },
     ],
     customTables: [
         {

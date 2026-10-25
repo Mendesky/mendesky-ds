@@ -240,7 +240,7 @@ cp node_modules/pdfjs-dist/build/pdf.worker.min.js src/assets/
 照順序檢查：
 
 1. 跑 `npm install`。專案根目錄應該出現 `mendesky-ds-angular` 這個 symlink；第一次建立時，postinstall 會印出 `[link-ds-angular] mendesky-ds-angular -> node_modules/@mendesky/ds-angular`。
-2. 照[第一個畫面](./first-screen)放一顆 `app-button`，跑 `ng build`，要能成功建置。
+2. 照[第一個畫面](./first-screen)放一顆 <ComponentLink id="button" />，跑 `ng build`，要能成功建置。
 3. 打開畫面，按鈕要有設計系統的顏色與字型。
 4. 跑 `ng test`，測試要能正常編譯執行。
 

@@ -59,6 +59,8 @@ jobs:
       - run: npm ci
       - run: npm run test:scripts
       - run: npm run check:docs
+      # 指南的框架範例交給各框架 repo 的檢查器驗證（依 site/frameworks.json 取各框架 repo）
+      - run: npm run check:guides
 
   unit-test:
     name: 單元測試

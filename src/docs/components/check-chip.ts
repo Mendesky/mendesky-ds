@@ -8,7 +8,7 @@ export const checkChipSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: 'CVA：writeValue / registerOnChange / registerOnTouched / setDisabledState',
+      content: '可以跟表單雙向綁定值：表單寫入值、元件回報變更與 touched、表單切換停用狀態都支援',
     },
     {
       type: 'info',
@@ -16,7 +16,7 @@ export const checkChipSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: '折行的兩個必要配套（缺了只是半修好）：host 是 <button>，UA 預設 text-align: center 會讓多行文字逐行居中、難讀，故需 text-align: left；.chip 是 flex 容器，文字折行撐高時 16px checkbox icon 會被 flex-shrink 壓成橢圓，故 icon 需 flex: none。',
+      content: '折行的兩個必要配套（缺了只是半修好）：元件本身的元素是 <button>，UA 預設 text-align: center 會讓多行文字逐行居中、難讀，故需 text-align: left；.chip 是 flex 容器，文字折行撐高時 16px checkbox icon 會被 flex-shrink 壓成橢圓，故 icon 需 flex: none。',
     },
   ],
   customTables: [
