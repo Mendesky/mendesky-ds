@@ -40,8 +40,10 @@ export const buttonSpec: ComponentSpec = {
     focus: ['用鍵盤移到按鈕時，外圍顯示焦點框（DS 共用的焦點框樣式）。'],
     screenReader: [
       '念出按鈕上的文字與「按鈕」。圖示不會被念出。',
-      '只有圖示、沒有文字時，報讀軟體念不出名稱。這種按鈕改用 #icon-btn，它可以設定可讀名稱。',
-      '載入中沒有 loadingText 時只剩轉圈，報讀軟體念不出名稱。',
+      '只有圖示、沒有文字時，名稱只來自 ariaLabel；沒設的話報讀軟體念不出名稱，開發模式會在 console 警告。',
+      '設了 ariaLabel 時，報讀軟體只念 ariaLabel，不念按鈕上的文字，載入中的 loadingText 也不念。有文字的按鈕只在文字單獨看不出意思時才設 ariaLabel。',
+      '設了 ariaPressed 時，念出按下或未按下。ariaCurrent 設成 false 以外的值時，念出這是目前這一項。',
+      '載入中沒有 loadingText 時只剩轉圈；沒設 ariaLabel 的話，報讀軟體念不出名稱。',
       '停用但可點時，報讀軟體會念出停用狀態，但仍然可以按。按了之後出現的原因說明，報讀軟體不會念出。',
     ],
     motion: ['載入轉圈每 0.6 秒轉一圈。目前不會因為使用者設定「減少動態」而停止。'],
@@ -49,16 +51,17 @@ export const buttonSpec: ComponentSpec = {
     aria: [
       '用原生 button 元素，type="button"，放在表單裡不會送出表單。',
       '停用與載入中用原生 disabled。停用但可點時改用 aria-disabled="true"，保留焦點與點擊。',
-      '目前不能設定 aria-label、aria-pressed、aria-current。只有圖示，或需要「按下／未按下」狀態時，改用 #icon-btn。',
+      'ariaLabel、ariaPressed、ariaCurrent 分別輸出成內層 button 的 aria-label、aria-pressed、aria-current；沒設時不輸出。',
     ],
   },
   dos: [
     { text: '載入中給 loadingText（例如「儲存中…」）。只剩轉圈時，報讀軟體念不出按鈕在做什麼。' },
     { text: '要讓使用者知道為什麼不能按時，用 clickableWhenDisabled 加 disabledMessage：按鈕看起來停用，點了會在上方說明原因。' },
     { text: '需要撐滿容器寬度時用 fullWidth。', story: 'full-width' },
+    { text: '切換鈕（按一下開、再按一下關）用 ariaPressed 標出按下狀態；清單中的目前這一項用 ariaCurrent 標出。' },
   ],
   donts: [
-    { text: '只有圖示、沒有文字時不要用按鈕：報讀軟體念不出名稱。改用 #icon-btn，它可以設定可讀名稱。' },
+    { text: '只有圖示、沒有文字時，不要省略 ariaLabel：報讀軟體會念不出名稱。這種按鈕優先改用 #icon-btn；要保留按鈕外觀時，一定要設 ariaLabel。' },
     { text: '不要在按鈕裡放另一個可以點的東西（連結、按鈕、勾選框）。鍵盤與報讀軟體無法分別操作按鈕裡面的東西。' },
     { text: '不要以為設了 shortcut，按快速鍵就會觸發。它只顯示提示，快速鍵要另外綁定。' },
   ],
