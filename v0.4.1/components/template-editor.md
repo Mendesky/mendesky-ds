@@ -1,0 +1,88 @@
+# Template Editor（template-editor）
+
+分組：表單元件
+
+含範本變數的可編輯文字欄位（如信件內容、備註）。與 [Textarea](textarea.md) 功能相似但支援 inline badge。
+
+## 用法
+
+### Angular（v0.6.0）
+
+`app-template-editor`
+
+contenteditable 富文字編輯器，%PascalCase% 範本變數渲染為藍色 badge。template variables minRows · placeholder errorMessage disabled · (templateChange) (textChange)
+
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/template-editor--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `template` | `string` | `''` | 範本字串，含 %key% 標記，例：「附上 %DocumentTitle% 的 %ItemNames% 清單…」；有哪些變數由使用端定義 |
+| `variables` | `Record<string, string>` | `{}` | 變數 map，key 對應 %key% 標記，值為藍色 badge 顯示文字 |
+| `variableDefs` | `TemplateVarDef[]` | `[]` | 變數定義陣列；有 options 的變數渲染為可點擊的 select chip（.tpl--select），點擊展開 app-action-menu 供切換；沒有 options 的維持 readonly badge。def 查找含 parent-key fallback：variant chip（%Key\|N%，後綴允許英數）找不到 exact def 時繼承 %Key% 的 def（glance 變體不需逐一建 def，插入面板也不會被 variant 灌噪音）。defs 動態變更（語意簽章 key+options 數變化）時自動重渲染做 plain↔select 升降級；編輯中擱置、blur 後補渲染 |
+| `minRows` | `number` | `2` | 最小顯示行數（1 ≈ input 高度，4–5 ≈ textarea 高度） |
+| `placeholder` | `string` | `''` | 空白時顯示的佔位文字（CSS ::before 模擬） |
+| `errorMessage` | `string` | `''` | 錯誤訊息；有值時切換 error 狀態（appErrorTooltip） |
+| `disabled` | `boolean` | `false` | 禁用狀態（contenteditable="false"） |
+| `(templateChange)` | `EventEmitter<string>` |  | 使用者編輯後 emit 帶 %key% 標記的 template 字串 |
+| `(textChange)` | `EventEmitter<string>` |  | 使用者編輯後 emit 純文字（用於 filled 驗證） |
+| `(optionSelect)` | `EventEmitter<{ key: string; value: string }>` |  | select chip 選項切換後 emit；key 為變數 key，value 為所選 option.value（例：fuzzy\|precise） |
+| `varContexts` | `TemplateVarContext[]` | `[]` | 變數面板頂部的兩層選擇清單（先選 context，再選它底下的 option）；空陣列時不顯示下拉。兩層的文字由使用端以 TEMPLATE_VAR_CONTEXT_TEXT 提供 |
+| `defaultContextId` | `string \| undefined` |  | 變數面板預設選取的 context id |
+| `defaultOptionId` | `string \| undefined` |  | 變數面板預設選取的 option id |
+| `(contextChange)` | `EventEmitter<{ contextId: string; optionId: string }>` |  | 變數面板切換 context／option 時觸發，讓父層重算變數定義與值 |
+| `(blurChange)` | `EventEmitter<string>` |  | 失焦時送出目前的範本字串，供父層在失焦後儲存 |
+
+#### 程式碼範例
+
+**搭配 app-field，收件者（單一變數）**
+
+```html
+<app-field label="收件者" [required]="true">
+  <app-template-editor
+    template="%RecipientName%"
+    [variables]="templateVars()"
+    [minRows]="1"
+    placeholder="請輸入收件者"
+    [errorMessage]="fieldError('letter-to')"
+    (textChange)="onTextChange('letter-to', $event)">
+  </app-template-editor>
+</app-field>
+```
+
+**多變數混合範本（信件內容）**
+
+```html
+<app-field label="信件內容" [required]="true">
+  <app-template-editor
+    [template]="letterContentTemplate"
+    [variables]="templateVars()"
+    [minRows]="5"
+    placeholder="請輸入信件內容"
+    [errorMessage]="fieldError('letter-content')"
+    (textChange)="onTextChange('letter-content', $event)">
+  </app-template-editor>
+</app-field>
+
+<!-- TS: templateVars = computed(() => ({
+  DocumentTitle: this.documentTitle,
+  ItemNames: this.itemNames,
+})) -->
+```
+
+#### Angular 注意事項
+
+- 變數面板的分組標題與順序用 TEMPLATE_VAR_GROUPS 提供，兩層選擇器的文字用 TEMPLATE_VAR_CONTEXT_TEXT 提供，兩者皆在 app config 以 provider 設定一次。
+
+## 注意事項
+
+- %key% 標記渲染為藍色圓角 badge（background: rgba(58,156,205,0.1)），contenteditable="false" 讓 badge 成原子元素（整刪不能部分編輯）
+- variableDefs 中有 options 的變數渲染為 .tpl--select chip（右側顯示下拉 caret），點擊展開 [Action Menu](action-menu.md)；切換後以 atomic replace 更新該 chip textContent，不影響旁邊的純文字，並 emit optionSelect 事件
+- 使用者刪除 badge 後轉為普通文字，失去自動同步效果
+- 打 %% 觸發 inline autocomplete：游標旁彈出 template-var-panel，可打中文/英文過濾、↑↓ 移動、Enter/點擊 選取插入 chip（ⓘ 面板亦保留）；打字輸入已知 %Key% 也會即時轉 chip
+- 插入 chip 以明確 Range 插入「chip + 後置 text node」，確保末尾 contenteditable=false chip 之後有游標落點（勿用 execCommand insertHTML，末尾會卡游標）
+- variables 變更時只更新 span.textContent，不重建 innerHTML（保留游標位置）
+- paste 事件攔截，只貼純文字防 XSS
+- 支援 Enter 斷行（white-space: pre-wrap）
+- 變數清單與分組由使用端定義：變數面板的分組標題與順序、兩層選擇器的文字，都由使用端在 app 層設定一次
