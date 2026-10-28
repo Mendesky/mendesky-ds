@@ -86,7 +86,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       aria: [
         'role="dialog"',
         'aria-modal="true"',
-        'aria-labelledby 指向 modal 標題 id',
+        'aria-labelledby 指向 modal 標題 id；沒有可見標題時（例如搜尋視窗）改用 aria-label，兩者只用一個',
         'savingLocked 時加 aria-busy="true"',
       ],
     },
@@ -810,7 +810,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       '以導航是否自由跳轉判斷 wizard/modal → 判準是 write API 時機，不是導航自由度',
       '以 modal 大小或「有沒有 CTA」判斷原型 → 應以 dismissal + API 時機 + 目的三軸判斷',
     ],
-    a11y: 'Dialog：焦點 trap，關閉後焦點回觸發按鈕；ESC 行為見 modal.dismissal.readOnlyBlocking。Wizard：Tab trap；每步驟切換焦點移至步驟標題/第一欄位；提交中全鎖（mutation.feedback）。Modal：Tab trap；多頁切換焦點移至頁標題；dirty 關閉二次確認。三者皆 aria-modal="true" + aria-labelledby。',
+    a11y: 'Dialog：焦點 trap，關閉後焦點回觸發按鈕；ESC 行為見 modal.dismissal.readOnlyBlocking。Wizard：Tab trap；每步驟切換焦點移至步驟標題/第一欄位；提交中全鎖（mutation.feedback）。Modal：Tab trap；多頁切換焦點移至頁標題；dirty 關閉二次確認。三者皆 aria-modal="true" + aria-labelledby（沒有可見標題時改用 aria-label）。',
     relatedComponents: [
       '#dialog',
       '#modal-shell',

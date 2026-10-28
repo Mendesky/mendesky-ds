@@ -52,7 +52,8 @@ Modal 能不能點背景、按 ESC、按 X 關閉，取決於「關掉會不會�
   (backdropClick)="close()"
   (escapePress)="requestClose()"
 >
-  <!-- header：標題 + 關閉鈕 -->
+  <!-- header：標題 + 關閉鈕。標題的 id 要跟 ariaLabelledBy 一樣，報讀軟體開窗時才念得出標題 -->
+  <h2 id="edit-modal-title">編輯資料</h2>
   <app-modal-close-btn [disabled]="saving()" (closeClick)="requestClose()"></app-modal-close-btn>
   <!-- body、footer -->
 </app-modal-shell>
