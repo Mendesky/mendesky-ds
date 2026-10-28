@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-modal-close-btn`
 
 ariaLabel · disabled · (closeClick) — 統一的 modal 關閉 X 鈕（No-X-Cancel + propClass="Modal"）
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/modal-close-btn--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/modal-close-btn--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

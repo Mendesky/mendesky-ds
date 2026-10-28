@@ -20,13 +20,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-input`
 
-size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage errorPosition: top|bottom · [disabled] [readonly] · (valueChange) (blur)
+size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage errorPosition: top|bottom · [disabled] [readonly] · ariaLabel autocomplete name inputId · (valueChange) (blur) (passwordVisibilityChange)
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/input--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/input--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -42,8 +42,13 @@ size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage err
 | `errorPosition` | `'top' \| 'bottom'` | `'bottom'` | 錯誤 tooltip 顯示方向（浮動，不佔版面） |
 | `disabled` | `boolean` | `false` | 禁用狀態 |
 | `readonly` | `boolean` | `false` | 唯讀狀態：不可編輯、隱藏清空鈕，但文字維持正常色、可聚焦選取（展示型欄位用，如分享連結）。與 disabled 不同——disabled 文字轉淡灰且不可聚焦。 |
+| `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，落在內層 input 的 aria-label。直接寫在有 label 的 app-field 裡不用設，會自動念欄位標題；沒有欄位標題、或包在別的元件裡時才設（例如表格列內、只有圖示標示的輸入框）。設了就只念它，不念欄位標題。要寫 ariaLabel，不要寫 aria-label：aria-label 會留在外框上，輸入框還是沒有名稱。 |
+| `autocomplete` | `string` | `''` | 透傳到內層 input 的 autocomplete。本站登入用 'username'／'current-password'；別的平台的帳密（不是登入本站用的）帳號欄用 'off'、密碼欄用 'new-password'，避免瀏覽器把本站帳密填進去。空字串不輸出。 |
+| `name` | `string` | `''` | 透傳到內層 input 的 name；空字串不輸出 |
+| `inputId` | `string` | `''` | 內層 input 的 id，給外面自己寫的 label for 指向。不要在 app-input 上寫 id：它會落在外框上，指向它的 label 連不到輸入框。 |
 | `(valueChange)` | `EventEmitter<string>` |  | 值變更事件 |
 | `(blur)` | `EventEmitter<string>` |  | blur 事件，帶出當前值；用於需要 blur 後觸發邏輯的場景（如地址郵遞區號 lookup） |
+| `(passwordVisibilityChange)` | `EventEmitter<boolean>` |  | type='password' 時按眼睛按鈕發出；true＝切成明文。用於明文不放在前端、切成明文才向後端取回的欄位 |
 
 #### 程式碼範例
 
@@ -76,19 +81,35 @@ size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage err
 <app-input type="date" size="M" (valueChange)="onDateChange($event)"></app-input>
 ```
 
-**唯讀展示（如分享連結，不可編輯但可讀可選取）**
+**唯讀展示（如分享連結，不可編輯但可讀可選取）；沒有欄位標題時用 ariaLabel 給名稱**
 
 ```html
-<app-input size="M" [initialValue]="shareUrl" [readonly]="true"></app-input>
+<app-input size="M" ariaLabel="分享連結" [initialValue]="shareUrl" [readonly]="true"></app-input>
 ```
 
-### Vue（試做）（v0.2.0）
+**別的平台的帳密（不讓瀏覽器填入本站帳密），切成明文時才取回密碼**
+
+```html
+<app-field label="服務平台帳號">
+  <app-input placeholder="請輸入帳號" autocomplete="off" (blur)="onAccountChange($event)"></app-input>
+</app-field>
+<app-field label="服務平台密碼">
+  <app-input
+    type="password"
+    placeholder="請輸入密碼"
+    autocomplete="new-password"
+    (passwordVisibilityChange)="onPasswordVisibilityChange($event)"
+  ></app-input>
+</app-field>
+```
+
+### Vue（試做）（v0.3.0）
 
 `<DsInput>`
 
-size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage errorPosition: top|bottom · disabled readonly · @value-change @blur
+size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage errorPosition: top|bottom · disabled readonly · ariaLabel autocomplete name inputId · @value-change @blur @password-visibility-change
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/input--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/input--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -104,8 +125,13 @@ size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage err
 | `errorPosition` | `'top' \| 'bottom'` | `'bottom'` | 錯誤 tooltip 顯示方向（浮動，不佔版面） |
 | `disabled` | `boolean` | `false` | 禁用狀態 |
 | `readonly` | `boolean` | `false` | 唯讀狀態：不可編輯、隱藏清空鈕，但文字維持正常色、可聚焦選取（展示型欄位用，如分享連結）。與 disabled 不同——disabled 文字轉淡灰且不可聚焦。 |
+| `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，落在內層 input 的 aria-label。直接寫在有 label 的 DsField 裡不用設，會自動念欄位標題；沒有欄位標題、或包在別的元件裡時才設（例如表格列內的輸入框）。設了就只念它，不念欄位標題。 |
+| `autocomplete` | `string` | `''` | 透傳到內層 input 的 autocomplete。本站登入用 'username'／'current-password'；別的平台的帳密（不是登入本站用的）帳號欄用 'off'、密碼欄用 'new-password'，避免瀏覽器把本站帳密填進去。空字串不輸出。 |
+| `name` | `string` | `''` | 透傳到內層 input 的 name；空字串不輸出 |
+| `inputId` | `string` | `''` | 內層 input 的 id，給外面自己寫的 label for 指向。不要在 DsInput 上寫 id：它會落在外框上，指向它的 label 連不到輸入框。 |
 | `@value-change` | `(value: string) => void` |  | 值變更事件 |
 | `@blur` | `(value: string) => void` |  | blur 事件，帶出當前值；用於需要 blur 後觸發邏輯的場景（如地址郵遞區號 lookup） |
+| `@password-visibility-change` | `(visible: boolean) => void` |  | type='password' 時按眼睛按鈕發出；true＝切成明文。用於明文不放在前端、切成明文才向後端取回的欄位 |
 
 #### 程式碼範例
 
@@ -138,10 +164,26 @@ size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage err
 <DsInput type="date" size="M" @value-change="onDateChange($event)"></DsInput>
 ```
 
-**唯讀展示（如分享連結，不可編輯但可讀可選取）**
+**唯讀展示（如分享連結，不可編輯但可讀可選取）；沒有欄位標題時用 ariaLabel 給名稱**
 
 ```vue
-<DsInput size="M" :initialValue="shareUrl" :readonly="true"></DsInput>
+<DsInput size="M" ariaLabel="分享連結" :initialValue="shareUrl" :readonly="true"></DsInput>
+```
+
+**別的平台的帳密（不讓瀏覽器填入本站帳密），切成明文時才取回密碼**
+
+```vue
+<DsField label="服務平台帳號">
+  <DsInput placeholder="請輸入帳號" autocomplete="off" @blur="onAccountChange($event)"></DsInput>
+</DsField>
+<DsField label="服務平台密碼">
+  <DsInput
+    type="password"
+    placeholder="請輸入密碼"
+    autocomplete="new-password"
+    @password-visibility-change="onPasswordVisibilityChange($event)"
+  ></DsInput>
+</DsField>
 ```
 
 ## 無障礙

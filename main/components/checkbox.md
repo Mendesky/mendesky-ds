@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-checkbox`
 
 [checked] [indeterminate] · size: s|m|l · label · ariaLabel · [disabled] · (checkedChange) · CVA（ngModel）
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/checkbox--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/checkbox--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -45,13 +45,13 @@
 <app-checkbox size="s" [(ngModel)]="selected" ariaLabel="選取這一列"></app-checkbox>
 ```
 
-### Vue（試做）（v0.2.0）
+### Vue（試做）（v0.3.0）
 
 `<DsCheckbox>`
 
 checked indeterminate · size: s|m|l · label · ariaLabel · disabled · @checked-change · v-model
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/checkbox--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/checkbox--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-upload-dropzone`
 
 上傳拖放區標準元件，含動畫插畫 + 檔案類型/大小驗證。所有上傳介面統一使用。
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/upload-dropzone--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/upload-dropzone--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

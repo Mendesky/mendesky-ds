@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-autocomplete`
 
 size: S|M|L · placeholder options: AutocompleteOption[] value errorMessage errorPosition: top|bottom · [disabled] [singleSelect] [clearable] · (selectionChange)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/autocomplete--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/autocomplete--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

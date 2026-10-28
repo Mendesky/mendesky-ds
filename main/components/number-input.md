@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-number-input`
 
 size: S|M|L · placeholder decimalPlaces min max step initialValue suffix errorMessage errorPosition: top|bottom · [disabled] [allowEmpty] · (valueChange: number|null) · (valueCommit: number|null)
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/number-input--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/number-input--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

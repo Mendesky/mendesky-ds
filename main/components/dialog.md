@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-dialog`
 
 [isOpen] header content propClass: Warning|Normal confirmText confirmIcon showCancel cancelText loading · (cancel) (confirm)
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/dialog--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/dialog--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -61,13 +61,13 @@
 ></app-dialog>
 ```
 
-### Vue（試做）（v0.2.0）
+### Vue（試做）（v0.3.0）
 
 `<DsDialog>`
 
 isOpen header content propClass: Warning|Normal confirmText confirmIcon showCancel cancelText loading · @cancel @confirm
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/dialog--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/dialog--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

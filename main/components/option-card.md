@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-option-card`
 
 [value] [label] [description] [illustration]: SVG string · [selected] [disabled] — 四態（rest 全彩插圖 / hover 浮起+插圖↔說明 crossfade 150ms / selected 填色+check / disabled 灰階）
 
-[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/option-card--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/option-card--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

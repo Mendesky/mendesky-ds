@@ -34,7 +34,7 @@
 
 - 載入中記得給 `loadingText`，像「儲存中…」這樣。不然畫面上只剩一個轉圈，用報讀軟體的人根本不知道按鈕在忙什麼。
 - 按鈕暫時不能用、又想讓使用者知道原因，就打開 `clickableWhenDisabled`，再配一句 `disabledMessage`。按鈕一樣是灰的，但點下去會在上方跳出你寫的原因，總比讓人對著一顆沒反應的按鈕猛點好。
-- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/iframe.html?id=button--full-width&viewMode=story)）
+- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/iframe.html?id=button--full-width&viewMode=story)）
 - 做成切換鈕（按一下開、再按一下關）時，用 `ariaPressed` 告訴報讀軟體現在是按下還是沒按下。如果按鈕代表清單裡「目前這一項」，改用 `ariaCurrent`。
 
 ### 不要這樣做
@@ -45,13 +45,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-button`
 
-variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · [disabled] [fullWidth] [loading] · [clickableWhenDisabled] [disabledMessage] · (btnClick) (disabledClick)
+variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · [disabled] [fullWidth] [loading] · [clickableWhenDisabled] [disabledMessage] · ariaLabel [ariaPressed] [ariaCurrent] · (btnClick) (disabledClick)
 
-[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -71,6 +71,9 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 | `shortcut` | `string` | `''` | 鍵盤快速鍵提示（e.g. "⌘N"），顯示在按鈕右側。主要用於 action-menu 選項，參考 Fluent UI secondaryContent 模式。只顯示提示，不綁定快速鍵行為。 |
 | `clickableWhenDisabled` | `boolean` | `false` | true 時改用 aria-disabled 取代原生 disabled，讓點擊事件仍可穿透。適用於「需顯示 disabled 原因」的主動作按鈕。 |
 | `disabledMessage` | `string \| string[]` | `[]` | clickableWhenDisabled=true 且 disabled=true 時，點擊按鈕上方顯示的 tooltip 訊息。單條傳 string，多條傳 string[]（以 bullet list 呈現）。 |
+| `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，套在內層 button 的 aria-label。只有圖示、沒有文字時必填；沒填時開發模式會在 console 警告。 |
+| `ariaPressed` | `boolean \| null` | `null` | 切換鈕的按下／未按下狀態，套在內層 button 的 aria-pressed。null 表示不是切換鈕，不輸出。 |
+| `ariaCurrent` | `ButtonAriaCurrent \| null` | `null` | 清單或導覽中的「目前這一項」，套在內層 button 的 aria-current。值為 'page' \| 'step' \| 'location' \| 'date' \| 'time' \| 'true' \| 'false'；null 不輸出。 |
 | `(btnClick)` | `EventEmitter` |  | 正常點擊事件輸出 |
 | `(disabledClick)` | `EventEmitter` |  | clickableWhenDisabled=true 且 disabled=true 時，點擊觸發。父層監聽後可執行 scroll 到第一個欄位錯誤等操作。 |
 | `leftLabel` | `BtnLabelConfig \| null` | `null` | leftIcon 之後、文字之前的 app-label；null 為不顯示。格式 { text, color, size? } |
@@ -94,17 +97,41 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 ></app-button>
 ```
 
+**只有圖示時給名稱**
+
+```html
+<app-button
+  variant="outlined"
+  color="neutral"
+  size="XS"
+  leftIcon="LeftArrow"
+  ariaLabel="上一頁"
+  (btnClick)="goToPrevPage()"
+></app-button>
+```
+
+**清單中標示目前這一項**
+
+```html
+<app-button
+  [text]="item.label"
+  [ariaCurrent]="item.id === currentId ? 'true' : null"
+  (btnClick)="select(item.id)"
+></app-button>
+```
+
 #### Angular 注意事項
 
+- **注意**：ariaLabel 要寫成元件的設定（ariaLabel="…" 或 [ariaLabel]="…"）。直接寫 aria-label 或 [attr.aria-label] 會留在外層 app-button 上，到不了內層 button，報讀軟體讀不到。
 - app-button 用 Angular 預設的樣式封裝（Emulated），內部的 .btn 等 class 帶有元件專屬的屬性選擇器；使用端要覆寫按鈕內部樣式，寫在使用端元件自己的樣式裡碰不到這些 class；要寫在全域樣式表並讓權重高於元件內的規則，或在元件樣式裡用 ::ng-deep。
 
-### Vue（試做）（v0.2.0）
+### Vue（試做）（v0.3.0）
 
 `<DsButton>`
 
-variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · disabled fullWidth loading · clickableWhenDisabled disabledMessage · @btn-click @disabled-click
+variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · disabled fullWidth loading · clickableWhenDisabled disabledMessage · ariaLabel ariaPressed ariaCurrent · @btn-click @disabled-click
 
-[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -124,6 +151,9 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 | `shortcut` | `string` | `''` | 鍵盤快速鍵提示（e.g. "⌘N"），顯示在按鈕右側。主要用於 action-menu 選項，參考 Fluent UI secondaryContent 模式。只顯示提示，不綁定快速鍵行為。 |
 | `clickableWhenDisabled` | `boolean` | `false` | true 時改用 aria-disabled 取代原生 disabled，讓點擊事件仍可穿透。適用於「需顯示 disabled 原因」的主動作按鈕。 |
 | `disabledMessage` | `string \| string[]` | `[]` | clickableWhenDisabled=true 且 disabled=true 時，點擊按鈕上方顯示的 tooltip 訊息。單條傳 string，多條傳 string[]（以 bullet list 呈現）。 |
+| `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，套在內層 button 的 aria-label。只有圖示、沒有文字時必填；沒填時開發模式會在 console 警告。寫成 aria-label 屬性也會被當成這個 prop，落在內層 button。 |
+| `ariaPressed` | `boolean \| null` | `null` | 切換鈕的按下／未按下狀態，套在內層 button 的 aria-pressed。null 表示不是切換鈕，不輸出。 |
+| `ariaCurrent` | `ButtonAriaCurrent \| null` | `null` | 清單或導覽中的「目前這一項」，套在內層 button 的 aria-current。值為 'page' \| 'step' \| 'location' \| 'date' \| 'time' \| 'true' \| 'false'；null 不輸出。 |
 | `@btn-click` | `() => void` |  | 正常點擊事件輸出 |
 | `@disabled-click` | `() => void` |  | clickableWhenDisabled=true 且 disabled=true 時，點擊觸發。父層監聽後可執行 scroll 到第一個欄位錯誤等操作。 |
 | `leftLabel` | `BtnLabelConfig \| null` | `null` | leftIcon 之後、文字之前的 DsLabel；null 為不顯示。格式 { text, color, size? } |
@@ -144,6 +174,19 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
   :disabled="false"
   :fullWidth="false"
   @btn-click="onConfirm()"
+></DsButton>
+```
+
+**只有圖示時給名稱**
+
+```vue
+<DsButton
+  variant="outlined"
+  color="neutral"
+  size="XS"
+  leftIcon="LeftArrow"
+  ariaLabel="上一頁"
+  @btn-click="goToPrevPage()"
 ></DsButton>
 ```
 

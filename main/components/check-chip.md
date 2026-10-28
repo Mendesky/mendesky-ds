@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-check-chip`
 
-text size: s|m|xs · theme: default|transparent|transparent-grey · CVA 控制 selected/isDisabled · 長文字自動折行（不撐破容器）
+text size: s|m|xs · theme: default|transparent|transparent-grey · CVA 控制 selected/isDisabled · ariaLabel · 選取狀態自動輸出 aria-pressed · 長文字自動折行（不撐破容器）
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/check-chip--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/check-chip--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -22,6 +22,7 @@ text size: s|m|xs · theme: default|transparent|transparent-grey · CVA 控制 s
 | `size` | `CheckChipSize` | `'s'` | 'm' \| 's' \| 'xs' |
 | `theme` | `CheckChipTheme` | `'default'` | 'default' \| 'transparent' \| 'transparent-grey' |
 | `disabled` | `boolean` | `false` | template 直接 disable（權限 gating 用；CVA setDisabledState 之外的 additive 入口） |
+| `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，套在內層 button 的 aria-label；沒設時念 text。只在 text 單獨看不出意思時才設。 |
 
 #### 程式碼範例
 
@@ -48,6 +49,7 @@ text size: s|m|xs · theme: default|transparent|transparent-grey · CVA 控制 s
 
 #### Angular 注意事項
 
+- **注意**：ariaLabel 要寫成元件的設定（ariaLabel="…" 或 [ariaLabel]="…"）。直接寫 aria-label 或 [attr.aria-label] 會留在外層 app-check-chip 上，到不了內層 button，報讀軟體讀不到。
 - app-check-chip 實作 ControlValueAccessor（writeValue／registerOnChange／registerOnTouched／setDisabledState），可用 ngModel 或 formControlName 綁定。
 
 ## 無障礙

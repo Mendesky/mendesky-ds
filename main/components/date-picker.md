@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-date-picker`
 
 mode: year|month|day · size: S|M|L · minYear maxYear · [maxDate] [clearable] [emptyLabel] · month/day 模式點標題年份展開年份清單快速跳年 · CVA 控制 value
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/date-picker--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/date-picker--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

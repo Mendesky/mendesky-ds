@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-icon`
 
 name（見 @mendesky/ds 的 ICON_REGISTRY）· size: 12|16|24|32|36|48 · 顏色透過父層 color CSS 或 style='color:...'
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/icon--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/icon--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -38,13 +38,13 @@ name（見 @mendesky/ds 的 ICON_REGISTRY）· size: 12|16|24|32|36|48 · 顏色
 </div>
 ```
 
-### Vue（試做）（v0.2.0）
+### Vue（試做）（v0.3.0）
 
 `<DsIcon>`
 
 name（見 ICON_REGISTRY）· size: 12|16|24|32|36|48 · 顏色透過父層 color CSS 或 style='color:...'
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/icon--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/icon--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

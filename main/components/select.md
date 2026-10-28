@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-select`
 
 options: SelectOption[] · placeholder size: S|M|L · [clearable] errorMessage errorPosition: top|bottom · CVA 控制 value/isDisabled
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/select--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/select--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -57,13 +57,13 @@ departmentOptions: SelectOption[] = [
 
 - app-select 實作 CVA（ControlValueAccessor），可直接接 formControlName 或 [(ngModel)]。
 
-### Vue（試做）（v0.2.0）
+### Vue（試做）（v0.3.0）
 
 `<DsSelect>`
 
 options: SelectOption[] · placeholder size: S|M|L · clearable errorMessage errorPosition: top|bottom · v-model 控制值 · disabled
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/select--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/select--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

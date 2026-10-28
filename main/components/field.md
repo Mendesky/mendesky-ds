@@ -6,21 +6,21 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-field`
 
 label hint [required] [emphasis]
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/field--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/field--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `label` | `string` | `''` | 標題文字（中粗 500，v0.1.9 起）；只放欄位名稱，不含單位或說明；空字串時不顯示標題列 |
+| `label` | `string` | `''` | 標題文字（中粗 500，v0.1.9 起）；只放欄位名稱，不含單位或說明；空字串時不顯示標題列。直接寫在裡面的 app-input 會自動用它當報讀名稱；包在別的元件裡的不會 |
 | `hint` | `string` | `''` | 標題旁的說明文字（一般 400、淺灰），排在標題與「必填」之間；放單位（元）、限制、提示，盡量精簡 |
-| `required` | `boolean` | `false` | 顯示「必填」badge（SoftBlue，XXS） |
+| `required` | `boolean` | `false` | 顯示「必填」badge（SoftBlue，XXS）；直接寫在裡面的 app-input 同時帶 aria-required="true" |
 | `emphasis` | `boolean` | `false` | 強調樣式：label 加粗（700）+ 標題色（--text/title）+ label 下方 1px 分隔線；用於唯讀展示區塊（如信件的收件人 / 說明） |
 
 #### 程式碼範例
@@ -61,21 +61,21 @@ label hint [required] [emphasis]
 
 - app-field 用 <ng-content> 投影欄位：把 app-input、app-textarea、app-autocomplete 等直接寫在 <app-field> 標籤內即可。
 
-### Vue（試做）（v0.2.0）
+### Vue（試做）（v0.3.0）
 
 `<DsField>`
 
 label hint required emphasis
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.2.0/components/?path=/docs/field--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/?path=/docs/field--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `label` | `string` | `''` | 標題文字（中粗 500，v0.1.9 起）；只放欄位名稱，不含單位或說明；空字串時不顯示標題列 |
+| `label` | `string` | `''` | 標題文字（中粗 500，v0.1.9 起）；只放欄位名稱，不含單位或說明；空字串時不顯示標題列。直接寫在插槽裡的 DsInput 會自動用它當報讀名稱；包在別的元件裡的不會 |
 | `hint` | `string` | `''` | 標題旁的說明文字（一般 400、淺灰），排在標題與「必填」之間；放單位（元）、限制、提示，盡量精簡 |
-| `required` | `boolean` | `false` | 顯示「必填」badge（SoftBlue，XXS） |
+| `required` | `boolean` | `false` | 顯示「必填」badge（SoftBlue，XXS）；直接寫在插槽裡的 DsInput 同時帶 aria-required="true" |
 | `emphasis` | `boolean` | `false` | 強調樣式：label 加粗（700）+ 標題色（--text/title）+ label 下方 1px 分隔線；用於唯讀展示區塊（如信件的收件人 / 說明） |
 
 #### 程式碼範例

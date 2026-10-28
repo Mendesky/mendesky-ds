@@ -16,13 +16,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-toggle`
 
-[checked] [disabled] · (checkedChange)
+[checked] [disabled] · ariaLabel · (checkedChange)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/toggle--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/toggle--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -30,6 +30,7 @@
 | --- | --- | --- | --- |
 | `checked` | `boolean` | `false` | 開關狀態（雙向綁定用 [(checked)]） |
 | `disabled` | `boolean` | `false` | 禁用狀態（opacity 0.5，不可點擊） |
+| `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，套在內層 switch 的 aria-label。開關本身沒有文字，一律要給；旁邊的文字會隨開關改變時，給固定名稱。 |
 | `(checkedChange)` | `EventEmitter<boolean>` |  | 狀態切換時觸發，回傳新值 |
 
 #### 程式碼範例
@@ -37,20 +38,24 @@
 **單向綁定**
 
 ```html
-<app-toggle [checked]="isEnabled" (checkedChange)="isEnabled = $event"></app-toggle>
+<app-toggle [checked]="isEnabled" ariaLabel="Email 通知" (checkedChange)="isEnabled = $event"></app-toggle>
 ```
 
 **雙向綁定**
 
 ```html
-<app-toggle [(checked)]="isEnabled"></app-toggle>
+<app-toggle [(checked)]="isEnabled" ariaLabel="Email 通知"></app-toggle>
 ```
 
 **禁用**
 
 ```html
-<app-toggle [checked]="isEnabled" [disabled]="true"></app-toggle>
+<app-toggle [checked]="isEnabled" [disabled]="true" ariaLabel="Email 通知"></app-toggle>
 ```
+
+#### Angular 注意事項
+
+- **注意**：ariaLabel 要寫成元件的設定（ariaLabel="…" 或 [ariaLabel]="…"）。直接寫 aria-label 或 [attr.aria-label] 會留在外層 app-toggle 上，到不了內層 button，報讀軟體讀不到。
 
 ## 無障礙
 

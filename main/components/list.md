@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-list`
 
 level: 1|2|3|4 · title value itemNumber · [showItemNumber] [showTitle] [showValue] [hasChildren] status: Default|Hover
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/list--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/list--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

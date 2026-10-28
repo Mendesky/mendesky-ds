@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.5.0）
+### Angular（v0.6.0）
 
 `app-keyboard-help`
 
 isOpen · shortcuts: ShortcutGroup[] · (close) · 內建搜尋篩選 · 基於 modal-shell 建構
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.5.0/components/?path=/docs/keyboard-help--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/keyboard-help--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
