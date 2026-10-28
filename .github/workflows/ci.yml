@@ -6,7 +6,7 @@ name: CI
 #   dist        dist/ 是否跟 src/ 的建置結果一致（dist/ 進版控，使用端安裝時不會建置）
 #   check-docs  說明檢查：元件規格、token、字型、互動原則一致；含檢查腳本自身的測試
 #   unit-test   工具程式的測試（Vitest，真的 Chromium）
-#   smoke       建置文件網站，逐頁打開指南確認畫得出來、沒有錯誤
+#   smoke       建置文件網站，逐頁打開指南確認畫得出來、沒有錯誤；再檢查給 AI 讀的 llms.txt 與元件檔
 on:
   push:
   pull_request:
@@ -91,3 +91,5 @@ jobs:
       - run: node --test scripts/smoke-guides.browser.mjs
       - run: DOCS_REPO_BASE=/ bash scripts/build-site.sh main
       - run: node scripts/smoke-guides.mjs site/.vitepress/dist /main/
+      # 給 AI 讀的檔案：llms.txt 列出每個元件、每個元件都有 .md、連結都通、沒有漏值
+      - run: node scripts/check-llms.mjs site/.vitepress/dist

@@ -1,11 +1,16 @@
 import { defineConfig } from 'vitepress';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { exportCoreDocs } from '../../scripts/export-docs.mjs';
+import { buildLlmsFiles } from '../../scripts/export-llms.mjs';
+import { loadFrameworkDocs } from '../../scripts/fetch-framework-docs.mjs';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 // 元件頁的側欄：依規格的分組列出全部元件
 const GROUPS = ['互動元件', '表單元件', '浮層元件', '展示元件', '工具'];
-const specs = exportCoreDocs(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')).specs.map((s: { spec: { id: string; name: string; group: string } }) => s.spec);
+const specs = exportCoreDocs(root).specs.map((s: { spec: { id: string; name: string; group: string } }) => s.spec);
 const componentSidebar = [
   { text: '元件', items: [{ text: '總覽', link: '/components/' }] },
   ...GROUPS.map((g) => ({
@@ -34,6 +39,17 @@ export default defineConfig({
   base,
   srcDir: '.',
   outDir: '.vitepress/dist',
+  // 網站建好之後，另外產生給 AI 讀的檔案：llms.txt 與每個元件一份 components/<id>.md（scripts/export-llms.mjs），
+  // 跟網頁用同一份規格與框架用法，隨這個版本一起發布。產生失敗就讓建置失敗，不吞錯誤：
+  // 少了這些檔案，用 DS 做畫面的 AI 工具會讀不到或讀到別的版本。本機開發（site:dev）不會執行。
+  async buildEnd(siteConfig) {
+    const files = buildLlmsFiles({ specs, frameworks: await loadFrameworkDocs(root), version, groups: GROUPS });
+    for (const [rel, content] of Object.entries(files)) {
+      const file = path.join(siteConfig.outDir, rel);
+      mkdirSync(path.dirname(file), { recursive: true });
+      writeFileSync(file, content);
+    }
+  },
   head: [
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],

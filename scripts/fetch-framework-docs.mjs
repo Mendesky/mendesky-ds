@@ -62,7 +62,8 @@ export async function loadFrameworkDocs(root) {
       : mod.exportDocs(dir).components.map((c) => pickApi(c.doc));
     // 互動原則的框架做法：沒有提供的框架（或舊版）就是沒有
     const patternNotes = mod.exportFrameworkPatternNotes ? mod.exportFrameworkPatternNotes(dir) : {};
-    result[name] = { label: fw.label, ref: fw.ref, storybook: fw.storybook, docs, patternNotes, stories: await loadStories(fw.storybook) };
+    // repo 給 llms.txt 的「框架」一節列出原始碼位置
+    result[name] = { label: fw.label, ref: fw.ref, repo: fw.repo, storybook: fw.storybook, docs, patternNotes, stories: await loadStories(fw.storybook) };
   }
   return result;
 }

@@ -41,6 +41,7 @@
     "check:dist": "node scripts/check-dist.mjs",
     "check:styles": "node scripts/check-component-styles.mjs",
     "check:guides": "node scripts/check-guides.mjs",
+    "check:llms": "node scripts/check-llms.mjs",
     "site:dev": "vitepress dev site",
     "site:build": "bash scripts/build-site.sh",
     "smoke:guides": "node scripts/smoke-guides.mjs"
