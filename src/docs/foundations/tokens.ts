@@ -528,7 +528,7 @@ export const DS_TOKENS: TokenGroup[] = [
       {
         name: '--font-family\\/inter',
         value: "'Noto Sans TC', sans-serif",
-        desc: '已淘汰（2026-10-05）：Inter 從未被載入，改指 Noto Sans TC；新程式請用 --font-family/noto 與 noto-* class',
+        desc: '已淘汰（2026-10-05）：Inter 從未被載入，改指 Noto Sans TC；新程式請用 --font-family/noto 與 `noto-*` class',
       },
       {
         name: '--font-family\\/mono',

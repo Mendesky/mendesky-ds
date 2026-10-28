@@ -52,7 +52,7 @@ const A11Y_LABEL: Record<string, string> = { keyboard: '鍵盤', focus: '焦點'
     <div v-for="fw in frameworkNotes" :key="fw.name" class="ds-pattern-fw" data-testid="pattern-framework-notes" :data-framework="fw.name">
       <p><strong>{{ fw.label }} 做法</strong></p>
       <ul>
-        <li v-for="(n, i) in fw.notes" :key="i" :class="{ 'ds-pattern-fw__warn': isWarn(n) }">{{ noteText(n) }}</li>
+        <li v-for="(n, i) in fw.notes" :key="i" :class="{ 'ds-pattern-fw__warn': isWarn(n) }"><RefText :text="noteText(n)" :refs="false" /></li>
       </ul>
     </div>
   </div>

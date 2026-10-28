@@ -19,6 +19,14 @@ test('前面緊接英數字或 & 的 # 不算', () => {
   assert.deepEqual(findRefs('a#button、&#x27; 都不是'), []);
 });
 
+test('行內程式碼（一對反引號）裡的 # 不算：各處都原樣顯示程式碼，不換名稱', () => {
+  assert.deepEqual(findRefs('範本變數寫成 `#menu`，`<x #button>` 也是程式碼；外面的 #icon-btn 才算'), ['icon-btn']);
+  const names = { button: 'app-button', 'icon-btn': 'app-icon-btn' };
+  assert.equal(renderRefs('`<x #button>` 與 #button', (id) => names[id]), '`<x #button>` 與 app-button');
+  // 沒收尾的反引號不算程式碼
+  assert.deepEqual(findRefs('寫 `x 沒收尾 #button'), ['button']);
+});
+
 test('拆成一般文字與元件代號，順序不變', () => {
   assert.deepEqual(splitRefs('用 #button 或 #icon-btn。'), [
     { text: '用 ' },

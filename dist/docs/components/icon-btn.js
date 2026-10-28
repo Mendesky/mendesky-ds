@@ -10,7 +10,7 @@ export const iconBtnSpec = {
         },
         {
             type: 'info',
-            content: '支援 :focus-visible focus ring（使用 --focus-ring-* tokens），僅鍵盤操作時顯示。',
+            content: '支援 :focus-visible focus ring（使用 `--focus-ring-*` tokens），僅鍵盤操作時顯示。',
         },
     ],
     customTables: [],

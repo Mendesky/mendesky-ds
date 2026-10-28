@@ -2,7 +2,7 @@ export const selectSpec = {
     id: 'select',
     name: 'Select',
     group: '表單元件',
-    when: '固定選項下拉選擇。禁止原生 <select>。',
+    when: '固定選項下拉選擇。禁止原生 `<select>`。',
     notes: [
         {
             type: 'info',

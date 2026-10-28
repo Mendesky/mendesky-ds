@@ -312,7 +312,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
     scenarios: [
       {
         type: 'textInput',
-        description: '焦點在 <input> 一般文字欄位',
+        description: '焦點在 `<input>` 一般文字欄位',
         rule: [
           '按 Enter → preventDefault，焦點跳到當頁主要 action 按鈕（下一步 / 送出）',
           '若該按鈕 disabled → 不跳焦（或保持焦點不動）',
@@ -332,7 +332,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
       {
         type: 'textarea',
-        description: '焦點在 <textarea>',
+        description: '焦點在 `<textarea>`',
         rule: [
           'Enter 保留原生換行，不冒泡、不觸發跳焦',
         ],
@@ -367,7 +367,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
     ],
     antiPatterns: [
       'button-group 的 Enter 無條件 preventDefault → 使用者無法用 Enter 離開 button-group，必須鼠標 / Tab 輔助',
-      'onFormEnter 把所有 <button> 一律 skip → button-group 子按鈕永遠不冒泡',
+      'onFormEnter 把所有 `<button>` 一律 skip → button-group 子按鈕永遠不冒泡',
       'Enter 直接 click 下一步按鈕（不經過「焦點中繼站」）→ 誤觸率高，使用者無法取消',
       'checkbox / radio 的 Enter 觸發 submit → 打破原生切換語意',
       '不檢查 event.isComposing → 中文輸入法使用者大量誤觸',
@@ -428,7 +428,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         description: 'Section 同時讀 API（GET 回來填入欄位狀態）且寫 API（blur/select 觸發 edit）',
         rule: [
           '載入中旗標初始為 true；loadFromApi 第一行設為 true',
-          '對應的套用函式（apply*）尾端、把完整狀態 emit 給父層之後設為 false',
+          '對應的套用函式（`apply*`）尾端、把完整狀態 emit 給父層之後設為 false',
           'loadFromApi 的 .catch 必設為 false，否則 API 失敗 → skeleton 永卡',
           '模板只用一個條件分支切換：載入中顯示 skeleton，否則顯示真實表單，兩者不可並存',
           '父層傳入 initialState 時（含第一次傳入與之後每次變動）、走「從 snapshot 還原」分支時設為 false（snapshot 已含值、不必等 GET）',
@@ -484,7 +484,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       '忘記在 catch 內設為 false → 網路一掉使用者看到永恆 skeleton，只能重整頁面',
       '載入中旗標被散落消費（多處衍生狀態 / 多個條件分支分散判斷）→ 中間態洩漏，skeleton 閃爍',
       'Skeleton 畫太細（1:1 對應每個欄位）→ 表單類型切換時 skeleton 欄位數不對，比真實表單還難維護',
-      'apply* 設為 false 的位置放在「emit 完整狀態給父層」之前 → 先關 skeleton 再 emit，中間一瞬間畫面切到真實表單但欄位狀態還沒寫完，使用者看到空表單',
+      '`apply*` 設為 false 的位置放在「emit 完整狀態給父層」之前 → 先關 skeleton 再 emit，中間一瞬間畫面切到真實表單但欄位狀態還沒寫完，使用者看到空表單',
       '父層傳入資料時（含第一次傳入與之後每次變動）的 reset 分支無條件設為 false → 覆蓋後置的 loadFromApi 設 true，skeleton 根本不會亮',
     ],
     a11y: {
@@ -759,7 +759,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '常搭 stepper（非必備）；引導使用者設定/收集資料，中間值可跳回修改但不 fire write API',
           '只有最後完成 action 才 fire write model API（一次性提交）',
           '例子：新增資料精靈、開啟多頁 modal 前的前導設定頁、範本編輯精靈',
-          '對應命名：名稱以 Wizard 結尾（*Wizard；框架慣例加在類別名稱後面的後綴不算）；提交策略 → mutation.feedback.pessimisticWizard；鍵盤 → wizard.keyboard',
+          '對應命名：名稱以 Wizard 結尾（`*Wizard`；框架慣例加在類別名稱後面的後綴不算）；提交策略 → mutation.feedback.pessimisticWizard；鍵盤 → wizard.keyboard',
         ],
         rationale: '核心是「聚焦一件事直到關閉」+「資料暫存於前端、完成才落地」。失敗保留表單、重試成本低（見 mutation.feedback）。',
       },
@@ -774,7 +774,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '  · 無實體維度 或 實體摺進頁序（by-實體頁 + 共用頁，一條頁序）→ 完成 CTA 在最後一頁底。例：每位成員各一頁＋共用頁排成一條頁序，送出鈕在最後一頁的預覽底部',
           '  · 實體為正交切換器（每實體重複整套頁）→ 完成 CTA 在左側欄底。例：每位成員各有整套頁、用切換器切換（見 modal.nonlinear-completion）',
           '簡單 modal（純展示/無完成閘門）→ close = 完成，無 completion CTA',
-          '對應命名：名稱以 Modal 結尾（*Modal）',
+          '對應命名：名稱以 Modal 結尾（`*Modal`）',
         ],
         rationale: '最廣的原型，可單純可複雜。連續自動儲存是通則；完成 CTA 的位置由「實體維度如何長進頁面結構」決定，而非維度數量。',
       },
@@ -802,10 +802,10 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
     ],
     antiPatterns: [
-      '把多步驟資料收集命名為 *Dialog → 應為 *Wizard',
-      '把破壞性動作確認命名為 *Wizard → 應為 #dialog + action.confirm-destructive',
+      '把多步驟資料收集命名為 `*Dialog` → 應為 `*Wizard`',
+      '把破壞性動作確認命名為 `*Wizard` → 應為 #dialog + action.confirm-destructive',
       '用 #dialog 承載多欄位表單 → dialog 不是表單容器，改用 wizard 或 #modal-shell',
-      '把「連續自動儲存的多頁編輯本體」叫 *Wizard → 它逐步寫 API，是 modal，應為 *Modal',
+      '把「連續自動儲存的多頁編輯本體」叫 `*Wizard` → 它逐步寫 API，是 modal，應為 `*Modal`',
       '把「中間不寫、完成才一次寫」的前導收集叫 modal → 它是 wizard',
       '以導航是否自由跳轉判斷 wizard/modal → 判準是 write API 時機，不是導航自由度',
       '以 modal 大小或「有沒有 CTA」判斷原型 → 應以 dismissal + API 時機 + 目的三軸判斷',
@@ -984,7 +984,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
     a11y: {
       keyboard: [
         'selectionUpdate 觸發把手 → 鍵盤移入 cell 也能喚出把手（不只 hover）',
-        '把手是 <button>（aria-haspopup="menu" + aria-expanded），可 Tab 聚焦、Enter/Space 開選單',
+        '把手是 `<button>`（aria-haspopup="menu" + aria-expanded），可 Tab 聚焦、Enter/Space 開選單',
         '選單項為 role="menuitem"',
       ],
       focus: [

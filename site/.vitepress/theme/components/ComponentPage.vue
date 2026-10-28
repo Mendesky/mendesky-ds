@@ -27,7 +27,6 @@ const frameworks = computed(() =>
     .map(([name, fw]) => ({ name, label: fw.label, ref: fw.ref, storybook: fw.storybook, api: fw.docs[props.id], stories: fw.stories[props.id] ?? [] })),
 );
 const active = ref(0);
-const current = computed(() => frameworks.value[active.value] ?? frameworks.value[0]);
 
 const noteText = (n: Note) => (typeof n === 'string' ? n : n.content);
 const noteType = (n: Note) => (typeof n === 'string' ? 'info' : n.type === 'warning' ? 'warn' : n.type);
@@ -128,42 +127,51 @@ const examples = computed(() => [
         >{{ fw.label }}</button>
       </div>
 
-      <div v-if="current" role="tabpanel" class="ds-fw-panel" :data-framework="current.name">
-        <p><code>{{ current.api.selector }}</code><span class="ds-fw-ref">（{{ current.label }} 版 {{ current.ref }}）</span></p>
+      <!-- 每個框架都畫出來，沒選中的只是藏起來：冒煙測試才讀得到每個框架的文字。範例 iframe 只放在選中的分頁，免得藏起來的也載入 -->
+      <div
+        v-for="(fw, i) in frameworks"
+        v-show="i === active"
+        :key="fw.name"
+        role="tabpanel"
+        class="ds-fw-panel"
+        :data-framework="fw.name"
+      >
+        <p><code>{{ fw.api.selector }}</code><span class="ds-fw-ref">（{{ fw.label }} 版 {{ fw.ref }}）</span></p>
 
-        <template v-if="current.stories.length">
-          <iframe class="ds-story" :src="storyUrl(current.stories[0].id, current.storybook)" height="260" :title="`${spec.name} 範例`" loading="lazy"></iframe>
+        <template v-if="fw.stories.length">
+          <iframe v-if="i === active" class="ds-story" :src="storyUrl(fw.stories[0].id, fw.storybook)" height="260" :title="`${spec.name} 範例`" loading="lazy"></iframe>
           <p class="ds-fw-more">
-            <a :href="storybookDocsUrl(props.id, current.storybook)" target="_blank" rel="noopener">在範例網站看全部 {{ current.stories.length }} 個範例</a>
+            <a :href="storybookDocsUrl(props.id, fw.storybook)" target="_blank" rel="noopener">在範例網站看全部 {{ fw.stories.length }} 個範例</a>
           </p>
         </template>
 
         <h3>屬性</h3>
-        <p v-if="!current.api.props.length">沒有輸入屬性。</p>
+        <p v-if="!fw.api.props.length">沒有輸入屬性。</p>
         <table v-else class="ds-table">
           <thead><tr><th>名稱</th><th>型別</th><th>預設</th><th>說明</th></tr></thead>
           <tbody>
-            <tr v-for="p in current.api.props" :key="p.name">
+            <tr v-for="p in fw.api.props" :key="p.name">
               <td><code>{{ p.name }}</code></td>
               <td><code>{{ p.type }}</code></td>
               <td><code v-if="p.default">{{ p.default }}</code></td>
-              <td>{{ p.desc ?? p.description }}</td>
+              <td><RefText :text="p.desc ?? p.description" :refs="false" /></td>
             </tr>
           </tbody>
         </table>
 
-        <template v-if="current.api.usage.length">
+        <template v-if="fw.api.usage.length">
           <h3>程式碼範例</h3>
-          <div v-for="(u, i) in current.api.usage" :key="i">
+          <div v-for="(u, j) in fw.api.usage" :key="j">
+            <!-- 範例標題各框架網站都印純文字 -->
             <p v-if="u.label"><strong>{{ u.label }}</strong></p>
             <div class="language-html"><pre><code>{{ u.code }}</code></pre></div>
           </div>
         </template>
 
-        <div v-if="current.api.usageNotes?.length" data-testid="framework-notes">
-          <h3>{{ current.label }} 注意事項</h3>
-          <div v-for="(n, i) in current.api.usageNotes" :key="i" class="custom-block" :class="noteType(n)">
-            <p>{{ noteText(n) }}</p>
+        <div v-if="fw.api.usageNotes?.length" data-testid="framework-notes">
+          <h3>{{ fw.label }} 注意事項</h3>
+          <div v-for="(n, j) in fw.api.usageNotes" :key="j" class="custom-block" :class="noteType(n)">
+            <p><RefText :text="noteText(n)" :refs="false" /></p>
           </div>
         </div>
       </div>
@@ -193,9 +201,9 @@ const examples = computed(() => [
 
     <template v-if="spec.customTables?.length">
       <div v-for="t in (spec.customTables as Table[])" :key="t.title">
-        <h3>{{ t.title }}</h3>
+        <h3><RefText :text="t.title" plain /></h3>
         <table class="ds-table">
-          <thead><tr><th v-for="c in t.columns" :key="c">{{ c }}</th></tr></thead>
+          <thead><tr><th v-for="c in t.columns" :key="c"><RefText :text="c" plain /></th></tr></thead>
           <tbody>
             <tr v-for="(r, i) in t.rows" :key="i"><td v-for="(cell, j) in r" :key="j"><RefText :text="String(cell)" /></td></tr>
           </tbody>
