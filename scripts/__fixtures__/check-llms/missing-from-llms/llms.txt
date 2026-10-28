@@ -1,0 +1,9 @@
+# Mendesky Design System
+
+> 測試用的清單。
+
+這份是 test 版的文件。
+
+## 互動元件
+
+- [Alpha](components/alpha.md): 第一個元件。

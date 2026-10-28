@@ -18,6 +18,17 @@ Mendesky Design System 的本體：跟框架無關的部分。
 
 本體不依賴任何框架，加新框架只要開一個新的框架 repo、依賴本套件。
 
+## 給 AI 讀的檔案
+
+文件網站的每個版本另外附上給 AI 讀的 Markdown（參考 Ant Design 的 llms.txt 與元件 .md），給事務所其他產品的開發者與他們用的 AI 工具在用 DS 做畫面前閱讀：
+
+- `llms.txt`：總表（[llmstxt.org](https://llmstxt.org/) 格式）。依分組列出每個元件與「何時用」的第一句，最後列出各框架的版本、範例網站與 repo
+- `components/<元件id>.md`：一個元件一份，內容跟網站的元件頁相同：何時用、部位、狀態、可以／不要這樣做、各框架的用法（元件標籤、屬性、事件、程式碼範例、框架專屬注意事項）、無障礙、注意事項、對照表。提到其他元件時連到該元件的 .md
+
+網址：`https://mendesky.github.io/mendesky-ds/<版本>/llms.txt`，`<版本>` 是 `main` 或正式版的版號（例如 `v0.1.0`）；元件檔在同一層的 `components/<元件id>.md`。
+
+建置網站時產生（`scripts/export-llms.mjs`，由 `site/.vitepress/config.mts` 的 buildEnd 寫進網站目錄），建好後用 `npm run check:llms` 檢查。
+
 ## 使用端怎麼裝
 
 使用端專案只要裝自己框架的套件，本套件會依框架套件指定的版本自動一起裝。步驟見文件網站的[開始使用](https://mendesky.github.io/mendesky-ds/main/guide/getting-started)與[版本與升級](https://mendesky.github.io/mendesky-ds/main/guide/versioning)。
@@ -53,6 +64,7 @@ npm run check:dist     # dist/ 是否跟 src/ 的建置結果一致
 npm run check:styles   # 元件共用樣式能編譯、規則都在 .ds-<元件> 底下
 npm run check:guides   # 指南文字跟框架無關，框架範例都在分頁裡、也對得上各框架的元件（會取 site/frameworks.json 指定的框架 repo）
 npm run site:dev       # 文件網站
+npm run check:llms     # 建好網站後：llms.txt 與元件 .md 完整、連結都通、沒有漏值（預設檢查 site/.vitepress/dist）
 ```
 
 要改什麼、放哪裡，見文件網站的[貢獻](https://mendesky.github.io/mendesky-ds/main/guide/contributing)。

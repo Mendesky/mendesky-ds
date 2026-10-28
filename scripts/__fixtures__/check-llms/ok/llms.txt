@@ -1,0 +1,14 @@
+# Mendesky Design System
+
+> 測試用的清單。
+
+這份是 test 版的文件。規格文字裡的 `[x](不是連結.md)` 是程式碼，不檢查。
+
+## 互動元件
+
+- [Alpha](components/alpha.md): 第一個元件。
+- [Beta](components/beta.md): 第二個元件，可以搭配 Alpha。
+
+## 框架
+
+- [Angular 範例網站](https://example.test/ng/): 版本 v0.0.1；原始碼 https://github.com/example/ng
