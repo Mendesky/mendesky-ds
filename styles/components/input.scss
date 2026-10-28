@@ -1,5 +1,6 @@
 // 輸入框（input）的共用樣式。
 // 來源：mendesky-ds-angular input.component.scss（v0.3.0）。整份包在 .ds-input 底下，各框架元件的根元素加上這個 class。
+@use '../mixins' as mx;
 
 .ds-input {
   /* ── Wrapper ── */
@@ -80,6 +81,9 @@
     padding: 1px 6px;
     cursor: pointer;
     color: var(--text\/body-light, #939393);
+    outline: none;
+    // 內框：輸入框裡面的項目一律把焦點框畫在內側（同 button-group）
+    @include mx.focus-ring(-2px);
 
     &:hover {
       background: var(--color\/white\/20, #f1f3f5);
