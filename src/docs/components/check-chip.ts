@@ -19,6 +19,20 @@ export const checkChipSpec: ComponentSpec = {
       content: '折行的兩個必要配套（缺了只是半修好）：元件本身的元素是 <button>，UA 預設 text-align: center 會讓多行文字逐行居中、難讀，故需 text-align: left；.chip 是 flex 容器，文字折行撐高時 16px checkbox icon 會被 flex-shrink 壓成橢圓，故 icon 需 flex: none。',
     },
   ],
+  a11y: {
+    keyboard: ['Tab 移到勾選標籤，空白鍵或 Enter 切換選取。', '停用時 Tab 會跳過。'],
+    focus: ['用鍵盤移到勾選標籤時，外圍出現 2 px 的淺藍色焦點框，距離標籤 2 px，顏色比 DS 共用的焦點框淺；用滑鼠點不會出現。'],
+    screenReader: [
+      '念出 text、按鈕角色，以及目前是否已選。勾選圖示不會被念出。',
+      'text 單獨看不出意思時（例如好幾組都有「其他」），用 ariaLabel 給完整名稱。設了 ariaLabel 就不再念 text。',
+    ],
+    motion: ['選取時底色、框線、文字色變化 0.15 秒。目前不會因為使用者設定「減少動態」而停止。'],
+    aria: [
+      '用原生 button 元素，type="button"，用 aria-pressed 表示已選（"true"）或未選（"false"），跟 #radio-chip 一致。',
+      '停用用原生 disabled。',
+      'ariaLabel 輸出成 aria-label；沒設時不輸出。',
+    ],
+  },
   customTables: [
     {
       title: 'Theme 使用情境',
