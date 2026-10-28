@@ -87,7 +87,7 @@ export const DS_TYPOGRAPHY: TypographyFamily[] = [
   {
     family: 'Inter（已淘汰）',
     cssVar: '--font-family\\/inter',
-    role: '已淘汰（2026-10-05）：Inter 從未被載入；舊名保留並改指 Noto Sans TC，新程式用 noto-*',
+    role: '已淘汰（2026-10-05）：Inter 從未被載入；舊名保留並改指 Noto Sans TC，新程式用 `noto-*`',
     classes: [
       {
         name: '.inter-10-regular',

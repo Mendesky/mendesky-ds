@@ -19,14 +19,28 @@ test('每頁都畫出內容、沒有錯誤 → 通過；404 不檢查；程式�
   assert.deepEqual(result.failures, []);
 });
 
-test('頁面有「找不到」的資料元件、丟錯、或有沒換成元件名稱的 #元件id → 失敗並指出哪一頁', async () => {
+test('頁面有「找不到」的資料元件、丟錯、有沒換成元件名稱的 #元件id、或露出格式符號 → 失敗並指出哪一頁', async () => {
   const result = await smokeGuides(path.join(fixtures, 'bad'), '/main/', { timeout: 3000, componentIds });
-  assert.equal(result.failures.length, 3, result.failures.join('\n'));
+  assert.equal(result.failures.length, 4, result.failures.join('\n'));
   const all = result.failures.join('\n');
   assert.match(all, /guide\/missing/);
   assert.match(all, /guide\/throws/);
   assert.match(all, /guide\/raw-ref\.html：有沒換成元件名稱的 #demo/);
   assert.doesNotMatch(all, /not-a-component/);
+  // 說明文字沒有照格式顯示：粗體的 ** 與行內程式碼的反引號原樣露出來（程式碼裡的不算）
+  const raw = result.failures.find((f) => f.startsWith('guide/raw-format.html：'));
+  assert.ok(raw, all);
+  assert.match(raw, /露出格式符號「\*\*」/);
+  assert.match(raw, /露出格式符號「`」/);
+});
+
+test('元件頁每個框架分頁都要畫出來（藏起來也算），沒選中的分頁一樣檢查 → 少畫分頁或藏起來的分頁露出符號都失敗', async () => {
+  const result = await smokeGuides(path.join(fixtures, 'fw-panels'), '/main/', { componentIds });
+  assert.equal(result.visited, 2);
+  assert.equal(result.failures.length, 2, result.failures.join('\n'));
+  const all = result.failures.join('\n');
+  assert.match(all, /components\/one-panel\.html：框架分頁有 2 個，頁面只畫出 1 個/);
+  assert.match(all, /components\/hidden-leak\.html：露出格式符號「\*\*」/);
 });
 
 test('讀不到任何元件 id（檢查本身失效）→ 失敗，不得當成通過', async () => {

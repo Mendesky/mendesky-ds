@@ -4,7 +4,7 @@ export const footerSpec: ComponentSpec = {
   id: 'footer',
   name: 'Footer',
   group: '展示元件',
-  when: '登入頁與 Shell 共用頁尾。禁止自刻 <footer> 複製文字。',
+  when: '登入頁與 Shell 共用頁尾。禁止自刻 `<footer>` 複製文字。',
   notes: [
     {
       type: 'info',

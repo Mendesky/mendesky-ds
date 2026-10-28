@@ -99,6 +99,27 @@ test('規格文字出現 Angular 寫法 → 失敗，指出檔案、欄位與那
   assert.match(text, /notes\[6\]：.*Angular 屬性綁定「\[attr\.aria-label\]」/);
 });
 
+test('說明文字不合格式（直接寫標籤名、沒收尾的反引號、落單的 **、粗體以外的 *、Markdown 連結）→ 失敗，指出檔案、欄位與寫法', () => {
+  const { errors } = run('neutral-format-bad');
+  const text = errors.join('\n');
+  assert.match(text, /components\/demo\.ts：when：直接寫了 HTML 標籤「<button>」/);
+  assert.match(text, /components\/demo\.ts：notes\[0\]：直接寫了 HTML 標籤「<b style="font-weight:normal">」/);
+  assert.match(text, /components\/demo\.ts：notes\[1\]：有沒收尾的反引號/);
+  assert.match(text, /components\/demo\.ts：notes\[2\]：有落單的 \*\*/);
+  assert.match(text, /components\/demo\.ts：notes\[3\]：有 Markdown 連結/);
+  // 部位的名稱是顯示在頁面上的文字，一樣要查
+  assert.match(text, /components\/demo\.ts：anatomy\[0\]\.name：直接寫了 HTML 標籤「<span>」/);
+  assert.match(text, /patterns\.ts：demo\.pattern\.antiPatterns\[0\]：直接寫了 HTML 標籤「<select>」/);
+  assert.match(text, /foundations\/typography\.ts：\[0\]\.role：有粗體以外的 \*「noto-\*」/);
+  assert.match(text, /components\/demo\.ts：notes\[4\]：第 1 行開頭「1\. 先選類型.*清單/);
+  assert.match(text, /components\/demo\.ts：notes\[5\]：#demo 緊貼行內程式碼/);
+  assert.match(text, /components\/demo\.ts：notes\[6\]：直接寫了 HTML 標籤「<o:p>」/);
+  // 表格標題與欄名各處都只顯示純文字
+  assert.match(text, /components\/demo\.ts：customTables\[0\]\.title：這裡各處都只顯示純文字/);
+  assert.match(text, /components\/demo\.ts：customTables\[0\]\.columns\[0\]：這裡各處都只顯示純文字/);
+  assert.equal(errors.length, 13, text);
+});
+
 test('#元件id 指到不存在的元件（拼錯）→ 失敗', () => {
   const { errors } = run('neutral-bad-ref');
   assert.equal(errors.length, 1);

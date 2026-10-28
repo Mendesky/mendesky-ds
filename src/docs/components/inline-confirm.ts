@@ -12,7 +12,7 @@ export const inlineConfirmSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: 'bullets 以放入自訂內容的方式提供，支援超連結 / <strong> / #label 等 rich markup',
+      content: 'bullets 以放入自訂內容的方式提供，支援超連結 / `<strong>` / #label 等 rich markup',
     },
     {
       type: 'warn',

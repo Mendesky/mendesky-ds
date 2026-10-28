@@ -20,6 +20,10 @@
  * 7. 網頁專屬細節（DOM、CSS、z-index、ARIA）目前保留在本體，但不用框架語法描述。
  *    無障礙寫在 `a11y`：網頁和 APP 都要做到的行為寫 keyboard／focus／screenReader／motion／touch，
  *    網頁才有的 ARIA 屬性與 HTML 語意寫 aria。
+ * 8. 文字格式只用三種：粗體 `**…**`、行內程式碼（一對反引號）、`#元件id`。HTML 標籤名與含 * 的名稱一律寫成
+ *    行內程式碼（例：原生 `<button>`、字型 `noto-*`），不用連結、斜體；一行的開頭不寫「1. 」「- 」「> 」「# 」
+ *    這類會變成清單、引言、標題的寫法；#元件id 跟行內程式碼之間空一格；表格標題與欄名只寫純文字。
+ *    文件網站、框架的範例網站、給 AI 讀的 .md 三處才會長得一樣（規則與原因見 scripts/text-format.mjs）。
  * 互動原則的框架實作步驟放在各框架的 pattern-notes（Angular：src/docs/pattern-notes.ts），以原則的 key 對應。
  *
  * 第 2 版欄位（anatomy、states、a11y、dos、donts）都是選填，先在試做的元件上寫，再逐步補到其他元件。

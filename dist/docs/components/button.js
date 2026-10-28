@@ -2,7 +2,7 @@ export const buttonSpec = {
     id: 'button',
     name: 'Button',
     group: '互動元件',
-    when: '任何可點擊操作。禁止原生 <button>。loading=true 時 spinner 取代 icon、改成停用的灰底、點擊無效。**放入自訂內容（不給 text，例如選單選項放「標籤＋名稱」）時，裡面的文字顏色寫 color: inherit**，否則 ghost／elevated 的滑過、按下文字色套不到（2026-10-02：寫死深色字 → ghost 滑過變深灰底配黑字）。',
+    when: '任何可點擊操作。禁止原生 `<button>`。loading=true 時 spinner 取代 icon、改成停用的灰底、點擊無效。**放入自訂內容（不給 text，例如選單選項放「標籤＋名稱」）時，裡面的文字顏色寫 color: inherit**，否則 ghost／elevated 的滑過、按下文字色套不到（2026-10-02：寫死深色字 → ghost 滑過變深灰底配黑字）。',
     notes: [
         {
             type: 'info',

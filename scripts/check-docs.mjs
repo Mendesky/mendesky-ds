@@ -8,6 +8,9 @@
 //   4. 互動原則引用的元件（#id）與其他原則都存在
 //   5. 規格、互動原則、基礎說明只寫跨框架的內容：不得出現某個框架才有的寫法（app-xxx、[屬性]、ngModel、
 //      <DsXxx>、v-model…）；指其他元件寫 #元件id，而且要指到存在的元件。寫法見 src/docs/component-spec.ts
+//   6. 同一批文字只用粗體、行內程式碼、#元件id 三種格式：HTML 標籤名要寫成行內程式碼，不能有沒收尾的反引號或 **、
+//      粗體以外的 *、Markdown 連結、行首的清單／引言／標題這類區塊寫法、緊貼程式碼的 #元件id；
+//      表格標題與欄名只能是純文字（規則與原因見 scripts/text-format.mjs）
 // 一份規格都沒掃到、一段文字都沒讀到也算失敗，避免「沒東西可查所以全過」。
 // 各框架的「屬性名稱對程式碼」檢查在各框架 repo 自己做。
 //
@@ -17,6 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadDocFile, listSpecFiles } from './export-docs.mjs';
 import { findRefs } from './component-refs.mjs';
+import { formatProblems } from './text-format.mjs';
 
 export const DOC_GROUPS = ['互動元件', '表單元件', '浮層元件', '展示元件', '工具'];
 
@@ -209,6 +213,9 @@ const NEUTRAL_SKIP_KEYS = new Set(['id', 'name', 'url', 'references', 'relatedCo
 /** 部位與狀態的 name 是顯示在頁面上的文字，不是識別字，照樣檢查 */
 const DISPLAYED_NAME_AT = /(?:^|\.)(?:anatomy|states)\[\d+\]$/;
 
+/** 表格標題與欄名：各處都只顯示純文字（文件網站與框架網站都不套格式） */
+const PLAIN_TEXT_AT = /(?:^|\.)customTables\[\d+\]\.(?:title|columns\[\d+\])$/;
+
 function collectStrings(value, at, out) {
   if (typeof value === 'string') out.push({ at, text: value });
   else if (Array.isArray(value)) value.forEach((v, i) => collectStrings(v, `${at}[${i}]`, out));
@@ -249,6 +256,7 @@ export function checkNeutralText(root, componentIds) {
       for (const id of new Set(findRefs(text))) {
         if (!componentIds.has(id)) errors.push(`${rel}：${at}：#${id} 不是任何元件的 id`);
       }
+      for (const problem of formatProblems(text, { plain: PLAIN_TEXT_AT.test(at) })) errors.push(`${rel}：${at}：${problem}`);
     }
   }
   if (scanned === 0) errors.push('框架寫法檢查讀到 0 段文字，檢查沒有執行');

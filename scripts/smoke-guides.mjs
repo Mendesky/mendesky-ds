@@ -1,7 +1,8 @@
 // 指南冒煙測試：逐一打開建好的指南網站（VitePress）每一頁，確認畫出內容、沒有頁面錯誤、
 // 也沒有「找不到元件說明／互動原則」的資料元件（代表文章引用了不存在的 id），
 // 而且頁面文字（程式碼除外）沒有還沒換成元件名稱的 `#元件id`（代表某處直接印出說明原文、沒經過 RefText）。
-// 元件頁另外確認：規格的第 2 版欄位（部位、狀態、無障礙、可以／不要這樣做）每一項都畫出來，項數跟規格一致。
+// 元件頁另外確認：規格的第 2 版欄位（部位、狀態、無障礙、可以／不要這樣做）每一項都畫出來，項數跟規格一致；
+// 每個框架分頁都在頁面上（沒選中的只是藏起來），所以每個框架的屬性說明與注意事項都會被上面的檢查讀到。
 //
 // 用法：npm run site:build（或 scripts/build-site.sh main）之後
 //       node scripts/smoke-guides.mjs <網站目錄，預設 site/.vitepress/dist> <網站 base，預設 /main/>
@@ -122,6 +123,12 @@ export async function smokeGuides(dir, base = '/main/', { timeout = 15000, compo
           return content.textContent ?? '';
         });
         for (const id of new Set(findRefs(text).filter((id) => componentIds.has(id)))) errors.push(`有沒換成元件名稱的 #${id}`);
+        // 說明文字的粗體與行內程式碼（scripts/text-format.mjs）要顯示成格式，符號本身不該出現在程式碼以外的地方
+        for (const mark of ['**', '`']) if (text.includes(mark)) errors.push(`露出格式符號「${mark}」（說明文字沒有照格式顯示）`);
+        // 元件頁的每個框架分頁都要在頁面上（沒選中的藏起來），上面幾項才檢查得到每個框架的文字
+        const tabs = await page.locator('.VPContent .ds-fw-tab').count();
+        const panels = await page.locator('.VPContent .ds-fw-panel').count();
+        if (tabs !== panels) errors.push(`框架分頁有 ${tabs} 個，頁面只畫出 ${panels} 個（沒畫出的分頁不會被檢查）`);
         const spec = specById.get(rel.match(/^components\/([^/]+)\.html$/)?.[1]);
         for (const [key, testid, expected] of spec ? V2_SECTIONS : []) {
           const want = expected(spec);

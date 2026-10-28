@@ -30,7 +30,7 @@ export const richTextEditorSpec = {
         },
         {
             type: 'info',
-            content: 'Office 正規化（transformPastedHTML → normalizeOfficeHtml，僅 isOfficeHtml 為真時作用）：<style> 內任意命名的 class 規則 inline 化（ProseMirror 明確忽略 <style>，Excel 的顏色/粗體都住在那裡）、Word 假清單（MsoListParagraph + mso-list style）重組成真 ul/ol 並移除外洩的字面項目符號、strip colgroup/col/align/mso-*/o:p、貼上的顏色吸附到 TEXT_COLORS 色票（無彩色→清除顏色）。macOS Mail／Google Docs／一般網頁刻意不介入',
+            content: 'Office 正規化（transformPastedHTML → normalizeOfficeHtml，僅 isOfficeHtml 為真時作用）：`<style>` 內任意命名的 class 規則 inline 化（ProseMirror 明確忽略 `<style>`，Excel 的顏色/粗體都住在那裡）、Word 假清單（MsoListParagraph + mso-list style）重組成真 ul/ol 並移除外洩的字面項目符號、strip colgroup/col/align/`mso-*`/o:p、貼上的顏色吸附到 TEXT_COLORS 色票（無彩色→清除顏色）。macOS Mail／Google Docs／一般網頁刻意不介入',
         },
         {
             type: 'warn',
@@ -42,7 +42,7 @@ export const richTextEditorSpec = {
         },
         {
             type: 'warn',
-            content: 'Office 正規化不得移除 font-weight:normal / 400 宣告：TipTap Bold 靠這兩個宣告才不會把 Google Docs 的 <b style="font-weight:normal"> 整段判成粗體。colwidth 與 align 則必須主動 strip——序列化層（serializeTableAsHtml）只存 colspan/rowspan，留著就是「編輯器看得到、reopen 變預設」的前後端不一致',
+            content: 'Office 正規化不得移除 font-weight:normal / 400 宣告：TipTap Bold 靠這兩個宣告才不會把 Google Docs 的 `<b style="font-weight:normal">` 整段判成粗體。colwidth 與 align 則必須主動 strip——序列化層（serializeTableAsHtml）只存 colspan/rowspan，留著就是「編輯器看得到、reopen 變預設」的前後端不一致',
         },
         {
             type: 'info',

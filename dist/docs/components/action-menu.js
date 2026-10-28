@@ -2,7 +2,7 @@ export const actionMenuSpec = {
     id: 'action-menu',
     name: 'Action Menu',
     group: '展示元件',
-    when: '右鍵或 More 按鈕展開的選單清單。選項一律用 #button variant="ghost"，禁止手刻 <button>/<div>。',
+    when: '右鍵或 More 按鈕展開的選單清單。選項一律用 #button variant="ghost"，禁止手刻 `<button>`/`<div>`。',
     notes: [
         '（2026-08-13 使用者拍板）卡片底色與邊框以實作為準：底色 rgba(255,255,255,0.45)（不是 0.72）、邊框用 --border/white 純白（不是 0.85 半透明）。已寫進上方視覺規格表，勿再視為漂移回報。',
         '（2026-04 更新）元件自動 portal 到 document.body，父層不再需要 position:relative。使用 position:fixed 定位，解決 transform/overflow:hidden 容器裁切問題。anchor 追蹤由浮層定位服務以事件驅動完成（document capture-phase scroll、window resize、trigger 的 ResizeObserver、visualViewport 變化），非 rAF 輪詢；rAF 只用於 attach 後的單次初始定位與同帧節流。context-menu 模式（attachAtPoint）不追蹤捲動。',

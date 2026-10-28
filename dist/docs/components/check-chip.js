@@ -14,7 +14,7 @@ export const checkChipSpec = {
         },
         {
             type: 'info',
-            content: '折行的兩個必要配套（缺了只是半修好）：元件本身的元素是 <button>，UA 預設 text-align: center 會讓多行文字逐行居中、難讀，故需 text-align: left；.chip 是 flex 容器，文字折行撐高時 16px checkbox icon 會被 flex-shrink 壓成橢圓，故 icon 需 flex: none。',
+            content: '折行的兩個必要配套（缺了只是半修好）：元件本身的元素是 `<button>`，UA 預設 text-align: center 會讓多行文字逐行居中、難讀，故需 text-align: left；.chip 是 flex 容器，文字折行撐高時 16px checkbox icon 會被 flex-shrink 壓成橢圓，故 icon 需 flex: none。',
         },
     ],
     a11y: {
