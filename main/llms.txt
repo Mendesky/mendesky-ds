@@ -6,7 +6,7 @@
 
 ## 互動元件
 
-- [Button](components/button.md): 任何可點擊操作。
+- [Button](components/button.md): 畫面上能點的操作都用它，不要自己寫原生的 `<button>`。
 - [Button Group](components/button-group.md): 2–5 個互斥選項，且視覺需連成一排時用。
 - [Carousel Dot](components/carousel-dot.md): 圖片輪播指示、kanban 分頁點。
 - [Cell Button](components/cell-btn.md): 日期/年月選擇器內部的格子按鈕。
