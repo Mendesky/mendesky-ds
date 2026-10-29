@@ -2,7 +2,7 @@ export const buttonSpec = {
     id: 'button',
     name: 'Button',
     group: '互動元件',
-    when: '畫面上能點的操作都用它，不要自己寫原生的 `<button>`。打開 `loading` 後，轉圈會取代圖示，按鈕變成灰色的停用狀態，點了也沒反應。如果不給 `text`、自己放內容（例如選單選項放「標籤＋名稱」），**裡面的文字顏色一定要繼承按鈕**，寫 `color: inherit`。寫死顏色的話，ghost 和 elevated 在滑過、按下時的文字色會套不上。之前就出過這種事：ghost 滑過後變成深灰底配黑字。',
+    when: '畫面上能點的操作都用它，不要自己寫原生的 `<button>`。只有選單裡的選項例外，那裡改用 #menu-item，要在選項文字後面放標籤也是放在 #menu-item 裡。打開 `loading` 後，轉圈會取代圖示，按鈕變成灰色的停用狀態，點了也沒反應。如果不給 `text`、自己放內容，**裡面的文字顏色一定要繼承按鈕**，寫 `color: inherit`。寫死顏色的話，ghost 和 elevated 在滑過、按下時的文字色會套不上。之前就出過這種事：ghost 滑過後變成深灰底配黑字。',
     notes: [
         {
             type: 'info',
@@ -21,7 +21,7 @@ export const buttonSpec = {
         { name: '說明', description: '`description` 會顯示在文字下方，可以不放。加了它，整顆按鈕會改成靠左對齊，文字換成較深的標題色，說明是較淺的灰色，圖示則維持按鈕原本的顏色；滑過時，文字和說明都換回按鈕的文字色。版面也會跟著變：左側的圖示和標籤跑到文字上面一行，右側的標籤、圖示和快速鍵提示排到說明下面一行，所以按鈕可能不只兩行。' },
         { name: '右側標籤', description: '文字右邊的小標籤，用 `rightLabel` 放，可以不放。' },
         { name: '右側圖示', description: '用 `rightIcon` 放，可以不放。顏色規則跟左側圖示一樣。' },
-        { name: '快速鍵提示', description: '`shortcut` 只是一段提示文字，按鈕不會幫你綁快速鍵。大多用在 #action-menu 的選項裡。' },
+        { name: '快速鍵提示', description: '`shortcut` 只是一段提示文字，按鈕不會幫你綁快速鍵。選單裡的選項要用 #menu-item，它沒有快速鍵提示。' },
         { name: '載入轉圈', description: '只在 `loading` 時出現。這時按鈕上只剩轉圈和 `loadingText`，其他部位都會先藏起來。' },
     ],
     states: [
@@ -41,6 +41,7 @@ export const buttonSpec = {
             '只放圖示、沒有文字的按鈕，名稱只能靠 `ariaLabel`。沒設的話報讀軟體念不出它叫什麼，開發模式下 console 會警告。',
             '一旦設了 `ariaLabel`，報讀軟體就只念它，按鈕上的文字和載入中的 `loadingText` 都不念。所以有文字的按鈕，除非文字單獨看不出意思，不然不用設。',
             '設了 `ariaPressed`，會念出現在是按下還是沒按下。`ariaCurrent` 只要不是 false，就會念出這是目前這一項。',
+            '設了 `ariaHaspopup`，報讀軟體會念出按下這顆按鈕會打開選單；`ariaExpanded` 則念出選單現在是開著還是關著。',
             '載入中又沒給 `loadingText` 時，畫面上只剩轉圈；這時如果也沒設 `ariaLabel`，報讀軟體就念不出名稱。',
             '停用但可點的按鈕，報讀軟體會念出它是停用的，但使用者還是按得下去。按了之後跳出來的原因說明，報讀軟體不會念。',
         ],
@@ -49,7 +50,7 @@ export const buttonSpec = {
         aria: [
             '裡面用的是原生 `button` 元素，`type="button"`，所以放在表單裡也不會不小心送出表單。',
             '停用和載入中用的是原生 `disabled`。停用但可點則改用 `aria-disabled="true"`，這樣焦點和點擊都還在。',
-            '`ariaLabel`、`ariaPressed`、`ariaCurrent` 會分別變成內層 button 的 `aria-label`、`aria-pressed`、`aria-current`，沒設就不會出現。',
+            '`ariaLabel`、`ariaPressed`、`ariaCurrent`、`ariaHaspopup`、`ariaExpanded` 會分別變成內層 button 的 `aria-label`、`aria-pressed`、`aria-current`、`aria-haspopup`、`aria-expanded`，沒設就不會出現。',
         ],
     },
     dos: [
@@ -57,6 +58,7 @@ export const buttonSpec = {
         { text: '按鈕暫時不能用、又想讓使用者知道原因，就打開 `clickableWhenDisabled`，再配一句 `disabledMessage`。按鈕一樣是灰的，但點下去會在上方跳出你寫的原因，總比讓人對著一顆沒反應的按鈕猛點好。' },
         { text: '想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。', story: 'full-width' },
         { text: '做成切換鈕（按一下開、再按一下關）時，用 `ariaPressed` 告訴報讀軟體現在是按下還是沒按下。如果按鈕代表清單裡「目前這一項」，改用 `ariaCurrent`。' },
+        { text: '按鈕會打開放了 #menu-item 的選單時，`ariaHaspopup` 設成 `menu`，`ariaExpanded` 跟著選單開關設成 true 或 false。這樣報讀軟體才知道按下去會跳出選單；在 Safari 上，選單關掉後也是靠 `ariaHaspopup` 找回這顆按鈕、把焦點還給它。' },
     ],
     donts: [
         { text: '只放圖示，卻沒給 `ariaLabel`。報讀軟體會念不出這顆按鈕叫什麼，開發模式下 console 也會警告你。這種按鈕通常直接用 #icon-btn 就好；真的要用按鈕的外觀，`ariaLabel` 一定要補上。' },
@@ -128,9 +130,9 @@ export const buttonSpec = {
                 ],
                 [
                     '逆流程 / 危險操作（選單列表項目）',
-                    'ghost / danger',
+                    '不用按鈕，改用 #menu-item，tone 設 danger',
                     '紅色文字，無背景，適合選單密集排列',
-                    'Action Menu 內的刪除、封存',
+                    '#action-menu 裡的刪除、封存',
                 ],
                 [
                     '完成階段任務（里程碑）',

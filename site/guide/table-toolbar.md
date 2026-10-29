@@ -52,7 +52,7 @@
 
 ### 選單裡的危險操作
 
-刪除這類危險操作，在選單裡要用顏色加文字一起標示，不能只靠顏色。DS 的選單容器是 <ComponentLink id="action-menu" />，危險項目用 `variant="ghost"`、`color="danger"` 的按鈕。
+刪除這類危險操作，在選單裡要用顏色加文字一起標示，不能只靠顏色。DS 的選單容器是 <ComponentLink id="action-menu" />，每一項用 <ComponentLink id="menu-item" />，危險項目把 `tone` 設成 `danger`。
 
 <StoryEmbed id="action-menu--danger-actions" :height="220" title="選單裡的危險操作" />
 
@@ -66,4 +66,4 @@
 
 - [確認與破壞性動作](./confirmation)：什麼時候用復原、什麼時候升級成 Dialog。
 - [浮層怎麼選](./overlays)：浮層原型的分界。
-- 元件：<ComponentLink id="rich-text-editor" />、<ComponentLink id="action-menu" />、<ComponentLink id="button" />
+- 元件：<ComponentLink id="rich-text-editor" />、<ComponentLink id="action-menu" />、<ComponentLink id="menu-item" />、<ComponentLink id="button" />

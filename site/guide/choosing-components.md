@@ -23,7 +23,7 @@
 | `<input>` | <ComponentLink id="input" />、<ComponentLink id="number-input" /> | 單行文字用 <ComponentLink id="input" />；金額、數量等數字欄位用 <ComponentLink id="number-input" />（有加減鍵與格式化） |
 | `<select>` | <ComponentLink id="select" />、<ComponentLink id="autocomplete" /> | 固定選項用 <ComponentLink id="select" />；要先搜尋、再動態篩選選項時用 <ComponentLink id="autocomplete" /> |
 | `<textarea>` | <ComponentLink id="textarea" /> | 備註、描述等多行輸入 |
-| 自刻 dropdown／menu | <ComponentLink id="action-menu" /> | 右鍵或「更多」按鈕展開的選單 |
+| 自刻 dropdown／menu | <ComponentLink id="action-menu" />、<ComponentLink id="menu-item" /> | 右鍵或「更多」按鈕展開的選單用 <ComponentLink id="action-menu" />；選單裡的每一項都用 <ComponentLink id="menu-item" /> |
 | 自刻 overlay＋card | <ComponentLink id="modal-shell" /> | 所有自訂 modal 的容器 |
 | 自刻確認彈窗 | <ComponentLink id="dialog" /> | 不可逆操作前的確認，或錯誤提示 |
 | 自刻 badge／tag | <ComponentLink id="label" /> | 狀態、分類標籤 |
