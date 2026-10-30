@@ -12,6 +12,10 @@ export const iconBtnSpec = {
             type: 'info',
             content: '支援 :focus-visible focus ring（使用 `--focus-ring-*` tokens），僅鍵盤操作時顯示。',
         },
+        {
+            type: 'info',
+            content: '拿來打開選單時（例如 More），跟 #button 一樣設 `ariaHaspopup` 和 `ariaExpanded`，報讀軟體才知道它會打開選單、選單現在開著沒有。這兩個屬性落在裡面那顆按鈕上，Safari 關閉選單後也是靠它找回觸發鈕。細節見 #action-menu 的無障礙說明。',
+        },
     ],
     customTables: [],
 };

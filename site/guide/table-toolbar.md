@@ -56,6 +56,8 @@
 
 <StoryEmbed id="action-menu--danger-actions" :height="220" title="選單裡的危險操作" />
 
+上面表格範例裡的把手選單，還沒換成 <ComponentLink id="menu-item" />：選項是元件自己寫的按鈕，選單外框沒有標成選單，報讀軟體念不出「選單」；Home、End 跳到頭尾、按 Tab 關閉這些選單的鍵盤規則也還沒有。換過去之後，滑過選項的樣子會變：現在是淺灰底配原本的字色，換過去是實心灰底配淺色字；危險項目現在是淡紅底配紅字，換過去是實心紅底配淺色字。<ComponentLink id="template-editor" /> 的下拉變數選單也還沒換，選項還是 <ComponentLink id="button" />：選項可能是一整句長文案，要能換行，而 <ComponentLink id="menu-item" /> 的文字不換行（加了說明的項目除外），太長會被截成「…」。新寫的選單請照上一段的寫法，用 <ComponentLink id="action-menu" /> 加 <ComponentLink id="menu-item" />。
+
 自己實作類似的把手時，先看下方規則的實作要點：把手要掛到 `document.body` 才不會被裁切；範圍高亮在編輯器管理的儲存格上，必須用 ProseMirror（編輯器底層管理文件內容的框架）的 Decoration 實作，不能直接改 class，否則編輯器重繪時會被抹掉。
 
 ## 規則

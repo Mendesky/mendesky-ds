@@ -10,7 +10,7 @@ export const menuItemSpec: ComponentSpec = {
     { name: '外框', description: '整列都可以點。放在 #action-menu 裡會佔滿一整列；放在選單外面時，寬度跟著文字走。' },
     { name: '圖示', description: '`icon` 放 DS 的圖示名稱，顯示在文字左邊，可以不放。顏色跟著文字走。' },
     { name: '文字', description: '`label` 寫這一項要做什麼，或代表哪一個值，一定要給。' },
-    { name: '說明', description: '`description` 顯示在文字下方，可以不放。加了它，文字會變成粗的深色標題，說明用較淺的灰色；滑過、按下時兩行都換成淺色字。' },
+    { name: '說明', description: '`description` 顯示在文字下方，可以不放。加了它，文字會變成粗體標題，一般項目是深色，`tone` 設成 `danger` 時維持紅字；說明用較淺的灰色。滑過、按下時兩行都換成淺色字。' },
     { name: '自訂內容', description: '接在文字後面，可以不放，例如標出類型或狀態的 #label。滑過、按下或選中時底色會變深，這時顏色設成 LightWhite 的 #label 會自動換成淺色字，不用自己另外寫樣式。其他顏色的 #label，還有自己寫死顏色的內容，都維持原本的字色。' },
   ],
   states: [
@@ -19,7 +19,7 @@ export const menuItemSpec: ComponentSpec = {
     { name: '按下', description: '灰底再深一階，字一樣是淺色。' },
     { name: '焦點', description: '用鍵盤移到這一項時，外圍會出現焦點框。' },
     { name: '選中', description: '`selected` 設成 true 時是深藍實心底配淺色字，滑過時藍底深一階，按下再深一階。選中只靠底色表示，不加打勾或其他符號。在 Windows 高對比這類強制色彩模式下，瀏覽器會換掉自訂的顏色，這時改用系統的選取色當底色，一樣是實心底。' },
-    { name: '危險', description: '`tone` 設成 `danger` 時是紅字。滑過、按下跟 #button 的 ghost 危險按鈕一樣：滑過是實心的淺紅底，按下換成較深的紅底，字都變成淺色。' },
+    { name: '危險', description: '`tone` 設成 `danger` 時是紅字，圖示也是紅色；加了 `description` 也一樣，只有下面那行說明維持灰色。滑過、按下跟 #button 的 ghost 危險按鈕一樣：滑過是實心的淺紅底，按下換成較深的紅底，字都變成淺色。' },
     { name: '停用', description: '設了 `disabled` 就換成停用的灰色字，沒有底色，滑過、按下都不會變。在選單裡鍵盤還是停得到，但點了、按了都沒反應，選單也不會關。強制色彩模式下改用系統的停用字色。' },
   ],
   a11y: {
