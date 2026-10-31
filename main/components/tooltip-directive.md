@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `[appTooltip]`
 
 [appTooltip]="text" · appTooltipDirection: top|bottom|left|right · appTooltipStyle: default|warning|grey · appTooltipOnlyWhenTruncated · appTooltipWrap
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/tooltip-directive--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/tooltip-directive--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

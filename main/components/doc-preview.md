@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-doc-preview`
 
 docs: DocPreviewItem[]（必填）· startIndex · (closed) · PDF 走 pdfjs 渲染、其餘走圖片 · ESC 關閉 · 納入 ModalStackService
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/doc-preview--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/doc-preview--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

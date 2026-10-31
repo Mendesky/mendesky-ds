@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-template-editor`
 
 contenteditable 富文字編輯器，%PascalCase% 範本變數渲染為藍色 badge。template variables minRows · placeholder errorMessage disabled · (templateChange) (textChange)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/template-editor--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/template-editor--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

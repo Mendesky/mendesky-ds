@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-avatar`
 
 propClass: Text|Thumb|Icon · [size]: 28|36|44|56|64|96|128|240 · src text iconName [clickable] ariaLabel
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/avatar--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/avatar--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

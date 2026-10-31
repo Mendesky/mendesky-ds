@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-label`
 
 color: White|GreyOutline|Grey70|SoftBlue|Salmon|Golden|SeaGreen|Red|Purple|GreenOutline|Kanban×5 等（完整值域見 props）· size: XXS|XS|S|M|L · text · [showLeftIcon] leftIconName（指定左側 app-icon，覆蓋內建打勾）· [wrap] 長文字折行 / [truncate] 單行省略
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/label--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/label--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

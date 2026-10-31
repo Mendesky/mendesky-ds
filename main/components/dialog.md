@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-dialog`
 
 [isOpen] header content propClass: Warning|Normal confirmText confirmIcon showCancel cancelText loading · (cancel) (confirm)
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/dialog--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/dialog--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -8,8 +8,8 @@
 
 ### 可以這樣做
 
-- 把對話框的標題標成對話框標題。報讀軟體開窗就會念出來，使用者馬上知道開了什麼。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/iframe.html?id=modal-shell--default&viewMode=story)）
-- 沒有標題的對話框設 ariaLabel，一兩個詞講清楚就好，例如「搜尋」。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/iframe.html?id=modal-shell--search&viewMode=story)）
+- 把對話框的標題標成對話框標題。報讀軟體開窗就會念出來，使用者馬上知道開了什麼。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/iframe.html?id=modal-shell--default&viewMode=story)）
+- 沒有標題的對話框設 ariaLabel，一兩個詞講清楚就好，例如「搜尋」。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/iframe.html?id=modal-shell--search&viewMode=story)）
 - 多步驟這類會換標題的對話框，每一步的標題都可以標，只要同一時間只存在一個。
 
 ### 不要這樣做
@@ -19,13 +19,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-modal-shell`
 
 [isOpen] width maxHeight variant: default|search|floating-right · overflowVisible · darkBackdrop · canDismiss · ariaLabel · ariaLabelledBy · (backdropClick) · (escapePress) · <ng-content>（標題加 appModalTitle）
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/modal-shell--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/modal-shell--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

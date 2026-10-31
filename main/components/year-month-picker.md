@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-year-month-picker`
 
 size: S|M|L · [yearOnly] [mode: month|period] · minYear maxYear · [disabled] · CVA 控制 value
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/year-month-picker--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/year-month-picker--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

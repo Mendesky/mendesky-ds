@@ -34,7 +34,7 @@
 
 - 載入中記得給 `loadingText`，像「儲存中…」這樣。不然畫面上只剩一個轉圈，用報讀軟體的人根本不知道按鈕在忙什麼。
 - 按鈕暫時不能用、又想讓使用者知道原因，就打開 `clickableWhenDisabled`，再配一句 `disabledMessage`。按鈕一樣是灰的，但點下去會在上方跳出你寫的原因，總比讓人對著一顆沒反應的按鈕猛點好。
-- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/iframe.html?id=button--full-width&viewMode=story)）
+- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/iframe.html?id=button--full-width&viewMode=story)）
 - 做成切換鈕（按一下開、再按一下關）時，用 `ariaPressed` 告訴報讀軟體現在是按下還是沒按下。如果按鈕代表清單裡「目前這一項」，改用 `ariaCurrent`。
 - 按鈕會打開放了 [Menu Item](menu-item.md) 的選單時，`ariaHaspopup` 設成 `menu`，`ariaExpanded` 跟著選單開關設成 true 或 false。這樣報讀軟體才知道按下去會跳出選單；在 Safari 上，選單關掉後也是靠 `ariaHaspopup` 和 `ariaExpanded` 一起認出這顆按鈕、把焦點還給它，少一個就認不出來。
 
@@ -46,13 +46,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-button`
 
-variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · [disabled] [fullWidth] [loading] · [clickableWhenDisabled] [disabledMessage] · ariaLabel [ariaPressed] [ariaCurrent] · (btnClick) (disabledClick)
+variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · [disabled] [fullWidth] [loading] · [clickableWhenDisabled] [disabledMessage] · ariaLabel [ariaPressed] [ariaCurrent] · ariaHaspopup [ariaExpanded] · (btnClick) (disabledClick)
 
-[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -68,13 +68,15 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 | `fullWidth` | `boolean` | `false` | 撐滿父容器寬度 |
 | `loading` | `boolean` | `false` | 載入中狀態；底色不變，spinner 取代 icon，點擊無效 |
 | `loadingText` | `string` | `''` | loading=true 時顯示的替換文字（選填） |
-| `description` | `string` | `''` | 雙行模式：名稱下方的說明文字。有值時 height:auto、文字靠左，適合 action-menu 列表項目 |
-| `shortcut` | `string` | `''` | 鍵盤快速鍵提示（e.g. "⌘N"），顯示在按鈕右側。主要用於 action-menu 選項，參考 Fluent UI secondaryContent 模式。只顯示提示，不綁定快速鍵行為。 |
+| `description` | `string` | `''` | 雙行模式：名稱下方的說明文字。有值時 height:auto、文字靠左。選單裡的選項改用 app-menu-item 的 description |
+| `shortcut` | `string` | `''` | 鍵盤快速鍵提示（e.g. "⌘N"），顯示在按鈕右側，參考 Fluent UI secondaryContent 模式。只顯示提示，不綁定快速鍵行為。選單裡的選項要用 app-menu-item，它沒有這個設定。 |
 | `clickableWhenDisabled` | `boolean` | `false` | true 時改用 aria-disabled 取代原生 disabled，讓點擊事件仍可穿透。適用於「需顯示 disabled 原因」的主動作按鈕。 |
 | `disabledMessage` | `string \| string[]` | `[]` | clickableWhenDisabled=true 且 disabled=true 時，點擊按鈕上方顯示的 tooltip 訊息。單條傳 string，多條傳 string[]（以 bullet list 呈現）。 |
 | `ariaLabel` | `string` | `''` | 報讀軟體念的名稱，套在內層 button 的 aria-label。只有圖示、沒有文字時必填；沒填時開發模式會在 console 警告。 |
 | `ariaPressed` | `boolean \| null` | `null` | 切換鈕的按下／未按下狀態，套在內層 button 的 aria-pressed。null 表示不是切換鈕，不輸出。 |
 | `ariaCurrent` | `ButtonAriaCurrent \| null` | `null` | 清單或導覽中的「目前這一項」，套在內層 button 的 aria-current。值為 'page' \| 'step' \| 'location' \| 'date' \| 'time' \| 'true' \| 'false'；null 不輸出。 |
+| `ariaHaspopup` | `ButtonAriaHaspopup \| null` | `null` | 這顆按鈕會打開選單，套在內層 button 的 aria-haspopup。目前只接受 'menu'，用在打開放了 app-menu-item 的 app-action-menu 的按鈕；null 不輸出。Safari 關閉選單後，要同時有它和 ariaExpanded 才認得出觸發鈕、把焦點還給它。 |
+| `ariaExpanded` | `boolean \| null` | `null` | 選單現在開著沒，套在內層 button 的 aria-expanded。綁選單的開關狀態，true／false 照實輸出；null 不輸出。 |
 | `(btnClick)` | `EventEmitter` |  | 正常點擊事件輸出 |
 | `(disabledClick)` | `EventEmitter` |  | clickableWhenDisabled=true 且 disabled=true 時，點擊觸發。父層監聽後可執行 scroll 到第一個欄位錯誤等操作。 |
 | `leftLabel` | `BtnLabelConfig \| null` | `null` | leftIcon 之後、文字之前的 app-label；null 為不顯示。格式 { text, color, size? } |
@@ -119,6 +121,30 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
   [ariaCurrent]="item.id === currentId ? 'true' : null"
   (btnClick)="select(item.id)"
 ></app-button>
+```
+
+**打開選單的按鈕（例：每頁筆數）**
+
+```html
+<div class="page-size-wrap">
+  <app-button
+    variant="outlined"
+    color="neutral"
+    size="XS"
+    [text]="'' + pageSize()"
+    [ariaLabel]="'每頁顯示筆數 ' + pageSize()"
+    ariaHaspopup="menu"
+    [ariaExpanded]="pageSizeMenuOpen()"
+    (btnClick)="pageSizeMenuOpen.set(!pageSizeMenuOpen())"
+  ></app-button>
+  @if (pageSizeMenuOpen()) {
+    <app-action-menu ariaLabel="每頁顯示筆數" (closeMenu)="pageSizeMenuOpen.set(false)">
+      @for (n of pageSizeOptions; track n) {
+        <app-menu-item [label]="'' + n" [selected]="pageSize() === n" (itemClick)="pageSize.set(n)"></app-menu-item>
+      }
+    </app-action-menu>
+  }
+</div>
 ```
 
 #### Angular 注意事項

@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-footer`
 
 （無 Input/Output）· CSS 自訂屬性：--footer-padding --footer-font-size --footer-word-break --footer-overflow-wrap
 
-[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/footer--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/footer--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

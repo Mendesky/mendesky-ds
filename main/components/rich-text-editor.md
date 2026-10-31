@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-rich-text-editor`
 
 Tiptap base 富文字編輯器。toolbar（標題/粗體/斜體/底線/刪除線/文字顏色/清單/表格，hiddenTools 可縮減）+ readOnly + placeholder + paste pipeline。一般富文字欄位直接用，需要圖片上傳或範本變數時在外面包一層 wrapper。
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/rich-text-editor--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/rich-text-editor--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

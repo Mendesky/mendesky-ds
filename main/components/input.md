@@ -20,13 +20,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-input`
 
 size: S|M|L · placeholder type inputMode sanitize initialValue errorMessage errorPosition: top|bottom · [disabled] [readonly] · ariaLabel autocomplete name inputId · (valueChange) (blur) (passwordVisibilityChange)
 
-[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/input--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/input--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,13 +6,13 @@ horizontal：多步驟 Wizard 進度指示。nav：Modal 左側多層導覽面�
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-stepper`
 
 variant: 'horizontal'|'nav' · horizontal: steps: string[] currentStep: number (stepClick) · nav: navSections activePage expandedPageIds lockedPageIds sectionStatuses (navPageClick) (navSubItemClick)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/stepper--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/stepper--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

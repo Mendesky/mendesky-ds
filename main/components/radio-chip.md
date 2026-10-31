@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-radio-chip`
 
 text size: s|m · [showRadio] [showCancel] · (cancelClick) · CVA 控制 selected/isDisabled
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/radio-chip--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/radio-chip--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

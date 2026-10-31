@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-file-list`
 
 已上傳檔案清單中間層元件，動作固定為 view / delete（**不可覆寫**），支援唯讀（disabled）模式與空狀態提示。與 app-upload-dropzone 搭配使用。
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/file-list--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/file-list--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

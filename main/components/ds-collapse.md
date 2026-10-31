@@ -9,11 +9,11 @@ CSS Grid `0fr → 1fr` 收合/展開工具 class。Component tier 300ms，進出
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `.ds-collapse`
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/ds-collapse--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/ds-collapse--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-button-group`
 
 type: form|round|view · size: S|M|L · options: ButtonGroupOption[] · value · [disabled] errorMessage errorPosition: top|bottom · (valueChange)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/button-group--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/button-group--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

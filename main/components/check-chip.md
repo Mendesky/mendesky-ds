@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-check-chip`
 
 text size: s|m|xs · theme: default|transparent|transparent-grey · CVA 控制 selected/isDisabled · ariaLabel · 選取狀態自動輸出 aria-pressed · 長文字自動折行（不撐破容器）
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/check-chip--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/check-chip--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

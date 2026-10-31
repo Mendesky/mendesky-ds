@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-option-card-group`
 
 options: OptionCardItem[] · value · ariaLabel · [disabledValues]: string[] · (valueChange) — role=radiogroup、方向鍵 roving focus、@for track value
 
-[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/option-card-group--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/option-card-group--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

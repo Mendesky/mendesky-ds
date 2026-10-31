@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-process-toast`
 
 type: success|error|loading · message [duration] · size: S|M · action?: {label,onClick} · (dismissed)
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/process-toast--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/process-toast--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

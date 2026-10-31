@@ -6,13 +6,13 @@ app root 掛一次就好。任何要顯示 toast 的地方呼叫 toast 服務的
 
 ## 用法
 
-### Angular（v0.6.0）
+### Angular（v0.7.0）
 
 `app-toast-container`
 
 無 @Input / @Output · 資料來自 ToastService.toasts() · 整個 app 只掛一次（app root）· 內部固定以 stackMode 渲染 app-process-toast · z-index 2100
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/?path=/docs/toast-container--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/toast-container--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
