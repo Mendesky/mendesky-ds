@@ -61,3 +61,4 @@ size: 16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Mod
 
 - （2026-04 更新）tooltip 已綁在外層 wrapper div 而非 button 本身，disabled 狀態下 tooltip 仍正常顯示。內部使用 [Tooltip Directive (Portal)](tooltip-directive.md)（portal 模式）。
 - 支援 :focus-visible focus ring（使用 `--focus-ring-*` tokens），僅鍵盤操作時顯示。
+- 拿來打開選單時（例如 More），跟 [Button](button.md) 一樣設 `ariaHaspopup` 和 `ariaExpanded`，報讀軟體才知道它會打開選單、選單現在開著沒有。這兩個屬性落在裡面那顆按鈕上，Safari 關閉選單後也是靠這兩個屬性一起認出觸發鈕，少一個就認不出來。細節見 [Action Menu](action-menu.md) 的無障礙說明。

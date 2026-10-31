@@ -2,7 +2,7 @@
 
 分組：互動元件
 
-畫面上能點的操作都用它，不要自己寫原生的 `<button>`。打開 `loading` 後，轉圈會取代圖示，按鈕變成灰色的停用狀態，點了也沒反應。如果不給 `text`、自己放內容（例如選單選項放「標籤＋名稱」），**裡面的文字顏色一定要繼承按鈕**，寫 `color: inherit`。寫死顏色的話，ghost 和 elevated 在滑過、按下時的文字色會套不上。之前就出過這種事：ghost 滑過後變成深灰底配黑字。
+畫面上能點的操作都用它，不要自己寫原生的 `<button>`。只有選單裡的選項例外，那裡改用 [Menu Item](menu-item.md)，要在選項文字後面放標籤也是放在 [Menu Item](menu-item.md) 裡。打開 `loading` 後，轉圈會取代圖示，按鈕變成灰色的停用狀態，點了也沒反應。如果不給 `text`、自己放內容，**裡面的文字顏色一定要繼承按鈕**，寫 `color: inherit`。寫死顏色的話，ghost 和 elevated 在滑過、按下時的文字色會套不上。之前就出過這種事：ghost 滑過後變成深灰底配黑字。
 
 ## 部位
 
@@ -13,7 +13,7 @@
 5. **說明**：`description` 會顯示在文字下方，可以不放。加了它，整顆按鈕會改成靠左對齊，文字換成較深的標題色，說明是較淺的灰色，圖示則維持按鈕原本的顏色；滑過時，文字和說明都換回按鈕的文字色。版面也會跟著變：左側的圖示和標籤跑到文字上面一行，右側的標籤、圖示和快速鍵提示排到說明下面一行，所以按鈕可能不只兩行。
 6. **右側標籤**：文字右邊的小標籤，用 `rightLabel` 放，可以不放。
 7. **右側圖示**：用 `rightIcon` 放，可以不放。顏色規則跟左側圖示一樣。
-8. **快速鍵提示**：`shortcut` 只是一段提示文字，按鈕不會幫你綁快速鍵。大多用在 [Action Menu](action-menu.md) 的選項裡。
+8. **快速鍵提示**：`shortcut` 只是一段提示文字，按鈕不會幫你綁快速鍵。選單裡的選項要用 [Menu Item](menu-item.md)，它沒有快速鍵提示。
 9. **載入轉圈**：只在 `loading` 時出現。這時按鈕上只剩轉圈和 `loadingText`，其他部位都會先藏起來。
 
 ## 狀態
@@ -36,6 +36,7 @@
 - 按鈕暫時不能用、又想讓使用者知道原因，就打開 `clickableWhenDisabled`，再配一句 `disabledMessage`。按鈕一樣是灰的，但點下去會在上方跳出你寫的原因，總比讓人對著一顆沒反應的按鈕猛點好。
 - 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.6.0/components/iframe.html?id=button--full-width&viewMode=story)）
 - 做成切換鈕（按一下開、再按一下關）時，用 `ariaPressed` 告訴報讀軟體現在是按下還是沒按下。如果按鈕代表清單裡「目前這一項」，改用 `ariaCurrent`。
+- 按鈕會打開放了 [Menu Item](menu-item.md) 的選單時，`ariaHaspopup` 設成 `menu`，`ariaExpanded` 跟著選單開關設成 true 或 false。這樣報讀軟體才知道按下去會跳出選單；在 Safari 上，選單關掉後也是靠 `ariaHaspopup` 和 `ariaExpanded` 一起認出這顆按鈕、把焦點還給它，少一個就認不出來。
 
 ### 不要這樣做
 
@@ -201,6 +202,7 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 - **報讀軟體**：只放圖示、沒有文字的按鈕，名稱只能靠 `ariaLabel`。沒設的話報讀軟體念不出它叫什麼，開發模式下 console 會警告。
 - **報讀軟體**：一旦設了 `ariaLabel`，報讀軟體就只念它，按鈕上的文字和載入中的 `loadingText` 都不念。所以有文字的按鈕，除非文字單獨看不出意思，不然不用設。
 - **報讀軟體**：設了 `ariaPressed`，會念出現在是按下還是沒按下。`ariaCurrent` 只要不是 false，就會念出這是目前這一項。
+- **報讀軟體**：設了 `ariaHaspopup`，報讀軟體會念出按下這顆按鈕會打開選單；`ariaExpanded` 則念出選單現在是開著還是關著。
 - **報讀軟體**：載入中又沒給 `loadingText` 時，畫面上只剩轉圈；這時如果也沒設 `ariaLabel`，報讀軟體就念不出名稱。
 - **報讀軟體**：停用但可點的按鈕，報讀軟體會念出它是停用的，但使用者還是按得下去。按了之後跳出來的原因說明，報讀軟體不會念。
 - **動態**：載入轉圈 0.6 秒轉一圈。使用者在系統裡開了「減少動態」，它目前還是會轉。
@@ -210,7 +212,7 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 
 - **ARIA 與 HTML 語意**：裡面用的是原生 `button` 元素，`type="button"`，所以放在表單裡也不會不小心送出表單。
 - **ARIA 與 HTML 語意**：停用和載入中用的是原生 `disabled`。停用但可點則改用 `aria-disabled="true"`，這樣焦點和點擊都還在。
-- **ARIA 與 HTML 語意**：`ariaLabel`、`ariaPressed`、`ariaCurrent` 會分別變成內層 button 的 `aria-label`、`aria-pressed`、`aria-current`，沒設就不會出現。
+- **ARIA 與 HTML 語意**：`ariaLabel`、`ariaPressed`、`ariaCurrent`、`ariaHaspopup`、`ariaExpanded` 會分別變成內層 button 的 `aria-label`、`aria-pressed`、`aria-current`、`aria-haspopup`、`aria-expanded`，沒設就不會出現。
 
 ## 注意事項
 
@@ -235,7 +237,7 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 | --- | --- | --- | --- |
 | 取消 / 關閉 / 還原 / 清除 | elevated | 白底毛玻璃，低視覺重量，暗示「可退出」 | 取消、清除篩選、重設、上一步 |
 | 逆流程 / 危險操作（表單確認按鈕） | filled / danger | 紅底實心，高警示感 | 刪除確認、封存確認（Dialog 內） |
-| 逆流程 / 危險操作（選單列表項目） | ghost / danger | 紅色文字，無背景，適合選單密集排列 | Action Menu 內的刪除、封存 |
+| 逆流程 / 危險操作（選單列表項目） | 不用按鈕，改用 [Menu Item](menu-item.md)，tone 設 danger | 紅色文字，無背景，適合選單密集排列 | [Action Menu](action-menu.md) 裡的刪除、封存 |
 | 完成階段任務（里程碑） | filled / success | 綠底實心，傳達「達成」與「正向推進」 | 送出申請、發布、完成並開始填寫 |
 | 一般往下推進 / 搜尋 / 主要動作 | filled / primary | 藍底實心，主要動作視覺重量最高 | 下一步、套用、登入、查詢 |
 | 情境捷徑（卡片內輔助操作） | tonal / neutral | 灰底軟質感，hover 變灰實心，低調工具感，不與 CTA 競爭 | 同上方地址、從範本匯入、套用預設值 |

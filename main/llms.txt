@@ -15,6 +15,7 @@
 - [Icon Button](components/icon-btn.md): 工具列、表格操作、純圖示互動。
 - [Inline Add](components/inline-add.md): 在 chip 群組 / 清單尾端讓使用者新增「自訂項」。
 - [Inline Confirm](components/inline-confirm.md): 前提依賴型確認（contextualInline）：父層需要使用者在主操作前先勾選「已確認 XXX」。
+- [Menu Item](components/menu-item.md): 選單裡的每一項都用它。
 - [Radio Chip](components/radio-chip.md): 篩選條件單選、可取消的選項。
 - [Stepper](components/stepper.md): horizontal：多步驟 Wizard 進度指示。
 - [Toggle](components/toggle.md): 即時生效的開/關設定。
@@ -51,7 +52,7 @@
 
 ## 展示元件
 
-- [Action Menu](components/action-menu.md): 右鍵或 More 按鈕展開的選單清單。
+- [Action Menu](components/action-menu.md): 右鍵或 More 按鈕展開的浮層，有兩種用法。
 - [Avatar](components/avatar.md): 用戶頭像、個人資料。
 - [Badge](components/badge.md): 未讀徽章：疊在按鈕或項目的右上角，表示「有未讀」或「未讀幾則」。
 - [Ctrl Bar](components/ctrl-bar.md): 頁面或區塊頂部的操作列，左側放篩選/toggle，右側放搜尋/切換。
