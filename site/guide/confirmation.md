@@ -89,7 +89,7 @@ this.toast.show({
 - `cancelText`：預設「取消並關閉」，可以依情境改。
 - `loading`：API 送出中，確認按鈕顯示轉圈並停用；取消按鈕不受影響。
 
-觸發按鈕放在選單裡時，危險項目用 `variant="ghost"`、`color="danger"`，見 <ComponentLink id="action-menu" /> 說明的「內容元件規範」。
+觸發確認的那一項放在選單裡時，用 <ComponentLink id="menu-item" /> 做選項，危險項目把 `tone` 設成 `danger`，見 <ComponentLink id="action-menu" /> 說明的「內容元件規範」。
 
 ### 前提聲明：勾選後才能繼續
 

@@ -31,6 +31,7 @@ import { keyboardHelpSpec } from './keyboard-help.js';
 import { labelSpec } from './label.js';
 import { listSpec } from './list.js';
 import { listTagSpec } from './list-tag.js';
+import { menuItemSpec } from './menu-item.js';
 import { modalCloseBtnSpec } from './modal-close-btn.js';
 import { modalShellSpec } from './modal-shell.js';
 import { numberInputSpec } from './number-input.js';
@@ -89,6 +90,7 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   labelSpec,
   listSpec,
   listTagSpec,
+  menuItemSpec,
   modalCloseBtnSpec,
   modalShellSpec,
   numberInputSpec,

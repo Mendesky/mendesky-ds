@@ -52,9 +52,11 @@
 
 ### 選單裡的危險操作
 
-刪除這類危險操作，在選單裡要用顏色加文字一起標示，不能只靠顏色。DS 的選單容器是 <ComponentLink id="action-menu" />，危險項目用 `variant="ghost"`、`color="danger"` 的按鈕。
+刪除這類危險操作，在選單裡要用顏色加文字一起標示，不能只靠顏色。DS 的選單容器是 <ComponentLink id="action-menu" />，每一項用 <ComponentLink id="menu-item" />，危險項目把 `tone` 設成 `danger`。
 
 <StoryEmbed id="action-menu--danger-actions" :height="220" title="選單裡的危險操作" />
+
+上面表格範例裡的把手選單，還沒換成 <ComponentLink id="menu-item" />：選項是元件自己寫的按鈕，選單外框沒有標成選單，報讀軟體念不出「選單」；Home、End 跳到頭尾、按 Tab 關閉這些選單的鍵盤規則也還沒有。換過去之後，滑過選項的樣子會變：現在是淺灰底配原本的字色，換過去是實心灰底配淺色字；危險項目現在是淡紅底配紅字，換過去是實心紅底配淺色字。<ComponentLink id="template-editor" /> 的下拉變數選單也還沒換，選項還是 <ComponentLink id="button" />：選項可能是一整句長文案，要能換行，而 <ComponentLink id="menu-item" /> 的文字不換行（加了說明的項目除外），太長會被截成「…」。新寫的選單請照上一段的寫法，用 <ComponentLink id="action-menu" /> 加 <ComponentLink id="menu-item" />。
 
 自己實作類似的把手時，先看下方規則的實作要點：把手要掛到 `document.body` 才不會被裁切；範圍高亮在編輯器管理的儲存格上，必須用 ProseMirror（編輯器底層管理文件內容的框架）的 Decoration 實作，不能直接改 class，否則編輯器重繪時會被抹掉。
 
@@ -66,4 +68,4 @@
 
 - [確認與破壞性動作](./confirmation)：什麼時候用復原、什麼時候升級成 Dialog。
 - [浮層怎麼選](./overlays)：浮層原型的分界。
-- 元件：<ComponentLink id="rich-text-editor" />、<ComponentLink id="action-menu" />、<ComponentLink id="button" />
+- 元件：<ComponentLink id="rich-text-editor" />、<ComponentLink id="action-menu" />、<ComponentLink id="menu-item" />、<ComponentLink id="button" />
