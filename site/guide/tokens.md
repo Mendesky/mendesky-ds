@@ -113,7 +113,7 @@ Figma 小於 16px 的字級，實作用 `1em`。原因與字型 class 見[字型
 ## Figma 色碼怎麼對照
 
 1. 拿設計稿上的色碼，到 token 表找同值的 token。
-2. 同一個色碼可能對到好幾個 token，挑用途相符的那個。例如 #939393 同時是 `--text/body-light`、`--text/disabled`、`--button/neutral`、`--input/prompt` 的值；停用狀態的文字就用 `--text/disabled`。
+2. 同一個色碼可能對到好幾個 token，挑用途相符的那個。例如 #939393 同時是 `--text/body-light`、`--text/disabled`、`--button/neutral`、`--input/prompt` 的值；停用狀態的文字就用 `--text/disabled`。例外是 <ComponentLink id="menu-item" />：停用的選項要把原因寫在下方，#939393 太深、跟能用的選項分不清楚，所以整項改用淺一階的 `--color/grey/50`（#aaaaaa）。
 3. 對「值」，不要對「名字」。設計稿或原型裡的變數，可能和 DS token 同名不同值。例如原型的 `--grey-10` 是 #f1f3f5，對應的是 DS 的 `--color/white/20`；DS 的 `--color/grey/10` 則是 #fcfcfc。
 
 ## 完整清單

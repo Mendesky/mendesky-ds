@@ -6,7 +6,7 @@ export const actionMenuSpec = {
     notes: [
         '（2026-08-13 使用者拍板）卡片底色與邊框以實作為準：底色 rgba(255,255,255,0.45)（不是 0.72）、邊框用 --border/white 純白（不是 0.85 半透明）。已寫進上方視覺規格表，勿再視為漂移回報。',
         '（2026-04 更新）元件自動 portal 到 document.body，父層不再需要 position:relative。使用 position:fixed 定位，解決 transform/overflow:hidden 容器裁切問題。anchor 追蹤由浮層定位服務以事件驅動完成（document capture-phase scroll、window resize、trigger 的 ResizeObserver、visualViewport 變化），非 rAF 輪詢；rAF 只用於 attach 後的單次初始定位與同帧節流。context-menu 模式（attachAtPoint）不追蹤捲動。',
-        'autoCloseOnAction=true（預設）：適合點選即執行的 More 操作選單，點任何選項後自動關閉。放了 #menu-item 的選單只有點到可以用的選項才關，點到分隔線、空白處或停用的選項都不會關。',
+        'autoCloseOnAction=true（預設）：適合點選即執行的 More 操作選單，點任何選項後自動關閉。放了 #menu-item 的選單只有點到可以用的選項才關，點到分隔線、空白處或停用的選項都不會關。設了 `opensPanel` 的 #menu-item 點了也不會關，選單留著，旁邊打開面板。面板用另一個 #action-menu、以 `fixedMode` 的固定座標打開時，把打開它的那一項傳給面板的 `ancestorAnchorEl`：點面板裡面不會關掉這個選單，再按一次那一項時，面板也不會先被當成點外面關掉、放開後又被打開。',
         'autoCloseOnAction=false：適合含輸入欄、多選 chip、套用按鈕的複雜篩選面板，讓使用者操作完再手動關閉',
         '不需要在父層自己偵測外部點擊：浮層定位服務以 capture-phase pointerdown 偵測，點到外部時元件送出 closeMenu 事件，父層接這個事件關閉選單',
     ],
@@ -14,6 +14,7 @@ export const actionMenuSpec = {
         keyboard: [
             '放了 #menu-item 的選單：上下方向鍵只在選單項目之間移動，停用的項目也停得到；在最後一項按下會回到第一項，在第一項按上會跳到最後一項。Home、End 分別跳到第一項、最後一項。',
             '放了 #menu-item 的選單：Enter 或空白鍵執行目前這一項。按住不放也只執行一次：放開之前的連發不會讓打開選單的按鈕再打開選單，也不會按到接著拿到焦點的按鈕（例如選的那一項打開的對話框裡的按鈕）。Esc 關閉選單，焦點回到打開選單的按鈕。Tab 也會關閉選單，焦點接著移到打開選單那顆按鈕的下一個元素。',
+            '放了 #menu-item 的選單：焦點在設了 `opensPanel` 的項目上時，按右方向鍵跟按 Enter 一樣，打開旁邊的面板。面板已經開著，或項目停用時沒有反應。其他項目按左右方向鍵都沒有作用。',
             '沒放 #menu-item 的浮層（篩選面板、選項還是 #button 的選單）：上下方向鍵在可以按的按鈕之間移動，焦點在輸入框裡時方向鍵照常移動游標；Enter 或空白鍵觸發目前這一項，按住不放也只觸發一次：用鍵盤快捷鍵打開浮層時按著沒放，連發不會按到浮層裡的第一項，放開之前的連發也不會按到接著拿到焦點的按鈕；Esc 關閉，焦點還給打開前有焦點的元素。Tab 不會關閉浮層，Home、End 也沒有特別的作用。',
         ],
         focus: [
@@ -59,6 +60,10 @@ export const actionMenuSpec = {
                 [
                     'border-radius / padding',
                     '10px / 5px',
+                ],
+                [
+                    '寬度',
+                    '最窄 200px，再寬就跟著最寬的一項走，不設上限。#menu-item 的說明一行最多約 16 個字，超過就換行，不會把選單撐寬',
                 ],
                 [
                     'z-index / 定位',
