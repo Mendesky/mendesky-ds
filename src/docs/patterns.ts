@@ -264,7 +264,8 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         description: 'chip 群組尾端新增自訂 chip：點 ghost 觸發鈕 → 原地變 inline #input → Enter 提交成一顆已勾選 chip',
         rule: [
           '使用 #inline-add 元件',
-          '僅 Enter 提交（trim 後非空才 emit）；Esc / blur 一律取消丟棄（最不意外）',
+          '僅 Enter 提交（trim 後非空才 emit）；Esc 或離開輸入框（點到別處、Tab）就取消丟棄。例外：輸入法選字時的 Esc 是取消選字，不收起輸入框',
+          '輸入框一律要有名稱：它連不到外層 #field 的標題，不設時只念提示文字。放在欄位裡用欄位標題，沒有欄位時寫這一格要新增什麼。只給名稱、不標必填：外層欄位的必填指整組至少選一個，不是這一格一定要打字',
           '元件只管「輸入 affordance」，不持有清單 / 勾選；去重、加入清單、勾選由父層的 add 事件 handler 處理（展示櫃原則）',
           'committed 後自動勾選 + 立即送後端（對應 mutation.feedback.optimisticAtomic）',
           '輸入態 keydown stopPropagation，避免方向鍵被 chip 群組 roving focus（wizard.keyboard）攔截',
@@ -289,12 +290,11 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       ],
       focus: [
         'Enter / Esc 收起後焦點回到觸發鈕；不還的話輸入框被拆掉，焦點掉到頁面本身，用鍵盤的人得從頭找',
-        'blur 離開輸入框 → 取消編輯態並還原為觸發鈕；焦點已被使用者移走，不拉回觸發鈕',
+        'blur 離開輸入框（點到別處、Tab）→ 取消編輯態並還原為觸發鈕；焦點已被使用者移走，不拉回觸發鈕',
       ],
       aria: [
         '輸入框沿用 #input 標準語意；外層 chip 群組維持 role="group"',
-        '輸入框不會連到外層 #field 的標題：放在有標題的欄位裡時，用 #inline-add 的 ariaLabel 設成欄位標題；不設時報讀軟體只念提示文字',
-        '只給名稱、不標必填：外層欄位的必填指整組至少選一個，不是這一格一定要打字',
+        '內層輸入框只有 aria-label（來自 #inline-add 的 ariaLabel），沒有 aria-labelledby 與 aria-required：它不在外層 #field 裡，連不到欄位標題，也不帶必填',
       ],
     },
     relatedComponents: [
