@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.0）
+### Angular（v0.8.1）
 
 `app-page-skeleton`
 
 （無 Input/Output）
 
-[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/?path=/docs/page-skeleton--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/page-skeleton--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

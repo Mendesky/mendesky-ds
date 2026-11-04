@@ -34,8 +34,8 @@
 - 跟這組單選不同類的動作，例如排序選單裡的「還原預設」，放在最後一列，上面用一條分隔線隔開，分隔線標成 role="separator"。
 - 刪除、封存這類危險動作，`tone` 設成 `danger`，文字也要寫清楚會做什麼，不要只靠紅色讓人看出危險。
 - 選項暫時不能用時設 `disabled`。停用的選項在選單裡鍵盤還停得到，用報讀軟體的人也聽得到有這一項。
-- 停用時把原因寫在 `description`，例如「先完成上一步才能使用」。原因一直顯示在選項下方，不用滑過或點了才看得到；報讀軟體也會在名稱之後念出來。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/iframe.html?id=menu-item--disabled&viewMode=story)）
-- 點了會在選單旁邊打開面板、選單要繼續開著的選項，設 `opensPanel`，並用 `panelOpen` 跟著面板開關。這樣才有右箭頭，點了也不會關選單。點擊要切換面板：關著就打開，開著就關，使用者再按一次才關得掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/iframe.html?id=menu-item--opens-panel&viewMode=story)）
+- 停用時把原因寫在 `description`，例如「先完成上一步才能使用」。原因一直顯示在選項下方，不用滑過或點了才看得到；報讀軟體也會在名稱之後念出來。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/iframe.html?id=menu-item--disabled&viewMode=story)）
+- 點了會在選單旁邊打開面板、選單要繼續開著的選項，設 `opensPanel`，並用 `panelOpen` 跟著面板開關。這樣才有右箭頭，點了也不會關選單。點擊要切換面板：關著就打開，開著就關，使用者再按一次才關得掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/iframe.html?id=menu-item--opens-panel&viewMode=story)）
 - 要在文字後面標出類型或狀態，就把 [Label](label.md) 放進自訂內容。顏色設成 LightWhite 的標籤，底色變深時會自動變成淺色字，不用自己寫滑過、選中的樣式；GreyOutline、Transparent 這類灰字標籤不會跟著變，疊在深色底上會看不清楚。
 
 ### 不要這樣做
@@ -49,13 +49,13 @@
 
 ## 用法
 
-### Angular（v0.8.0）
+### Angular（v0.8.1）
 
 `app-menu-item`
 
 label（必填）· description · icon · tone: neutral|danger · [disabled] · [selected]: boolean|null（null＝一般動作）· opensPanel: 'dialog'|null · [panelOpen] · (itemClick) · 文字後面可投影 app-label
 
-[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/?path=/docs/menu-item--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/menu-item--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

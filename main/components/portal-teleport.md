@@ -9,11 +9,11 @@
 
 ## 用法
 
-### Angular（v0.8.0）
+### Angular（v0.8.1）
 
 `[appPortalTeleport]`
 
-[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/?path=/docs/portal-teleport--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/portal-teleport--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

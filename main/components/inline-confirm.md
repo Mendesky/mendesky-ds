@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.0）
+### Angular（v0.8.1）
 
 `app-inline-confirm`
 
 label / description / checkLabel · requirement: required|optional · [(confirmed)] model signal · <ng-content select="[inlineConfirmDetails]"> 投影 bullets
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/?path=/docs/inline-confirm--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/inline-confirm--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -25,7 +25,7 @@ label / description / checkLabel · requirement: required|optional · [(confirme
 | `confirmed` | `ModelSignal<boolean>` | `false` | 雙向綁定 [(confirmed)]；父層職責：進頁面時 signal.set(false) 重置 |
 | `size` | `'md' \| 'lg'` | `'md'` | lg = 16px 字體 + 較大 padding，用於主要流程確認步驟 |
 | `fullWidth` | `boolean` | `false` | 勾選按鈕撐滿父層寬度 |
-| `hideRequiredIcon` | `boolean` | `false` | 隱藏 required 模式的 Alert icon（已有其他警示元素時使用） |
+| `hideRequiredIcon` | `boolean` | `false` | 隱藏 required 模式的 Alert-Info icon（已有其他警示元素時使用） |
 | `disabled` | `boolean` | `false` | 整個元件 disabled（前置條件未滿足時） |
 | `error` | `boolean` | `false` | 驗證失敗時切換為警示色框（var(--button/error)）；各 inline-confirm 獨立綁定，不共用外框 |
 | `errorMessage` | `string` | `''` | 欄位驗證錯誤訊息；有值時顯示 tooltip（位置見 errorPosition，預設下方；空字串 = 不顯示）。與 error prop 通常一起使用。 |
