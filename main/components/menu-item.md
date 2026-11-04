@@ -34,8 +34,8 @@
 - 跟這組單選不同類的動作，例如排序選單裡的「還原預設」，放在最後一列，上面用一條分隔線隔開，分隔線標成 role="separator"。
 - 刪除、封存這類危險動作，`tone` 設成 `danger`，文字也要寫清楚會做什麼，不要只靠紅色讓人看出危險。
 - 選項暫時不能用時設 `disabled`。停用的選項在選單裡鍵盤還停得到，用報讀軟體的人也聽得到有這一項。
-- 停用時把原因寫在 `description`，例如「先完成上一步才能使用」。原因一直顯示在選項下方，不用滑過或點了才看得到；報讀軟體也會在名稱之後念出來。
-- 點了會在選單旁邊打開面板、選單要繼續開著的選項，設 `opensPanel`，並用 `panelOpen` 跟著面板開關。這樣才有右箭頭，點了也不會關選單。點擊要切換面板：關著就打開，開著就關，使用者再按一次才關得掉。
+- 停用時把原因寫在 `description`，例如「先完成上一步才能使用」。原因一直顯示在選項下方，不用滑過或點了才看得到；報讀軟體也會在名稱之後念出來。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/iframe.html?id=menu-item--disabled&viewMode=story)）
+- 點了會在選單旁邊打開面板、選單要繼續開著的選項，設 `opensPanel`，並用 `panelOpen` 跟著面板開關。這樣才有右箭頭，點了也不會關選單。點擊要切換面板：關著就打開，開著就關，使用者再按一次才關得掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/iframe.html?id=menu-item--opens-panel&viewMode=story)）
 - 要在文字後面標出類型或狀態，就把 [Label](label.md) 放進自訂內容。顏色設成 LightWhite 的標籤，底色變深時會自動變成淺色字，不用自己寫滑過、選中的樣式；GreyOutline、Transparent 這類灰字標籤不會跟著變，疊在深色底上會看不清楚。
 
 ### 不要這樣做
@@ -49,24 +49,26 @@
 
 ## 用法
 
-### Angular（v0.7.0）
+### Angular（v0.8.0）
 
 `app-menu-item`
 
-label（必填）· description · icon · tone: neutral|danger · [disabled] · [selected]: boolean|null（null＝一般動作）· (itemClick) · 文字後面可投影 app-label
+label（必填）· description · icon · tone: neutral|danger · [disabled] · [selected]: boolean|null（null＝一般動作）· opensPanel: 'dialog'|null · [panelOpen] · (itemClick) · 文字後面可投影 app-label
 
-[在範例網站看全部 8 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/menu-item--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/?path=/docs/menu-item--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
 | `label` | `string` |  | 這一項要做什麼，或代表哪一個值。必填。 |
-| `description` | `string` | `''` | 顯示在文字下方的說明。有值時文字變成粗體標題（一般項目是深色，tone 是 danger 時維持紅字），說明用淺灰色；內層按鈕用 aria-describedby 指向它，不算進名稱。空字串不顯示。 |
+| `description` | `string` | `''` | 顯示在文字下方的說明。有值時文字變成粗體標題（一般項目是深色，tone 是 danger 時維持紅字），說明用淺灰色；一行最寬 16em（約 16 個字），超過就換行。內層按鈕用 aria-describedby 指向它，不算進名稱。停用時用它寫原因。空字串不顯示。 |
 | `icon` | `string` | `''` | 文字左邊的圖示，填 DS 圖示名稱（例如 Trash-Del、Archive）。顏色跟著文字走，報讀軟體不念。空字串不顯示。 |
 | `tone` | `MenuItemTone` | `'neutral'` | 'neutral' \| 'danger'。danger 是紅字的危險動作，滑過、按下跟 ghost 危險按鈕一樣。 |
-| `disabled` | `boolean` | `false` | 停用。內層按鈕用 aria-disabled="true"，不用原生 disabled，所以在選單裡方向鍵還停得到；點了、按 Enter 都不會發 itemClick，選單也不會關。 |
+| `disabled` | `boolean` | `false` | 停用。內層按鈕用 aria-disabled="true"，不用原生 disabled，所以在選單裡方向鍵還停得到；點了、按 Enter 都不會發 itemClick，選單也不會關。整項換成灰 50（--color/grey/50），標題不加粗；原因寫在 description。 |
 | `selected` | `boolean \| null` | `null` | 不設（null）是一般動作；設成 true／false 就是一組單選裡的一個值，true 是選中（深藍實心底）。在 app-action-menu 裡輸出 role="menuitemradio" 與 aria-checked；在選單外輸出 aria-pressed。 |
+| `opensPanel` | `MenuItemPanel \| null` | `null` | 點了會在旁邊打開面板時設 'dialog'（面板裡是按鈕、輸入框這類一般內容）。右邊加 RightArrow 箭頭，內層按鈕輸出 aria-haspopup 與 aria-expanded。在 app-action-menu 裡點了不關選單，焦點留在這一項；焦點在上面時按右方向鍵也會發 itemClick。面板已經開著時按右方向鍵不發，改成把焦點移進面板（面板要用 fixedMode 加固定座標打開、ancestorAnchorEl 指回這一項）。 |
+| `panelOpen` | `boolean` | `false` | 旁邊的面板開著沒。設了 opensPanel 才有作用：輸出成 aria-expanded，true 時跟滑過一樣亮著（危險項目是淺紅底）。面板開關由使用端自己管。 |
 | `(itemClick)` | `EventEmitter<void>` |  | 點一下，或焦點在上面時按 Enter、空白鍵就會觸發；停用時不觸發。 |
 
 #### 程式碼範例
@@ -92,14 +94,36 @@ label（必填）· description · icon · tone: neutral|danger · [disabled] ·
 </div>
 ```
 
-**執行動作的選單：圖示、停用、危險動作**
+**執行動作的選單：圖示、停用（原因寫在說明）、危險動作**
 
 ```html
 <app-action-menu ariaLabel="更多操作" (closeMenu)="moreOpen.set(false)">
   <app-menu-item label="編輯項目" icon="Edit" (itemClick)="edit()"></app-menu-item>
-  <app-menu-item label="封存項目" icon="Archive" [disabled]="!canArchive()" (itemClick)="archive()"></app-menu-item>
+  <app-menu-item label="封存項目" icon="Archive" [disabled]="!!archiveBlockedReason()"
+    [description]="archiveBlockedReason()" (itemClick)="archive()"></app-menu-item>
   <app-menu-item label="刪除項目" icon="Trash-Del" tone="danger" (itemClick)="remove()"></app-menu-item>
 </app-action-menu>
+```
+
+**在旁邊打開面板：選項設 opensPanel、panelOpen，點擊切換面板開關；面板是另一個 app-action-menu，標成對話框，ancestorAnchorEl 傳那一項的元素**
+
+```html
+<app-action-menu ariaLabel="更多操作" (closeMenu)="closeAll()">
+  <app-menu-item #exportItem label="匯出" icon="Download" opensPanel="dialog"
+    [panelOpen]="exportOpen()" (itemClick)="toggleExport()"></app-menu-item>
+  <app-menu-item label="編輯項目" icon="Edit" (itemClick)="edit()"></app-menu-item>
+</app-action-menu>
+
+@if (exportOpen()) {
+  <!-- 打開時焦點移進面板（app-action-menu 預設會移，內容載入中就等內容出來）；
+       面板裡按 Esc 只關面板，焦點回到「匯出」；按「匯出」以外的地方照常關面板。
+       名稱用原生 aria-label 屬性：面板裡沒放 app-menu-item，ariaLabel 不會輸出 -->
+  <app-action-menu role="dialog" aria-label="匯出" [autoCloseOnAction]="false"
+    [fixedMode]="true" [fixedTop]="exportTop()" [fixedLeft]="exportLeft()"
+    [ancestorAnchorEl]="exportItemEl()?.nativeElement ?? null" (closeMenu)="exportOpen.set(false)">
+    <!-- 面板內容：app-button-group、app-button -->
+  </app-action-menu>
+}
 ```
 
 **文字後面放標籤（自訂內容）**
@@ -128,7 +152,8 @@ label（必填）· description · icon · tone: neutral|danger · [disabled] ·
 
 - app-menu-item 透過注入（MENU_CONTEXT）找外層的 app-action-menu 登記：直接寫在 app-action-menu 的內容裡（包在 @if、@for、*ngFor 裡也可以），那個動作選單就變成選單模式；寫在 app-action-menu 外面就是選單外的單選按鈕。只找同一個範本：寫在你自己元件範本裡的 app-menu-item，就算那個元件被放進 app-action-menu，也一樣是選單外的按鈕，不會把外面的浮層變成選單；用 ViewContainerRef.createComponent 或 NgComponentOutlet 動態建立的也一樣。
 - **注意**：要聽 (itemClick)，不要在 app-menu-item 上聽 (click)。停用的項目沒有用原生 disabled，裡面按鈕的 click 事件照樣會冒到外框，(click) 在停用時也會觸發。
-- 投影進來的 app-label 用 LightWhite 時，字色來自 CSS 變數 --text/body-light。滑過、按下、選中時元件會把這個變數改成淺色，所以標籤字會跟著變白；其他寫死顏色的自訂內容不會變。
+- 投影進來的 app-label 用 LightWhite 時，字色來自 CSS 變數 --text/body-light。滑過、按下、選中、面板開著時元件會把這個變數改成淺色，所以標籤字會跟著變白；停用時改成灰 50，跟標題一樣。其他寫死顏色的自訂內容不會變。
+- ancestorAnchorEl 要的是元素，不是元件。用 viewChild('exportItem', { read: ElementRef }) 取到 ElementRef，傳它的 nativeElement（app-menu-item 的元素）；不傳的話，點面板裡面會把外面的選單當成點外面關掉，再按一次「匯出」也會先關掉面板、放開時又打開。
 - 文字後面的自訂內容放在內層按鈕裡、沒有 aria-hidden，報讀軟體會把它接在 label 後面一起念進名稱，例如「項目 C 圖片 已封存」。
 
 ## 無障礙

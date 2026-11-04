@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.7.0）
+### Angular（v0.8.0）
 
 `app-number-list`
 
-size: S|M|L · background: white|grey · label text number1 number2 avatarText actions: NumberListAction[] · (actionClick)
+size: S|M|L · background: white|grey · label text number1 number2 avatarText actions: NumberListAction[] editText · (actionClick)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.7.0/components/?path=/docs/number-list--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.0/components/?path=/docs/number-list--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -25,6 +25,7 @@ size: S|M|L · background: white|grey · label text number1 number2 avatarText a
 | `number1` | `string` | `''` | 右側數字（Inter SemiBold，靠右） |
 | `number2` | `string` | `''` | 次要數字（較深色） |
 | `actions` | `NumberListAction[]` | `['download']` | view \| download \| edit \| delete \| subview。右側按鈕固定依 檢視／下載／編輯／刪除 排列，與陣列順序無關 |
+| `editText` | `string` | `'編輯'` | 「編輯」按鈕的文字，也是手機只留圖示時的按鈕名稱（aria-label）。編的範圍需要講清楚時改，例：只改標題 →「編輯標題」 |
 | `avatarText` | `string` | `''` | 非空時顯示 Avatar，傳入使用者姓名 |
 | `(actionClick)` | `EventEmitter<NumberListAction>` |  | 按鈕點擊，回傳 action 類型 |
 
