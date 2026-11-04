@@ -6,13 +6,13 @@ hover 時顯示說明文字。
 
 ## 用法
 
-### Angular（v0.8.1）
+### Angular（v0.8.3）
 
 `app-tooltips`
 
 propClass: Down|Top|Left|Right · styles: Default|Dark · text
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/tooltips--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/tooltips--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -33,6 +33,10 @@ propClass: Down|Top|Left|Right · styles: Default|Dark · text
   text="這是提示說明文字"
 ></app-tooltips>
 ```
+
+#### Angular 注意事項
+
+- 觸控裝置（手機、平板，沒有滑鼠的裝置）上 tooltip 不會出現，電腦不論視窗多窄都照常顯示。判斷條件跟滑過提示（appTooltip）一樣。
 
 ## 注意事項
 

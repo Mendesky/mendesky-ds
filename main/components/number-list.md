@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.1）
+### Angular（v0.8.3）
 
 `app-number-list`
 
 size: S|M|L · background: white|grey · label text number1 number2 avatarText actions: NumberListAction[] editText · (actionClick)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/number-list--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/number-list--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -20,8 +20,8 @@ size: S|M|L · background: white|grey · label text number1 number2 avatarText a
 | --- | --- | --- | --- |
 | `size` | `NumberListSize` | `'S'` | S \| M |
 | `background` | `NumberListBackground` | `'white'` | hover 底色：white \| grey10 \| grey20 |
-| `label` | `string` | `''` | 左側 chip 文字；空字串時不顯示。放不下時截成「…」，被截斷時才給 tooltip 與 tab 停點；小於 1024px 換行 |
-| `text` | `string` | `''` | 主文字；規則同 label（≥1024 截斷＋截斷才給 tooltip，<1024 換行） |
+| `label` | `string` | `''` | 左側 chip 文字；空字串時不顯示。放不下時截成「…」，被截斷時才給 tooltip 與 tab 停點；小於 1024px 或觸控裝置上換行 |
+| `text` | `string` | `''` | 主文字；規則同 label（≥1024 截斷＋截斷才給 tooltip；<1024 或觸控裝置換行） |
 | `number1` | `string` | `''` | 右側數字（Inter SemiBold，靠右） |
 | `number2` | `string` | `''` | 次要數字（較深色） |
 | `actions` | `NumberListAction[]` | `['download']` | view \| download \| edit \| delete \| subview。右側按鈕固定依 檢視／下載／編輯／刪除 排列，與陣列順序無關 |

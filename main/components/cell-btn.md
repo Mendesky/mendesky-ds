@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.1）
+### Angular（v0.8.3）
 
 `app-cell-btn`
 
 [text] [selected] [disabled] [empty] · (cellClick)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.1/components/?path=/docs/cell-btn--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/cell-btn--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
