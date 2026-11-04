@@ -8,6 +8,10 @@ export const tooltipsSpec = {
             type: 'warning',
             content: '（2026-04 更新）新開發建議改用 #tooltip-directive（portal 模式），自動 portal 到 document.body 避免 overflow:hidden 裁切。#tooltips 保留向後相容，但新功能不再使用。',
         },
+        {
+            type: 'info',
+            content: '觸控裝置（手機、平板這類沒有滑鼠的裝置）上不顯示，判斷條件跟 #tooltip-directive 一樣。電腦把視窗拉窄照樣顯示。2026-11-04 起改成這樣，之前是寬度小於 1024px 就隱藏。',
+        },
     ],
     customTables: [
         {

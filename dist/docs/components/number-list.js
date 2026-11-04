@@ -2,7 +2,7 @@ export const numberListSpec = {
     id: 'number-list',
     name: 'Number List',
     group: '展示元件',
-    when: '報表數字展示列、檔案列（含檢視／下載／編輯／刪除）。寬度 1024px 以上：label 與 text 放不下截成「…」，**只有真的被截斷時**滑過／聚焦才顯示全文 tooltip；寬度小於 1024px：改換行完整顯示。手機（小於 768px）按鈕只留圖示，「label＋text＋按鈕」的列改兩行（見下方 note，2026-10-13）。',
+    when: '報表數字展示列、檔案列（含檢視／下載／編輯／刪除）。電腦上寬度 1024px 以上：label 與 text 放不下截成「…」，**只有真的被截斷時**滑過／聚焦才顯示全文 tooltip；寬度小於 1024px 或在觸控裝置上：改換行完整顯示。手機（小於 768px）按鈕只留圖示，「label＋text＋按鈕」的列改兩行（見下方 note，2026-10-13）。',
     notes: [
         {
             type: 'info',
@@ -10,7 +10,7 @@ export const numberListSpec = {
         },
         {
             type: 'info',
-            content: '**寬度小於 1024px（`bp.tablet-landscape-down`）label 與 text 換行完整顯示、不截斷**。斷點刻意與 tooltip 的隱藏斷點相同：tooltip 不出現的寬度就不能截斷，否則會「截斷又看不到全文」。代價是名稱長的列會變高。',
+            content: '**寬度小於 1024px（`bp.tablet-landscape-down`）或在觸控裝置上，label 與 text 換行完整顯示、不截斷**。tooltip 在觸控裝置上不出現（見 #tooltip-directive），所以觸控裝置不能截斷，否則會「截斷又看不到全文」；iPad 橫放寬度超過 1024px，一樣換行。寬度小於 1024px 的電腦視窗維持原本的換行，版面不變。2026-11-04 tooltip 改成只在觸控裝置隱藏，這條跟著補上觸控裝置。代價是名稱長的列會變高。',
         },
         {
             type: 'info',
