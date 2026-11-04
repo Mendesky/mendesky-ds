@@ -31,7 +31,7 @@ export const inlineConfirmSpec: ComponentSpec = {
       rows: [
         [
           'required',
-          '淡灰底 + Alert icon + label 加重',
+          '淡灰底 + Alert-Info icon（圓框 ⓘ）+ label 加重',
           '還沒勾選時 disabled',
           '阻塞型前提：發布前確認已審核、匯入前確認格式、同意條款後才能繼續',
         ],
