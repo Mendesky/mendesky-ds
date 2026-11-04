@@ -37,6 +37,7 @@ propClass: Down|Top|Left|Right · styles: Default|Dark · text
 ## 注意事項
 
 - **注意**：（2026-04 更新）新開發建議改用 [Tooltip Directive (Portal)](tooltip-directive.md)（portal 模式），自動 portal 到 document.body 避免 overflow:hidden 裁切。[Tooltips](tooltips.md) 保留向後相容，但新功能不再使用。
+- 觸控裝置（手機、平板這類沒有滑鼠的裝置）上不顯示，判斷條件跟 [Tooltip Directive (Portal)](tooltip-directive.md) 一樣。電腦把視窗拉窄照樣顯示。2026-11-04 起改成這樣，之前是寬度小於 1024px 就隱藏。
 
 ## 對照表
 
