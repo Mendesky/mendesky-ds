@@ -283,13 +283,18 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
     a11y: {
       keyboard: [
         'Enter 提交、Esc 取消；輸入態方向鍵留在輸入框內（不觸發 chip 群組 roving focus）',
+        '按住 Enter 只算一下：連發的 Enter 不再提交，也不會在觸發鈕上把輸入框再打開',
+        '用輸入法選字時的 Enter（確定選字）、Esc（取消選字）交給輸入法，不提交、不收起',
         '觸發鈕 → 進編輯態後焦點自動移入 input',
       ],
       focus: [
-        'blur 離開輸入框 → 取消編輯態並還原為觸發鈕',
+        'Enter / Esc 收起後焦點回到觸發鈕；不還的話輸入框被拆掉，焦點掉到頁面本身，用鍵盤的人得從頭找',
+        'blur 離開輸入框 → 取消編輯態並還原為觸發鈕；焦點已被使用者移走，不拉回觸發鈕',
       ],
       aria: [
         '輸入框沿用 #input 標準語意；外層 chip 群組維持 role="group"',
+        '輸入框不會連到外層 #field 的標題：放在有標題的欄位裡時，用 #inline-add 的 ariaLabel 設成欄位標題；不設時報讀軟體只念提示文字',
+        '只給名稱、不標必填：外層欄位的必填指整組至少選一個，不是這一格一定要打字',
       ],
     },
     relatedComponents: [

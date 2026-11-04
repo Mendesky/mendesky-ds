@@ -13,5 +13,24 @@ export const inlineAddSpec = {
             content: '互動：僅 Enter 提交；Esc / blur 一律取消（最不意外）。輸入態 keydown 已 stopPropagation，不會被 chip 群組方向鍵 roving focus 攔截。',
         },
     ],
+    a11y: {
+        keyboard: [
+            '輸入框裡按 Enter 送出，按 Esc 取消。方向鍵留在輸入框裡移動游標，不會跳到旁邊的選項。',
+            '按住 Enter 只算一下：只新增一次，收起後也不會在觸發鈕上把輸入框再打開。',
+            '用輸入法選字時按的 Enter、Esc 是給輸入法的，不會送出，也不會收起輸入框。',
+        ],
+        focus: [
+            '點開後焦點直接進輸入框。',
+            '按 Enter 或 Esc 收起後，焦點回到觸發鈕。',
+            '點到別處時輸入框收起，焦點不會被拉回觸發鈕。',
+        ],
+        screenReader: [
+            '輸入框不會念外層 #field 的標題，也不會念必填。放在有標題的欄位裡時，用 ariaLabel 把欄位標題設成輸入框的名稱；不設時只念提示文字。',
+            '只給名稱、不標必填：外層欄位的必填指整組至少選一個，不是這一格一定要打字。',
+        ],
+        aria: [
+            'ariaLabel 輸出成內層輸入框的 aria-label；沒設時不輸出。要設 ariaLabel，不要直接寫 aria-label 屬性：它會留在元件外框上，輸入框還是沒有名稱。',
+        ],
+    },
     customTables: [],
 };
