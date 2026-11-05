@@ -29,7 +29,7 @@ export const inlineAddSpec = {
             '只給名稱、不標必填：外層欄位的必填指整組至少選一個，不是這一格一定要打字。',
         ],
         aria: [
-            'ariaLabel 輸出成內層輸入框的 aria-label；沒設時不輸出。內層輸入框不在外層 #field 裡，所以沒有 aria-labelledby，也沒有 aria-required。',
+            'ariaLabel 輸出成內層輸入框的 aria-label；沒設時不輸出。內層輸入框寫在 #inline-add 自己的模板裡，連不到外層 #field，所以沒有 aria-labelledby，也沒有 aria-required。',
         ],
     },
     customTables: [],

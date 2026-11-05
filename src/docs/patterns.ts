@@ -294,7 +294,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       ],
       aria: [
         '輸入框沿用 #input 標準語意；外層 chip 群組維持 role="group"',
-        '內層輸入框只有 aria-label（來自 #inline-add 的 ariaLabel），沒有 aria-labelledby 與 aria-required：它不在外層 #field 裡，連不到欄位標題，也不帶必填',
+        '內層輸入框只有 aria-label（來自 #inline-add 的 ariaLabel），沒有 aria-labelledby 與 aria-required：它寫在 #inline-add 自己的模板裡，連不到外層 #field 的標題，也不帶必填',
       ],
     },
     relatedComponents: [
