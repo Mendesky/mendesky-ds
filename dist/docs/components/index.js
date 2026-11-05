@@ -54,7 +54,6 @@ import { toggleSpec } from './toggle.js';
 import { tooltipDirectiveSpec } from './tooltip-directive.js';
 import { tooltipsSpec } from './tooltips.js';
 import { uploadDropzoneSpec } from './upload-dropzone.js';
-import { yearMonthPickerSpec } from './year-month-picker.js';
 export const COMPONENT_SPECS = [
     actionMenuSpec,
     autocompleteSpec,
@@ -112,5 +111,4 @@ export const COMPONENT_SPECS = [
     tooltipDirectiveSpec,
     tooltipsSpec,
     uploadDropzoneSpec,
-    yearMonthPickerSpec,
 ];
