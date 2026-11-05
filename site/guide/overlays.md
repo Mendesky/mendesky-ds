@@ -134,6 +134,8 @@ stepper 的 `validationTriggeredIds` 列出的項目會顯示紅色警告狀態�
 
 <PatternBlock id="modal.dismissal" />
 
+<PatternBlock id="popup.keyboard" />
+
 <PatternBlock id="modal.footer-buttons" />
 
 <PatternBlock id="modal.nonlinear-completion" />

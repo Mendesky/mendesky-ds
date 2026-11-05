@@ -1016,4 +1016,98 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
     ],
   },
+  // KEY: popup.keyboard — 從元素打開的面板與選單：用掉的 Enter／空白鍵／Esc（含按住不放的連發）不往外傳；焦點所在的按鈕被自己停用時移到同面板的元素
+  'popup.keyboard': {
+    name: '面板與選單的按鍵不往外傳',
+    principle: '從按鈕或欄位打開、浮在頁面上的面板與選單（例如下拉選單、日期面板），用掉的按鍵不往外傳：Enter、空白鍵不會觸發頁面的快捷鍵，Esc 只關這一層，外層的對話框不會跟著關；按住不放的連發也一樣。焦點所在的按鈕被自己的動作停用時，焦點移到同一個面板裡的其他元素，不讓它掉出面板。DS 自己的元件還沒全部做到，還差的地方列在最後一個情境。',
+    when: '做下拉面板、選單、日期面板這類從某個元素打開的面板，或在對話框裡放這類元件時。',
+    scenarios: [
+      {
+        type: 'enterSpace',
+        description: '焦點在面板裡，按 Enter 或空白鍵',
+        rule: [
+          '面板處理完這一下（選取、執行這一項）就不往外傳，頁面的快捷鍵收不到',
+          '按住不放的連發不再執行，放開之前也不往外傳；要連按的按鈕例外，例如 #date-picker 的「上一年」「下一年」可以按住 Enter 連續換年',
+          '焦點在面板裡的輸入框、多行輸入框時，Enter、空白鍵照常輸入',
+        ],
+        rationale: '頁面常用 Enter 打開目前這一列的選單。同一下傳出去，剛關掉的面板會被重新打開；連發則會按到焦點接著停的按鈕。',
+        example: '#action-menu 選了一項、按住 Enter 不放，連發不會按到那一項打開的對話框裡的按鈕。',
+      },
+      {
+        type: 'escape',
+        description: '面板開著時按 Esc',
+        rule: [
+          '只關這一層面板，焦點回到打開它的元素，這個 Esc 不往外傳',
+          '按住不放時，關掉之後的連發也不往外傳，放開再按才傳出去',
+          '面板關著時不攔 Esc，照常傳給外層',
+          '在輸入框裡用輸入法選字時按 Esc 是取消選字：面板不關，這一下也不往外傳',
+        ],
+        rationale: '使用者按 Esc 只想收起面板。外層對話框跟著關，填到一半的內容會跳出關閉確認，或直接不見。',
+        example: '對話框裡的 #date-picker 面板開著時按 Esc，只收起面板，對話框留著；再按一次 Esc 才關對話框。',
+      },
+      {
+        type: 'disabledBySelf',
+        description: '焦點所在的按鈕，被自己的動作停用了',
+        rule: [
+          '焦點移到同一個面板裡相鄰的元素，不留在停用的按鈕上',
+        ],
+        rationale: '停用的按鈕接不住焦點，焦點會掉出面板。鍵盤使用者得從頭用 Tab 找回來，面板裡的方向鍵也不能用了。',
+        example: '#date-picker 的「下一年」按到上限停用時，焦點移到「選擇年份」。',
+      },
+      {
+        type: 'dsGaps',
+        description: 'DS 元件目前還沒做到的地方（對照 Angular 版 v0.9.0）',
+        rule: [
+          '#action-menu 放了 #menu-item 的選單：按住 Esc 時，第一下關掉選單，之後的連發會傳到外層，外層的對話框會跟著關',
+          '#action-menu 沒放 #menu-item 的浮層：只收浮層裡面的按鍵。焦點不在浮層裡（例如落到頁面上，或還在錨點的輸入框）時按 Esc，會直接傳到外層。焦點所在的按鈕被自己的動作停用時，焦點不會移走',
+          '#date-picker：選擇器上的 Enter、空白鍵會傳到外層，包含打開面板的那一下，以及在格子上按住 Enter 選取、焦點回到選擇器之後的連發',
+          '#select：按 Esc 關閉後，焦點離開欄位，不回到欄位（Vue 試做版 v0.3.0 也是）；關掉之後的 Esc 連發會傳到外層；可輸入模式在選字中按 Esc，也會關掉下拉、焦點離開欄位，不是只取消選字；在欄位上按住 Enter，連發會讓面板一開一關，關的那一下會選下目前標示的那一項',
+          '#autocomplete：只在下拉開著時攔下 Esc。按住 Esc 時，關掉下拉之後的連發會傳到外層；選字中按 Esc，下拉開著時會一起關掉下拉，下拉沒開時這一下會傳到外層',
+        ],
+        rationale: '這條原則是目標，元件還在補。把這些元件放進對話框，或頁面有鍵盤快捷鍵時，要知道哪裡還會漏出去。',
+      },
+    ],
+    antiPatterns: [
+      '面板跟外層對話框都在整頁的最外層聽 Esc，面板呼叫「停止傳遞」：同一層的其他監聽照樣收到，對話框跟著關。面板要比對話框先收到這一下，才擋得住',
+      '只擋第一下，不擋按住不放的連發：外層對話框收到連發的 Esc，頁面快捷鍵收到連發的 Enter',
+      '面板關著時也攔下 Esc：外層對話框用 Esc 關不掉',
+      '按鈕被自己的動作停用時不移焦點：焦點掉出面板',
+    ],
+    a11y: {
+      keyboard: [
+        'Enter、空白鍵：面板處理之後不往外傳；按住不放的連發也不往外傳，要連按的按鈕除外',
+        'Esc：只關這一層面板，不往外傳，連發也不往外傳；面板關著時照常傳出去',
+        'Esc（輸入法選字中）：取消選字，面板不關，也不往外傳',
+      ],
+      focus: [
+        '用 Esc 關閉面板時，焦點回到打開它的元素',
+        '焦點所在的按鈕被自己的動作停用時，焦點移到同一個面板裡相鄰的元素',
+      ],
+    },
+    relatedComponents: [
+      '#action-menu',
+      '#menu-item',
+      '#date-picker',
+      '#dialog',
+      '#modal-shell',
+    ],
+    relatedPatterns: [
+      'modal.dismissal',
+      'wizard.keyboard',
+    ],
+    references: [
+      {
+        source: 'WAI-ARIA Authoring Practices — Menu and Menubar',
+        url: 'https://www.w3.org/WAI/ARIA/apg/patterns/menubar/',
+        status: 'adopt',
+        note: 'Esc 關閉焦點所在的選單，焦點回到打開它的元素，照這個做',
+      },
+      {
+        source: 'WAI-ARIA Authoring Practices — Combobox',
+        url: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
+        status: 'adopt',
+        note: 'Esc 收起開著的下拉照這個做。下拉關著時，APG 允許 Esc 清空欄位；本 DS 不清空，交給外層',
+      },
+    ],
+  },
 };
