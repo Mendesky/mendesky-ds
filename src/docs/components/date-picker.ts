@@ -8,15 +8,15 @@ export const datePickerSpec: ComponentSpec = {
   notes: [
     {
       type: 'info',
-      content: "值格式：year='114'、month='114-3'、period='114-3'、day='114-3-15'，空值 ''；可以跟表單雙向綁定值。period 的值是那一期的起始月，一定是單數月：'114-3' 代表 3~4 月。",
+      content: "值格式：year='114'、month='114-3'、period='114-3'、day='114-3-15'，空值 ''；可以跟表單雙向綁定值。period 的值是那一期的起始月：'114-3' 代表 3~4 月。元件送出的值一定是單數月；收到的值可能是雙數月（例如舊資料的 '114-4'），元件原樣保留。",
     },
     {
       type: 'info',
-      content: "顯示文字：year → '114 年'；month → '114 年 3 月'；period → '114 年 3~4 月'；day → '114 年 3 月 15 日'。period 收到雙數月的值（例如 '114-4'）時，顯示成它所屬的那一期（114 年 3~4 月）並標成選中，但不會改寫原本的值。",
+      content: "顯示文字：year → '114 年'；month → '114 年 3 月'；period → '114 年 3~4 月'；day → '114 年 3 月 15 日'。period 收到雙數月的值（例如 '114-4'）時，顯示成它所屬的那一期（114 年 3~4 月）並標成選中；元件不改寫這個值，也不會因此送出新值。",
     },
     {
       type: 'info',
-      content: '行為規格：點擊 trigger → portal 到 body 的浮動 panel，dropdown 寬度與 trigger 同寬。year 模式：直接顯示 2 欄年份 grid，點擊年份即選取。month 模式：← 年 → 導覽 + 3×4 月份 grid，點擊月份即選取。period 模式：← 年 → 導覽 + 3×2 期別 grid（1~2 月、3~4 月……11~12 月），點擊即選取；有設最晚日期或最晚月份時，起始月晚於限制的那一期不能選。day 模式：先選月份（← 年 → 導覽 + 3×4 月份 grid），選月後切換至日期 grid（← 返回 + 標題 + 7 欄星期 + 日期按鈕），點擊日期即選取。Escape / 點擊 trigger 外 → 關閉 panel。',
+      content: '行為規格：點擊 trigger → portal 到 body 的浮動 panel，dropdown 寬度與 trigger 同寬。year 模式：直接顯示 2 欄年份 grid，點擊年份即選取。month 模式：← 年 → 導覽 + 3×4 月份 grid，點擊月份即選取。period 模式：← 年 → 導覽 + 3×2 期別 grid（1~2 月、3~4 月……11~12 月），點擊即選取；起始月晚於上限的那一期不能選。上限來自 maxDate，或 maxYear 加 maxMonth：maxMonth 只在 maxYear 那一年生效，兩者都設時以 maxDate 為準。day 模式：先選月份（← 年 → 導覽 + 3×4 月份 grid），選月後切換至日期 grid（← 返回 + 標題 + 7 欄星期 + 日期按鈕），點擊日期即選取。Escape / 點擊 trigger 外 → 關閉 panel。disabled 時點擊 trigger 不開啟 panel。',
     },
     {
       type: 'info',
