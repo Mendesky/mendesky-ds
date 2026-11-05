@@ -119,19 +119,25 @@
 <StoryEmbed id="inline-add--in-chip-group" :height="260" title="在選項清單尾端新增自訂項" />
 
 - 只有 Enter 會送出。內容去掉前後空白後不是空字串，才會發出 `add` 事件。
-- 按 Esc 或點到別處（blur）一律取消，輸入的內容丟掉。
+- 按 Esc 或離開輸入框（點到別處、按 Tab）就取消，輸入的內容丟掉。例外是用輸入法選字的時候，見下一條。
+- 按住 Enter 只算一下，不會連續新增。用輸入法選字時按的 Enter、Esc 是給輸入法的，不會送出，也不會收起輸入框。
+- 點開後焦點直接進輸入框。按 Enter 或 Esc 收起後，焦點回到觸發鈕；點到別處或按 Tab 離開時，焦點不會被拉回觸發鈕。
+- 輸入框不會連到外層欄位的標題，沒設名稱時報讀軟體只念提示文字，聽不出這一格要填什麼。所以一律要設 `ariaLabel`：放在欄位裡時用欄位標題；沒有欄位時，寫這一格要新增什麼。只給名稱，不標必填：欄位的必填指整組至少選一個，不是這一格一定要打字。
 - 元件只負責輸入。去重、加入清單、勾選都在父層的 `add` 事件處理。
 - 新增後立刻勾選並送後端。失敗時怎麼處理，見[載入與回饋](./feedback)。
 
 ::: code-group
 
 ```html [Angular]
-<div class="chip-wrap">
-  @for (opt of options(); track opt) {
-    <app-check-chip [text]="opt" [(ngModel)]="checked[opt]"></app-check-chip>
-  }
-  <app-inline-add (add)="addCustom($event)"></app-inline-add>
-</div>
+<app-field label="從哪裡得知這項活動">
+  <div class="chip-wrap">
+    @for (opt of options(); track opt) {
+      <app-check-chip [text]="opt" [(ngModel)]="checked[opt]"></app-check-chip>
+    }
+    <!-- 內層輸入框不會念外層欄位標題，用 ariaLabel 設成欄位標題 -->
+    <app-inline-add ariaLabel="從哪裡得知這項活動" (add)="addCustom($event)"></app-inline-add>
+  </div>
+</app-field>
 ```
 
 ```text [Vue]
