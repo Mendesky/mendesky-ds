@@ -9,7 +9,7 @@
 - [Button](components/button.md): 畫面上能點的操作都用它，不要自己寫原生的 `<button>`。
 - [Button Group](components/button-group.md): 2–5 個互斥選項，且視覺需連成一排時用。
 - [Carousel Dot](components/carousel-dot.md): 圖片輪播指示、kanban 分頁點。
-- [Cell Button](components/cell-btn.md): 日期/年月選擇器內部的格子按鈕。
+- [Cell Button](components/cell-btn.md): 日期選擇器（Date Picker）內部的格子按鈕。
 - [Check Chip](components/check-chip.md): 篩選條件多選、標籤多選、表單內單一 boolean 偏好（如同意條款、Email 通知開關）。
 - [Checkbox](components/checkbox.md): 單純的勾選框，三態：沒有／全有／部分。
 - [Icon Button](components/icon-btn.md): 工具列、表格操作、純圖示互動。
@@ -24,7 +24,7 @@
 ## 表單元件
 
 - [Autocomplete](components/autocomplete.md): 搜尋後動態篩選選項的輸入框。
-- [Date Picker](components/date-picker.md): 需要選取民國年、年月、或完整日期（年月日）的場景。
+- [Date Picker](components/date-picker.md): 需要選取民國年、年月、期別（兩個月一期）或完整日期（年月日）的場景。
 - [Field](components/field.md): 所有表單欄位外層包裝。
 - [Input](components/input.md): 單行文字輸入。
 - [Number Input](components/number-input.md): 金額、數量等數字欄位。
@@ -34,7 +34,6 @@
 - [Select](components/select.md): 固定選項下拉選擇。
 - [Template Editor](components/template-editor.md): 含範本變數的可編輯文字欄位（如信件內容、備註）。
 - [Textarea](components/textarea.md): 備注、描述等多行輸入。
-- [Year Month Picker](components/year-month-picker.md): 需要選取民國年 / 年月 / 期別（1 期 = 2 個月）的場景。
 
 ## 浮層元件
 
