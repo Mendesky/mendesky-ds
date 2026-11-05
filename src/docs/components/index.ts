@@ -56,7 +56,6 @@ import { toggleSpec } from './toggle.js';
 import { tooltipDirectiveSpec } from './tooltip-directive.js';
 import { tooltipsSpec } from './tooltips.js';
 import { uploadDropzoneSpec } from './upload-dropzone.js';
-import { yearMonthPickerSpec } from './year-month-picker.js';
 
 export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   actionMenuSpec,
@@ -115,5 +114,4 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   tooltipDirectiveSpec,
   tooltipsSpec,
   uploadDropzoneSpec,
-  yearMonthPickerSpec,
 ];

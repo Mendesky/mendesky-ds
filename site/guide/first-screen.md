@@ -153,7 +153,6 @@ template 用三個元件：
 - <ComponentLink id="select" />
 - <ComponentLink id="checkbox" />
 - <ComponentLink id="date-picker" />
-- <ComponentLink id="year-month-picker" />
 - <ComponentLink id="check-chip" />
 - <ComponentLink id="radio-chip" />
 
