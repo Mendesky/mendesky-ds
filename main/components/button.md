@@ -34,7 +34,7 @@
 
 - 載入中記得給 `loadingText`，像「儲存中…」這樣。不然畫面上只剩一個轉圈，用報讀軟體的人根本不知道按鈕在忙什麼。
 - 按鈕暫時不能用、又想讓使用者知道原因，就打開 `clickableWhenDisabled`，再配一句 `disabledMessage`。按鈕一樣是灰的，但點下去會在上方跳出你寫的原因，總比讓人對著一顆沒反應的按鈕猛點好。
-- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/iframe.html?id=button--full-width&viewMode=story)）
+- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/iframe.html?id=button--full-width&viewMode=story)）
 - 做成切換鈕（按一下開、再按一下關）時，用 `ariaPressed` 告訴報讀軟體現在是按下還是沒按下。如果按鈕代表清單裡「目前這一項」，改用 `ariaCurrent`。
 - 按鈕會打開放了 [Menu Item](menu-item.md) 的選單時，`ariaHaspopup` 設成 `menu`，`ariaExpanded` 跟著選單開關設成 true 或 false。這樣報讀軟體才知道按下去會跳出選單；在 Safari 上，選單關掉後也是靠 `ariaHaspopup` 和 `ariaExpanded` 一起認出這顆按鈕、把焦點還給它，少一個就認不出來。
 
@@ -46,13 +46,13 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-button`
 
 variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · [disabled] [fullWidth] [loading] · [clickableWhenDisabled] [disabledMessage] · ariaLabel [ariaPressed] [ariaCurrent] · ariaHaspopup [ariaExpanded] · (btnClick) (disabledClick)
 
-[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-drawer-shell`
 
 [isOpen] side: left|right|bottom · width · (close) · <ng-content>
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/drawer-shell--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/drawer-shell--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

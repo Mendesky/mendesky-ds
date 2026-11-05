@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-inline-add`
 
 [buttonText] [placeholder] [ariaLabel] [size:S|M] · (add: string) — ghost 觸發鈕原地變 inline 輸入框，Enter 提交
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/inline-add--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/inline-add--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -23,7 +23,7 @@
 | `size` | `'S' \| 'M'` | `'S'` | 尺寸，對齊相鄰 chip / button |
 | `(add)` | `EventEmitter<string>` |  | Enter 提交時 emit trim 後的非空字串；去重 / 加入清單 / 勾選由父層處理 |
 | `disabled` | `boolean` | `false` | 停用觸發鈕（權限控管用） |
-| `ariaLabel` | `string` | `''` | 輸入框的報讀名稱；放在有標題的 app-field 裡時設成欄位標題，不設時報讀軟體只念提示文字。要寫 ariaLabel，不要寫 aria-label：aria-label 會留在外框上，輸入框還是沒有名稱。 |
+| `ariaLabel` | `string` | `''` | 輸入框的報讀名稱，一律要設：放在有標題的 app-field 裡時用欄位標題；沒有欄位時，寫這一格要新增什麼。不設時報讀軟體只念提示文字。要寫 ariaLabel，不要寫 aria-label：aria-label 會留在外框上，輸入框還是只念提示文字。 |
 
 #### 程式碼範例
 

@@ -23,21 +23,22 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-progress-bar`
 
-[value] [max] · ariaLabel
+[value] [max] · ariaLabel · size: M|S
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/progress-bar--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 8 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/progress-bar--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `value` | `number` | `0` | 目前完成量，與 max 同單位；會被夾在 0～max 之間 |
+| `value` | `number \| null` | `0` | 目前完成量，與 max 同單位；會被夾在 0～max 之間。null ＝ 不定狀態：還不知道總量或對方不回報進度，色段由左往右滑，不輸出 aria-valuenow |
 | `max` | `number` | `100` | 總量。直接傳百分比時不用另外設；≤ 0 時一律視為 0% |
 | `ariaLabel` | `string` | `''` | 讀屏文字，例：「批次授權進度」。進度條本身沒有可見文字，建議一定要給 |
+| `size` | `'M' \| 'S'` | `'M'` | 粗細：M＝8px；S＝6px，給空間比較擠的地方（例：表單裡的上傳進度） |
 
 #### 程式碼範例
 
@@ -46,6 +47,13 @@
 ```html
 <app-progress-bar [value]="done" [max]="total" ariaLabel="批次授權進度"></app-progress-bar>
 <span>處理中 {{ done }} / {{ total }}</span>
+```
+
+**不定狀態：還不知道百分比時傳 null**
+
+```html
+<app-progress-bar [value]="uploadPercent" size="S" ariaLabel="上傳進度"></app-progress-bar>
+<!-- uploadPercent 為 null 時跑不定狀態，有數字時顯示比例 -->
 ```
 
 ## 無障礙

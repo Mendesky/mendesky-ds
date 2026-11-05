@@ -6,20 +6,20 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-icon-btn`
 
-size: 16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Modal|SectionBtn|Drag|Block|Block-Transparent|Icon+Text · label · [active] [toggle] [disabled] tooltip tooltipPos · ariaLabel · ariaHaspopup [ariaExpanded] · (btnClick)
+size: 12|16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Modal|SectionBtn|Drag|Block|Block-Transparent|Icon+Text|PrimaryFilled · label · [active] [toggle] [disabled] tooltip tooltipPos · ariaLabel · ariaHaspopup [ariaExpanded] · (btnClick)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/icon-btn--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/icon-btn--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `size` | `IconBtnSize` |  | '16-' \| '16' \| '24' \| '32' \| '36' \| '48'（對應 icon px） |
-| `propClass` | `IconBtnClass` | `'Normal'` | Normal \| Warning \| CardBtn \| CardBtnPdSmall \| Modal \| SectionBtn \| Drag \| Block \| Block-Transparent \| Icon+Text。**沒有 Floating**（2026-08-18 撤除）：DS 外部化成 @mendesky/ds-angular 後該 variant 不存在。要「浮在 backdrop 上的白底圓鈕」請用 SectionBtn（size=24 剛好 44×44、透明底），白底圓形與落影由消費端的 wrapper 出（外包一層白底圓形容器並加落影）。 |
+| `size` | `IconBtnSize` |  | '12' \| '16-' \| '16' \| '24' \| '32' \| '36' \| '48'（對應 icon px）。'12' 是 24×24，給 PrimaryFilled 用 |
+| `propClass` | `IconBtnClass` | `'Normal'` | Normal \| Warning \| CardBtn \| CardBtnPdSmall \| Modal \| SectionBtn \| Drag \| Block \| Block-Transparent \| Icon+Text \| PrimaryFilled。PrimaryFilled 是實心主色、白色圖示、圓角方形，給頁面主要的新增入口，搭配 size="12"；外觀同全域 .app-action-cta-btn（滑過 85% 不透明、停用 40% 不透明）。**沒有 Floating**（2026-08-18 撤除）：DS 外部化成 @mendesky/ds-angular 後該 variant 不存在。要「浮在 backdrop 上的白底圓鈕」請用 SectionBtn（size=24 剛好 44×44、透明底），白底圓形與落影由消費端的 wrapper 出（外包一層白底圓形容器並加落影）。 |
 | `active` | `boolean` |  | 啟用/高亮狀態（Normal / CardBtnPdSmall 轉綠） |
 | `toggle` | `boolean` | `false` | 切換按鈕模式；啟用後輸出 aria-pressed（隨 active 同步 true/false）。用於格式化、filter on/off 等可切換開關。 |
 | `disabled` | `boolean` |  | 禁用狀態（opacity 0.5，cursor not-allowed） |
@@ -69,6 +69,18 @@ size: 16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Mod
   ariaLabel="篩選"
   (btnClick)="onFilter()">
   <app-icon name="Filter" size="32"></app-icon>
+</app-icon-btn>
+```
+
+**頁面主要的新增入口：PrimaryFilled，ariaLabel 用滑過時提示的同一句話**
+
+```html
+<app-icon-btn
+  size="12"
+  propClass="PrimaryFilled"
+  ariaLabel="新增項目"
+  (btnClick)="onAdd()">
+  <app-icon name="Plus" size="12"></app-icon>
 </app-icon-btn>
 ```
 

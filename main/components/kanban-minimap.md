@@ -6,13 +6,13 @@ Kanban 欄位縮略導覽。
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-kanban-minimap`
 
 columns: MinimapColumn[] · boardContainer: HTMLElement
 
-[在範例網站看全部 2 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/kanban-minimap--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 2 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/kanban-minimap--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

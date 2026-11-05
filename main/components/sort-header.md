@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-sort-header`
 
 label · key · [sort]: SortState | null · align: start|end · (sortChange)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

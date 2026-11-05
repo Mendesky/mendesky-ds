@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-action-menu`
 
 <ng-content> 直接放 app-menu-item 就是選單（要寫在同一個範本；ariaLabel 取名、選單的鍵盤與焦點規則）；篩選面板放 app-button、app-check-chip。點外面會發 (closeMenu)，由父層關閉
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/action-menu--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/action-menu--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,13 +6,13 @@ hover 時顯示說明文字。
 
 ## 用法
 
-### Angular（v0.8.3）
+### Angular（v0.9.0）
 
 `app-tooltips`
 
 propClass: Down|Top|Left|Right · styles: Default|Dark · text
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.8.3/components/?path=/docs/tooltips--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/tooltips--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
