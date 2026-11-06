@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.9.0）
+### Angular（v0.9.1）
 
 `app-process-modal`
 
 type: running|congratulation · message [isOpen] · (dismissed)
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.0/components/?path=/docs/process-modal--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.1/components/?path=/docs/process-modal--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
