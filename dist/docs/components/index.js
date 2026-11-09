@@ -47,6 +47,7 @@ import { richTextEditorSpec } from './rich-text-editor.js';
 import { selectSpec } from './select.js';
 import { sortHeaderSpec } from './sort-header.js';
 import { stepperSpec } from './stepper.js';
+import { tabsSpec } from './tabs.js';
 import { templateEditorSpec } from './template-editor.js';
 import { textareaSpec } from './textarea.js';
 import { toastContainerSpec } from './toast-container.js';
@@ -104,6 +105,7 @@ export const COMPONENT_SPECS = [
     selectSpec,
     sortHeaderSpec,
     stepperSpec,
+    tabsSpec,
     templateEditorSpec,
     textareaSpec,
     toastContainerSpec,
