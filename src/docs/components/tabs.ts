@@ -18,7 +18,7 @@ export const tabsSpec: ComponentSpec = {
   states: [
     { name: '未選中', description: '灰字，沒有底線。' },
     { name: '滑過', description: '字色變深。' },
-    { name: '選中', description: '深藍字加粗，底下有一條亮藍色粗線。字用深藍，是為了在白底上看得清楚；線不是字，用亮藍就夠清楚。' },
+    { name: '選中', description: '深藍字加粗，底下有一條同色的深藍粗線。字用深藍，是為了在白底上看得清楚；線跟字同色，一個頁籤只有一種藍。' },
     { name: '焦點', description: '用鍵盤移到頁籤上時，外圍會出現焦點框。' },
     { name: '停用', description: '`items` 某一項設了 `disabled`：停用的灰字，滑過不變，點了、用方向鍵都不會選到它。' },
   ],
