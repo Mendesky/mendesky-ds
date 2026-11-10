@@ -18,6 +18,7 @@
 - [Menu Item](components/menu-item.md): 選單裡的每一項都用它。
 - [Radio Chip](components/radio-chip.md): 篩選條件單選、可取消的選項。
 - [Stepper](components/stepper.md): horizontal：多步驟 Wizard 進度指示。
+- [Tabs](components/tabs.md): 同一個區塊裡有幾組內容，一次只看一組，用一排頁籤切換。
 - [Toggle](components/toggle.md): 即時生效的開/關設定。
 - [Upload Dropzone](components/upload-dropzone.md): 任何需要讓使用者上傳單一檔案的場景。
 
