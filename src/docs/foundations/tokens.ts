@@ -934,6 +934,10 @@ export const DS_TOKENS: TokenGroup[] = [
         value: '#426a1c',
       },
       {
+        name: '--color\\/green\\/85',
+        value: '#538227',
+      },
+      {
         name: '--color\\/green\\/80',
         value: '#5a8c2c',
       },

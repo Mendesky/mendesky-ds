@@ -62,6 +62,8 @@ Micro 等級（hover、focus、toggle 這類）進出場都可以用減速（eas
 
 內容區塊的收合與展開，用 CSS Grid 的 `grid-template-rows` 從 `0fr` 轉到 `1fr`，子層設 `overflow: hidden`。
 
+整個收合區塊（可以點的標頭加上內容）直接用 <ComponentLink id="collapsible" />。它已經用了下面這組 class，鍵盤和報讀軟體也處理好了。只有標頭由別的東西負責、你只需要內容開合時，才自己套 `.ds-collapse`。
+
 ::: danger 不要用 max-height
 不要用 `max-height` 做收合動畫。設一個大值（例如 2000px）時，展開看起來像沒有動畫，收合也不是線性的。
 :::
@@ -101,6 +103,12 @@ DS 提供現成的工具 class <ComponentLink id="ds-collapse" />。它是 Compo
 `.ds-collapse__inner` 一定要有。grid 列高的下限預設是內容高度；內層沒有 `overflow: hidden` 時，`0fr` 壓不下去，區塊收不起來。
 
 <StoryEmbed id="ds-collapse--missing-inner" :height="260" title="少了內層就收不起來" />
+
+### 減少動態
+
+使用者在系統設了「減少動態」時，`.ds-collapse` 不轉場，直接開合。這條寫在 DS 的全域樣式裡，套了 `.ds-collapse` 就有。
+
+用自己的 class 名稱時不會套到。請在 `@media (prefers-reduced-motion: reduce)` 裡自己把轉場拿掉。
 
 ### 用自己的 class 名稱
 
