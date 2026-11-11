@@ -6,19 +6,19 @@
 
 ## 用法
 
-### Angular（v0.9.1）
+### Angular（v0.10.0）
 
 `app-select`
 
-options: SelectOption[] · placeholder size: S|M|L · [clearable] errorMessage errorPosition: top|bottom · CVA 控制 value/isDisabled
+options: SelectOption[]（{ value, label, disabled?, status?: { label } }）· placeholder size: S|M|L · [clearable] errorMessage errorPosition: top|bottom · CVA 控制 value/isDisabled
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.1/components/?path=/docs/select--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/?path=/docs/select--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `options` | `SelectOption[]` | `[]` | 選項列表：{ value, label, disabled? } |
+| `options` | `SelectOption[]` | `[]` | 選項列表：{ value, label, disabled?, status? }。status 是狀態標記 { label }，有值時這個選項的文字右邊顯示紅色驚嘆號，滑過顯示 label，報讀軟體把 label 接在文字後面念；選中這個選項後，選取框文字右邊也會顯示。 |
 | `placeholder` | `string` | `'請選擇'` | 未選中時的佔位文字 |
 | `size` | `'S' \| 'M' \| 'L'` | `'M'` | L=40px、M=36px、S=32px（觸發框高度） |
 | `errorMessage` | `string` | `''` | 錯誤訊息；有值時切換 error 狀態 |
@@ -53,9 +53,24 @@ departmentOptions: SelectOption[] = [
 ];
 ```
 
+**狀態標記：有東西要處理的選項，status 給 { label }**
+
+```html
+groupOptions: SelectOption[] = [
+  { value: 'a', label: '第一組', status: { label: '需處理' } },
+  { value: 'b', label: '第二組' },
+  { value: 'c', label: '第三組', status: { label: '需處理' } },
+];
+```
+
 #### Angular 注意事項
 
 - app-select 實作 CVA（ControlValueAccessor），可直接接 formControlName 或 [(ngModel)]。
+- 狀態標記的型別 StatusMark 從 @mendesky/ds-angular 匯出，跟 app-tabs 的狀態標記是同一個型別。
+- 可輸入模式（[searchable]="true"）打開下拉、正在打字時，選取框的驚嘆號先藏起來；關上後再顯示。選項上的驚嘆號照常顯示。
+- 停用的選項或選取框，驚嘆號跟停用的文字一樣變灰。
+- **注意**：標記的文字只有滑鼠滑過驚嘆號才看得到；下拉清單裡用方向鍵移動時，報讀軟體也念不到選項上的標記。用了標記，選中後的畫面一定要另外寫出原因。
+- status 只有 label 改變時，選項也會重畫；內容完全相同的新陣列不會重畫。
 
 ### Vue（試做）（v0.3.0）
 

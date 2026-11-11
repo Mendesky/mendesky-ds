@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.9.1）
+### Angular（v0.10.0）
 
 `app-number-list`
 
 size: S|M|L · background: white|grey · label text number1 number2 avatarText actions: NumberListAction[] editText · (actionClick)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.9.1/components/?path=/docs/number-list--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/?path=/docs/number-list--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
