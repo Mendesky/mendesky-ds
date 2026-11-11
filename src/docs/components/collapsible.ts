@@ -40,7 +40,7 @@ export const collapsibleSpec: ComponentSpec = {
     { name: '展開', description: '箭頭朝上，內容往下滑出來。箭頭跟內容一起轉場。' },
     { name: '滑過', description: '整條標頭換底色，顏色見「外觀」表。前置區、尾端區也在變色範圍裡，看起來是同一條。' },
     { name: '焦點', description: '用鍵盤停到標題按鈕時，按鈕內側出現雙層框：外圈 2px 藍、內圈 2px 白。藍色貼著白色，放在灰底、白底上都看得清楚。綠色外觀改用單層白框。卡片和綠色的標題按鈕有 7px 圓角，焦點框會順著卡片的轉角，不會被切掉。' },
-    { name: '停用', description: '`disabled`：標題和箭頭變成停用的灰，滑過不變色。點了、按 Enter 或空白鍵都不會開合，內容維持原來的開合。' },
+    { name: '停用', description: '`disabled`：標題和箭頭變成停用的灰，滑過不變色。綠色外觀的底色也換成區段的灰，跟 #button 停用時一樣，不會出現綠底配灰字。點了、按 Enter 或空白鍵都不會開合，內容維持原來的開合。' },
   ],
   a11y: {
     keyboard: [

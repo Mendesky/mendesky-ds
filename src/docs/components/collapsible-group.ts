@@ -6,8 +6,11 @@ export const collapsibleGroupSpec: ComponentSpec = {
   group: '互動元件',
   when: '把幾個 #collapsible 包成一組，一次只開一段。例如幾組設定一起打開會太長，使用者一次也只改一組。每段各自開合的話不用包。',
   notes: [
-    '設了 `single`，打開一段時，原本開著的那段會自己收起來。沒設的話跟沒包一樣，各段各自開合。',
+    '設了 `single`，使用者打開一段時，原本開著的那段會自己收起來。沒設的話跟沒包一樣，各段各自開合。',
     '可以全部收起來，不會硬留一段開著。',
+    '頁面自己改 `expanded` 打開某一段時，群組不會收其他段。這時要一次只開一段，由頁面自己把其他段關掉。',
+    '停用的段落不會被群組收起來，維持原來的開合。',
+    '段落包在卡片之類的元素裡也算同一組。段落內容裡再放的 #collapsible 不算這一組，打開它不會收掉外層。',
     '群組只管「一次開幾段」。外觀、箭頭位置、停用都在每個 #collapsible 上設。',
   ],
   anatomy: [
@@ -15,7 +18,7 @@ export const collapsibleGroupSpec: ComponentSpec = {
   ],
   states: [
     { name: '全部收合', description: '每段都收著。' },
-    { name: '一段展開', description: '設了 `single` 時最多只有一段開著；打開另一段，這段會跟著收起來。' },
+    { name: '一段展開', description: '設了 `single` 時，使用者打開另一段，這段會跟著收起來。' },
   ],
   a11y: {
     keyboard: [
