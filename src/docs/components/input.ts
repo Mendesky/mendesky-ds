@@ -42,6 +42,7 @@ export const inputSpec: ComponentSpec = {
   donts: [
     { text: '不要只靠提示文字說明這格要填什麼：填了值之後提示文字就不見了，日期這類輸入框更是從頭到尾都不顯示；報讀軟體念出的範例值也聽不懂。' },
     { text: '不要在元件上寫 id 讓外面的 `<label>` 指過來：id 會落在外框上，連不到輸入框。改用 inputId。' },
+    { text: '不要拿來當搜尋框：清除鈕要先點進框裡才出現，鍵盤也按不到；Esc 清空、輸入法選字都得自己寫。搜尋改用 #search-field。' },
   ],
   customTables: [],
 };
