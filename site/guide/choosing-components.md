@@ -20,7 +20,7 @@
 | 原生元素／自刻做法 | 改用 | 怎麼分 |
 |---|---|---|
 | `<button>` | <ComponentLink id="button" />、<ComponentLink id="icon-btn" /> | 一般可點擊操作用 <ComponentLink id="button" />；純圖示的操作（工具列、表格操作）用 <ComponentLink id="icon-btn" /> |
-| `<input>` | <ComponentLink id="input" />、<ComponentLink id="number-input" /> | 單行文字用 <ComponentLink id="input" />；金額、數量等數字欄位用 <ComponentLink id="number-input" />（有加減鍵與格式化） |
+| `<input>` | <ComponentLink id="input" />、<ComponentLink id="number-input" />、<ComponentLink id="search-field" /> | 單行文字用 <ComponentLink id="input" />；金額、數量等數字欄位用 <ComponentLink id="number-input" />（有加減鍵與格式化）；列表上方的篩選與搜尋對話框用 <ComponentLink id="search-field" />（有放大鏡與清除鈕，處理好 Esc、Enter） |
 | `<select>` | <ComponentLink id="select" />、<ComponentLink id="autocomplete" /> | 固定選項用 <ComponentLink id="select" />；要先搜尋、再動態篩選選項時用 <ComponentLink id="autocomplete" /> |
 | `<textarea>` | <ComponentLink id="textarea" /> | 備註、描述等多行輸入 |
 | 自刻 dropdown／menu | <ComponentLink id="action-menu" />、<ComponentLink id="menu-item" /> | 右鍵或「更多」按鈕展開的選單用 <ComponentLink id="action-menu" />；選單裡的每一項都用 <ComponentLink id="menu-item" /> |

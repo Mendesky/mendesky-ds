@@ -46,6 +46,7 @@ import { processToastSpec } from './process-toast.js';
 import { progressBarSpec } from './progress-bar.js';
 import { radioChipSpec } from './radio-chip.js';
 import { richTextEditorSpec } from './rich-text-editor.js';
+import { searchFieldSpec } from './search-field.js';
 import { selectSpec } from './select.js';
 import { sortHeaderSpec } from './sort-header.js';
 import { stepperSpec } from './stepper.js';
@@ -106,6 +107,7 @@ export const COMPONENT_SPECS = [
     progressBarSpec,
     radioChipSpec,
     richTextEditorSpec,
+    searchFieldSpec,
     selectSpec,
     sortHeaderSpec,
     stepperSpec,
