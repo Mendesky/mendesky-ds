@@ -12,6 +12,8 @@
 - [Cell Button](components/cell-btn.md): 日期選擇器（Date Picker）內部的格子按鈕。
 - [Check Chip](components/check-chip.md): 篩選條件多選、標籤多選、表單內單一 boolean 偏好（如同意條款、Email 通知開關）。
 - [Checkbox](components/checkbox.md): 單純的勾選框，三態：沒有／全有／部分。
+- [Collapsible](components/collapsible.md): 一段內容可以先收起來，使用者要看再點標頭打開。
+- [Collapsible Group](components/collapsible-group.md): 把幾個 Collapsible 包成一組，一次只開一段。
 - [Icon Button](components/icon-btn.md): 工具列、表格操作、純圖示互動。
 - [Inline Add](components/inline-add.md): 在 chip 群組 / 清單尾端讓使用者新增「自訂項」。
 - [Inline Confirm](components/inline-confirm.md): 前提依賴型確認（contextualInline）：父層需要使用者在主操作前先勾選「已確認 XXX」。
