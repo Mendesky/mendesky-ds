@@ -128,6 +128,13 @@ DS 提供現成的工具 class <ComponentLink id="ds-collapse" />。它是 Compo
 .contact-content__inner {
   overflow: hidden;
 }
+
+// 減少動態：自己的 class 要自己拿掉轉場
+@media (prefers-reduced-motion: reduce) {
+  .contact-content {
+    transition-duration: 0ms;
+  }
+}
 ```
 
 ## 相關

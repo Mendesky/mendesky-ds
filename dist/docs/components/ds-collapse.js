@@ -16,7 +16,7 @@ export const dsCollapseSpec = {
         },
         {
             type: 'info',
-            content: 'DS 內目前套用：stepper 導覽的子項收合（stepper-nav-subitems）、#collapsible 的內容區。使用端的可收合卡片也用同一組 class。',
+            content: 'DS 內目前套用：#collapsible 的內容區。stepper 導覽的子項收合用自己的 class（.sn-sub-collapse），只借了 .ds-collapse--expanded，減少動態寫在 stepper 自己的樣式裡。使用端的可收合卡片也用同一組 class。',
         },
         {
             type: 'info',
