@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.12.0）
+### Angular（v0.12.1）
 
 `app-textarea`
 
 size: M|L · placeholder errorMessage errorPosition: top|bottom · [disabled] [autoResize] · (valueChange) (blur)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/?path=/docs/textarea--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/?path=/docs/textarea--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

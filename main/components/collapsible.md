@@ -30,11 +30,11 @@
 
 ### 可以這樣做
 
-- 「⋯」選單、刪除鈕放尾端區，勾選框、拖曳把手放前置區。點它們不會順便開合，鍵盤也各自停得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--with-actions&viewMode=story)）
-- 收合時用摘要放一行預覽、用數值放金額，使用者不用打開就知道裡面大概是什麼。摘要和數值會跟標題一起被念出來，寫成念得通的字。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--with-actions&viewMode=story)）
+- 「⋯」選單、刪除鈕放尾端區，勾選框、拖曳把手放前置區。點它們不會順便開合，鍵盤也各自停得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=collapsible--with-actions&viewMode=story)）
+- 收合時用摘要放一行預覽、用數值放金額，使用者不用打開就知道裡面大概是什麼。摘要和數值會跟標題一起被念出來，寫成念得通的字。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=collapsible--with-actions&viewMode=story)）
 - 驗證有錯、搜尋命中這類要把某段打開的情況，由頁面改 `expanded`，元件會跟著打開。
-- 一頁裡外觀照「外觀」表挑：頁面上的大段落用區段，卡片裡用卡片。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--appearances&viewMode=story)）
-- 箭頭要放右邊時，同一頁的收合區塊都設 `chevronPosition` 為 end。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--chevron-end&viewMode=story)）
+- 一頁裡外觀照「外觀」表挑：頁面上的大段落用區段，卡片裡用卡片。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=collapsible--appearances&viewMode=story)）
+- 箭頭要放右邊時，同一頁的收合區塊都設 `chevronPosition` 為 end。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=collapsible--chevron-end&viewMode=story)）
 
 ### 不要這樣做
 
@@ -47,13 +47,13 @@
 
 ## 用法
 
-### Angular（v0.12.0）
+### Angular（v0.12.1）
 
 `app-collapsible`
 
 title（必填）· appearance: section|card|accent · chevronPosition: start|end · [disabled] · headingLevel: 1-6 · [(expanded)] · 投影 collapsibleLeading / collapsiblePrefix / collapsibleMeta / collapsibleSummary / collapsibleValue / collapsibleTrailing＋內容
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/?path=/docs/collapsible--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/?path=/docs/collapsible--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

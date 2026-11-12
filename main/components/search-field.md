@@ -39,13 +39,13 @@
 
 ## 用法
 
-### Angular（v0.12.0）
+### Angular（v0.12.1）
 
 `app-search-field`
 
 ariaLabel（必填） · appearance: outline|embedded · size: S|M|L · placeholder value [disabled] · (valueChange) (searchSubmit) · focus() · [searchFieldEnd]
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/?path=/docs/search-field--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/?path=/docs/search-field--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -19,7 +19,7 @@
 
 ### 可以這樣做
 
-- 一次只會改一組的設定，包進群組並設 `single`，畫面不會一路長下去。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible-group--single&viewMode=story)）
+- 一次只會改一組的設定，包進群組並設 `single`，畫面不會一路長下去。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=collapsible-group--single&viewMode=story)）
 
 ### 不要這樣做
 
@@ -27,13 +27,13 @@
 
 ## 用法
 
-### Angular（v0.12.0）
+### Angular（v0.12.1）
 
 `app-collapsible-group`
 
 [single] · 包住 app-collapsible（可以隔著卡片等元素）
 
-[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/?path=/docs/collapsible-group--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/?path=/docs/collapsible-group--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
