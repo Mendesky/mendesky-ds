@@ -479,7 +479,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '讀取用的 service 層對 GET 套用重試設定 RACE_RETRY；RACE_RETRY 是使用端共用的 retry 設定常數，由使用端自行提供、不在 DS 套件內（它綁定的是後端的 retry 約定與 503 語意，屬於 app 與後端之間的協定而非 UI 行為）',
           '請求同時帶「抑制錯誤 UI」旗標（抑制 retry 期間的 503 dialog）＋「抑制 404 UI」旗標（保留 404 → null fallback 行為）',
           '順序：先重試、後做錯誤處理（404 不 retry、其他 status 跑完 retry 才進錯誤處理）',
-          'retry 用盡仍 503 → 拋給呼叫端 → 元件 catch 走 failSilent（console.error + skeleton 收起 + 不彈 dialog）',
+          'retry 用盡仍 503 → 拋給呼叫端 → 元件 catch 依區塊處理：從空白開始填也合理的表單走 failSilent（console.error + skeleton 收起 + 不彈 dialog）；清單、或空白會讓使用者誤會的區塊，走 loading.load-failure-inline（原地顯示錯誤與重試）',
           '不適用 PATCH / POST — 只適用 GET read model；寫入端的並行撞擊要用依序送出（serialize）而非 retry',
         ],
         rationale: '對齊後端 API 規格「呼叫端應有 retry 策略」的約定；指數退避讓 projection 提前就緒時更快結束，總上限約 1.4s（200×2^(n-1) 退避三次加總）對後端 race window < 1s 規格留約 40% margin。實際值以共用 const（RACE_RETRY）為準，避免每個 service 重抄 delay 數字',
@@ -571,7 +571,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '重試只重讀失敗的那一段，不重送已經成功的請求',
           '重試中，區塊維持錯誤版本，重試鈕顯示載入圈和「重試中」，再按不會重送',
           '重試成功：等這一塊的內容全部讀完，才把錯誤版本換成正常內容，中間不閃骨架',
-          '重試仍失敗：錯誤版本留著，重試鈕恢復可以按',
+          '重試仍失敗：錯誤版本留著，重試鈕恢復可以按；焦點如果停在錯誤區塊上，移回重試鈕',
           '重試成功時，焦點如果在錯誤版本裡，移到新內容的開頭',
         ],
         rationale: '換回骨架會讓版面閃一下，使用者也分不清重試是不是還在進行。連按重送會重複打後端。錯誤版本被換掉時，焦點會掉出區塊，鍵盤使用者得從頭找回來。',
@@ -599,7 +599,9 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       focus: [
         '錯誤版本出現時，焦點不自動移過去',
         '重試中，焦點原本在重試鈕上時，移到錯誤區塊本身（#empty-state 自己會做）',
-        '重試成功、錯誤版本被換掉時，焦點如果在錯誤版本裡，使用端把焦點移到新內容的開頭',
+        '重試仍失敗、重試鈕恢復時，焦點如果還停在錯誤區塊上，移回重試鈕（#empty-state 自己會做）',
+        '重試成功、錯誤版本被換掉時，焦點如果在錯誤版本裡，使用端把焦點移到新內容的開頭；新內容沒有可以操作的元素時，移到它的標題',
+        '重試後整塊不再顯示（例如確定沒有讀取權限而隱藏）時，焦點如果在錯誤版本裡，使用端把焦點移到接手的內容',
       ],
       screenReader: [
         '錯誤版本是狀態訊息，報讀軟體念完目前的內容才念，不打斷',

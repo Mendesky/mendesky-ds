@@ -33,7 +33,7 @@ export const emptyStateSpec: ComponentSpec = {
     { name: '文字', description: '空狀態才有。插圖下方的灰色說明，內容是 message；message 是空字串時不顯示。' },
     { name: '圖示', description: '錯誤版本才有。24 px 的 `Alert-Info` 圖示，顏色是 `--icon/warning`（#cc5252）。' },
     { name: '標題', description: '錯誤版本才有。寫哪一塊沒載入，字型 `noto-14-medium`，顏色 `--text/title`。' },
-    { name: '說明', description: '錯誤版本才有，選填。寫下一步怎麼做，字型 `noto-12-regular`，顏色 `--text/body-light`。' },
+    { name: '說明', description: '錯誤版本才有，選填。寫下一步怎麼做，字型 `noto-12-regular`，顏色 `--text/body`。說明是這個區塊唯一的下一步指示，顏色要讓白底對比達到 4.5:1，不用更淡的 `--text/body-light`。' },
     { name: '重試鈕', description: '錯誤版本、而且使用端接了 retry 事件時才有。#button 的外框樣式（outlined）、中性色（neutral）、S 尺寸，左邊是 `Refresh` 圖示。' },
     { name: '自訂內容', description: '兩種版本都可以放，在最下方。' },
   ],
@@ -48,8 +48,8 @@ export const emptyStateSpec: ComponentSpec = {
     ],
     focus: [
       '錯誤版本出現時，焦點不自動移過去：使用者可能正在操作別的區塊。',
-      '重試中，重試鈕暫時不能按，接不住焦點。焦點原本在重試鈕上時，移到錯誤區塊本身，不掉出區塊；重試失敗、按鈕恢復後，按 Tab 回到按鈕。',
-      '重試成功、錯誤版本被換成正常內容時，元件管不到焦點。焦點原本在錯誤區塊裡的話，使用端把焦點移到新內容的開頭。',
+      '重試中，重試鈕暫時不能按，接不住焦點。焦點原本在重試鈕上時，移到錯誤區塊本身，不掉出區塊。重試失敗、按鈕恢復時，焦點還停在錯誤區塊上的話，移回重試鈕，使用者再按一次 Enter 就能再試。',
+      '重試成功、錯誤版本被換成正常內容時，元件管不到焦點。焦點原本在錯誤區塊裡的話，使用端把焦點移到新內容的開頭；整塊被移除或整頁換掉時，移到接手的內容。',
     ],
     screenReader: [
       '錯誤版本是狀態訊息：標題或說明改變時，報讀軟體念完目前的內容才念，不打斷使用者。',
