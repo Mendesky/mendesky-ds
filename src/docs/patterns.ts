@@ -1172,7 +1172,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
       {
         type: 'dsGaps',
-        description: 'DS 元件目前還沒做到的地方（對照 Angular 版 v0.10.0）',
+        description: 'DS 元件目前還沒做到的地方（對照 Angular 版 v0.11.0）',
         rule: [
           '#action-menu 放了 #menu-item 的選單：按住 Esc 時，第一下關掉選單，之後的連發會傳到外層，外層的對話框會跟著關',
           '#action-menu 沒放 #menu-item 的浮層：只收浮層裡面的按鍵。焦點不在浮層裡（例如落到頁面上，或還在錨點的輸入框）時按 Esc，會直接傳到外層。焦點所在的按鈕被自己的動作停用時，焦點不會移走',
