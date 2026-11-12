@@ -25,9 +25,9 @@
 
 ### 可以這樣做
 
-- 狀態標記的 `label` 寫成看得懂的短句，例如「需處理」「資料不完整」。滑過圖示時顯示它，報讀軟體也念它；只放顏色，用報讀軟體或分不清紅綠的人會不知道有標記。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/iframe.html?id=tabs--with-status&viewMode=story)）
+- 狀態標記的 `label` 寫成看得懂的短句，例如「需處理」「資料不完整」。滑過圖示時顯示它，報讀軟體也念它；只放顏色，用報讀軟體或分不清紅綠的人會不知道有標記。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/iframe.html?id=tabs--with-status&viewMode=story)）
 - 用了狀態標記，下方內容區一定要寫出原因。標記的文字只有滑鼠滑過圖示才看得到；用鍵盤或手機的人選到這個頁籤後，要能在內容裡看到為什麼有標記。
-- 「新增一組」這類跟頁籤有關、但本身不是頁籤的按鈕，放進尾端自訂內容。它不會被當成頁籤念，方向鍵也不會停在它上面。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/iframe.html?id=tabs--with-trailing&viewMode=story)）
+- 「新增一組」這類跟頁籤有關、但本身不是頁籤的按鈕，放進尾端自訂內容。它不會被當成頁籤念，方向鍵也不會停在它上面。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/iframe.html?id=tabs--with-trailing&viewMode=story)）
 - 頁籤的文字盡量短，一兩個詞就好。內容的完整標題寫在下方內容區裡。
 
 ### 不要這樣做
@@ -39,13 +39,13 @@
 
 ## 用法
 
-### Angular（v0.10.0）
+### Angular（v0.11.0）
 
 `app-tabs`
 
 items: TabItem[]（必填；{ value, label, disabled?, status?: { label } }）· [value] · ariaLabel（必填）· panelId · (valueChange) · 最後一個頁籤右邊可投影按鈕
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/?path=/docs/tabs--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/?path=/docs/tabs--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

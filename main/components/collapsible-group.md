@@ -19,11 +19,58 @@
 
 ### 可以這樣做
 
-- 一次只會改一組的設定，包進群組並設 `single`，畫面不會一路長下去。（範例代號：single）
+- 一次只會改一組的設定，包進群組並設 `single`，畫面不會一路長下去。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/iframe.html?id=collapsible-group--single&viewMode=story)）
 
 ### 不要這樣做
 
 - 使用者常常要對照兩段內容時還設 `single`。他打開第二段，第一段就被收走了。
+
+## 用法
+
+### Angular（v0.11.0）
+
+`app-collapsible-group`
+
+[single] · 包住 app-collapsible（可以隔著卡片等元素）
+
+[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/?path=/docs/collapsible-group--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `single` | `boolean` | `false` | 一次只開一段。設了之後，使用者打開一段時，同一組裡原本開著的段落收起來，並各自發 (expandedChange) 帶出 false；打開的那段最後才發 true。 |
+
+#### 程式碼範例
+
+**一次只開一段**
+
+```html
+<app-collapsible-group single>
+  <app-collapsible title="第一組設定">…</app-collapsible>
+  <app-collapsible title="第二組設定">…</app-collapsible>
+  <app-collapsible title="第三組設定">…</app-collapsible>
+</app-collapsible-group>
+```
+
+**段落包在卡片裡也算同一組**
+
+```html
+<app-collapsible-group single>
+  @for (item of items; track item.id) {
+    <div class="card">
+      <app-collapsible appearance="card" [title]="item.name">…</app-collapsible>
+    </div>
+  }
+</app-collapsible-group>
+```
+
+#### Angular 注意事項
+
+- app-collapsible 往外找最近的群組，中間隔著幾層元素都算。段落內容裡再放的 app-collapsible 不算這一組，打開它不會收掉外層。
+- **注意**：「往外找」看的是 app-collapsible 寫在哪個範本，不是畫面上的位置。自己寫的包裝元件用 <ng-content> 把內容投影進 app-collapsible 時，內容裡的 app-collapsible 寫在頁面範本裡、跟段落同一層，會被算成同一組，打開它就收掉外層。這種寫法不要用群組，由頁面自己控制開合。
+- **注意**：群組只在使用者打開一段時收起其他段。頁面自己用 [(expanded)] 打開某一段時，群組不會收其他段，要一次只開一段就由頁面自己把其他段設成 false。
+- 停用的段落不會被群組收起來，維持原來的開合。
 
 ## 無障礙
 

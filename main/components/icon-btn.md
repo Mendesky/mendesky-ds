@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.10.0）
+### Angular（v0.11.0）
 
 `app-icon-btn`
 
 size: 12|16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Modal|SectionBtn|Drag|Block|Block-Transparent|Icon+Text|PrimaryFilled · label · [active] [toggle] [disabled] tooltip tooltipPos · ariaLabel · ariaHaspopup [ariaExpanded] · (btnClick)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/?path=/docs/icon-btn--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/?path=/docs/icon-btn--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

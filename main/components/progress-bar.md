@@ -23,13 +23,13 @@
 
 ## 用法
 
-### Angular（v0.10.0）
+### Angular（v0.11.0）
 
 `app-progress-bar`
 
 [value] [max] · ariaLabel · size: M|S
 
-[在範例網站看全部 8 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.10.0/components/?path=/docs/progress-bar--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 8 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/?path=/docs/progress-bar--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
