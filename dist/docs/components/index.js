@@ -8,6 +8,8 @@ import { carouselDotSpec } from './carousel-dot.js';
 import { cellBtnSpec } from './cell-btn.js';
 import { checkChipSpec } from './check-chip.js';
 import { checkboxSpec } from './checkbox.js';
+import { collapsibleSpec } from './collapsible.js';
+import { collapsibleGroupSpec } from './collapsible-group.js';
 import { ctrlBarSpec } from './ctrl-bar.js';
 import { datePickerSpec } from './date-picker.js';
 import { dialogSpec } from './dialog.js';
@@ -67,6 +69,8 @@ export const COMPONENT_SPECS = [
     cellBtnSpec,
     checkChipSpec,
     checkboxSpec,
+    collapsibleSpec,
+    collapsibleGroupSpec,
     ctrlBarSpec,
     datePickerSpec,
     dialogSpec,

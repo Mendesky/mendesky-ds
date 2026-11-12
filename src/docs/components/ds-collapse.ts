@@ -4,7 +4,7 @@ export const dsCollapseSpec: ComponentSpec = {
   id: 'ds-collapse',
   name: 'DS Collapse 收合動畫',
   group: '工具',
-  when: '內容區塊需要收合／展開動畫時用（例如可展開的卡片段落）。統一用這組 class，不要自己寫 height 動畫。',
+  when: '內容區塊需要收合／展開動畫時用（例如可展開的卡片段落）。統一用這組 class，不要自己寫 height 動畫。整個區塊連同可以點的標頭一起做的話，直接用 #collapsible，它已經用了這組 class，鍵盤和報讀軟體也處理好了。',
   description: `CSS Grid \`0fr → 1fr\` 收合/展開工具 class。Component tier 300ms，進出場共用 ease-out curve。
 所有需要「內容區塊收合/展開」動畫的元件，統一用這組做法。`,
   notes: [
@@ -18,7 +18,11 @@ export const dsCollapseSpec: ComponentSpec = {
     },
     {
       type: 'info',
-      content: 'DS 內目前套用：stepper 導覽的子項收合（stepper-nav-subitems）。使用端的可收合卡片也用同一組 class。',
+      content: 'DS 內目前套用：#collapsible 的內容區。stepper 導覽的子項收合用自己的 class（.sn-sub-collapse），只借了 .ds-collapse--expanded，減少動態寫在 stepper 自己的樣式裡。使用端的可收合卡片也用同一組 class。',
+    },
+    {
+      type: 'info',
+      content: '使用者設了「減少動態」時，這組 class 不轉場，直接開合。用自己的 class 名稱時不會套到，要自己處理。',
     },
   ],
 };
