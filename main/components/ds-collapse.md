@@ -39,5 +39,5 @@ CSS Grid `0fr → 1fr` 收合/展開工具 class。Component tier 300ms，進出
 
 - 元件也可用自己的 class 名稱（如 .contact-content），只需沿用相同 CSS Grid 動畫方式
 - Component tier: 300ms var(--ease-enter)（cubic-bezier(0.215, 0.61, 0.355, 1)）
-- DS 內目前套用：stepper 導覽的子項收合（stepper-nav-subitems）、[Collapsible](collapsible.md) 的內容區。使用端的可收合卡片也用同一組 class。
+- DS 內目前套用：[Collapsible](collapsible.md) 的內容區。stepper 導覽的子項收合用自己的 class（.sn-sub-collapse），只借了 .ds-collapse--expanded，減少動態寫在 stepper 自己的樣式裡。使用端的可收合卡片也用同一組 class。
 - 使用者設了「減少動態」時，這組 class 不轉場，直接開合。用自己的 class 名稱時不會套到，要自己處理。
