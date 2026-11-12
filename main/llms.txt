@@ -81,5 +81,5 @@
 
 ## 框架
 
-- [Angular 範例網站](https://mendesky.github.io/mendesky-ds-angular/v0.11.0/components/): 版本 v0.11.0；原始碼 https://github.com/Mendesky/mendesky-ds-angular
+- [Angular 範例網站](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/): 版本 v0.12.0；原始碼 https://github.com/Mendesky/mendesky-ds-angular
 - [Vue（試做） 範例網站](https://mendesky.github.io/mendesky-ds-vue/v0.3.0/components/): 版本 v0.3.0；原始碼 https://github.com/Mendesky/mendesky-ds-vue
