@@ -34,6 +34,7 @@
 - [Option Card](components/option-card.md): 單張可選插圖卡。
 - [Option Card Group](components/option-card-group.md): 一組互斥的插圖選擇卡（版面樣式 / 主題外觀等）。
 - [Rich Text Editor](components/rich-text-editor.md): 需要 rich text 輸入的場景（markdown 語法、表格、圖片由 wrapper 擴充）。
+- [Search Field](components/search-field.md): 在列表上方打關鍵字篩選，或放在搜尋對話框最上面那一列。
 - [Select](components/select.md): 固定選項下拉選擇。
 - [Template Editor](components/template-editor.md): 含範本變數的可編輯文字欄位（如信件內容、備註）。
 - [Textarea](components/textarea.md): 備注、描述等多行輸入。
