@@ -60,7 +60,7 @@
 - [Badge](components/badge.md): 未讀徽章：疊在按鈕或項目的右上角，表示「有未讀」或「未讀幾則」。
 - [Ctrl Bar](components/ctrl-bar.md): 頁面或區塊頂部的操作列，左側放篩選/toggle，右側放搜尋/切換。
 - [Divider](components/divider.md): 區塊分隔。
-- [Empty State](components/empty-state.md): 列表/查詢無資料時顯示。
+- [Empty State](components/empty-state.md): 區塊沒有內容可以顯示時，在原地說明為什麼沒有。
 - [File List](components/file-list.md): 需要呈現已上傳檔案列表並提供操作時。
 - [Footer](components/footer.md): 登入頁與 Shell 共用頁尾。
 - [Icon](components/icon.md): 所有圖示顯示。
