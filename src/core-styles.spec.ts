@@ -46,3 +46,18 @@ describe('core.scss：骨架屏閃光', () => {
     expect(topLevelRule(sheet, '.sk-shimmer')?.style.backgroundImage).toContain('linear-gradient');
   });
 });
+
+describe('core.scss：收合動畫 .ds-collapse', () => {
+  it('平常用 300ms 轉場開合', () => {
+    // 簡寫裡有 var(--ease-enter)，瀏覽器不拆出子屬性的值，所以直接看簡寫
+    const rule = topLevelRule(parseCore(), '.ds-collapse');
+    expect(rule?.style.transition).toContain('grid-template-rows 300ms');
+  });
+
+  it('使用者設定「減少動態」時不轉場，直接開合', () => {
+    const rule = reducedMotionRule(parseCore(), '.ds-collapse');
+    expect(rule, '「減少動態」區塊裡沒有 .ds-collapse 的規則').toBeDefined();
+    expect(rule!.style.transitionDuration).toBe('0ms');
+    expect(rule!.style.getPropertyPriority('transition-duration')).toBe('important');
+  });
+});
