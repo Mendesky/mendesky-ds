@@ -1,0 +1,161 @@
+# Collapsible（collapsible）
+
+分組：互動元件
+
+一段內容可以先收起來，使用者要看再點標頭打開。適合讀者不一定每段都會看的地方，例如一頁分成好幾段的資料、一張卡片裡的明細。使用者幾乎每段都會從頭讀到尾的話就別收，多點一次只是負擔。幾組內容一次只看一組、切換時整塊換掉，用 [Tabs](tabs.md)。沒有可以點的標頭、只是要開合動畫（例如「展開更多」下面多出幾列），用 [DS Collapse 收合動畫](ds-collapse.md) 就好。
+
+## 部位
+
+1. **前置區**：可以不放。在標題按鈕左邊，放勾選框、拖曳把手。不在按鈕裡，點了不會開合。綠色外觀只放拖曳把手：勾選框放在綠底上看不清楚，要勾選就用卡片外觀。
+2. **箭頭**：單箭頭，收合時朝下、展開時朝上。預設是標題按鈕裡的第一個東西；`chevronPosition` 設成 end 時是最後一個。
+3. **前綴**：可以不放。標題前面，放編號這類不能點的東西。
+4. **標題**：`title` 的文字。放不下時用刪節號截斷。
+5. **標題後資訊**：可以不放。接在標題後面，放數量或 [Label](label.md)。
+6. **摘要**：可以不放。靠右，放收合時的一行預覽這類文字。固定一行，放不下用刪節號截斷。空間不夠時摘要先縮，標題後縮。
+7. **數值**：可以不放。在摘要右邊，放金額、小計這類截掉一截就會看錯的數字。不縮也不換行；空間不夠時先縮摘要、再截標題，數值完整顯示。
+8. **尾端區**：可以不放。在標題按鈕右邊，放「⋯」選單、刪除鈕、開關。不在按鈕裡，點了不會開合。
+9. **內容**：展開時才看得到。內距由頁面自己決定。
+
+## 狀態
+
+| 狀態 | 長怎樣、什麼時候出現 |
+| --- | --- |
+| 收合 | 箭頭朝下，內容藏起來。 |
+| 展開 | 箭頭朝上，內容往下滑出來。箭頭跟內容一起轉場。 |
+| 滑過 | 整條標頭換底色，顏色見「外觀」表。前置區、尾端區也在變色範圍裡，看起來是同一條。卡片外觀的前置區、尾端區裡的 [Icon Button](icon-btn.md)，滑過用 `--color/grey/20`，比標頭的滑過深一階，看得出按鈕的範圍。 |
+| 焦點 | 用鍵盤停到標題按鈕時，按鈕內側出現雙層框：外圈 2px 藍、內圈 2px 白。藍色貼著白色，放在灰底、白底上都看得清楚。綠色外觀改用單層白框；綠色停用時底色換成灰，焦點框改回雙層框。卡片和綠色的標頭有 7px 圓角，收起來四個角都圓，展開時只有上面兩個角圓。卡片沒有裁切超出的部分時，底色和焦點框也會順著卡片的轉角，不會凸出去。 |
+| 停用 | `disabled`：標題和箭頭變成停用的灰，滑過不變色。綠色外觀的底色也換成區段的灰，跟 [Button](button.md) 停用時一樣，不會出現綠底配灰字。點了、按 Enter 或空白鍵都不會開合，內容維持原來的開合。 |
+
+## 可以這樣做、不要這樣做
+
+### 可以這樣做
+
+- 「⋯」選單、刪除鈕放尾端區，勾選框、拖曳把手放前置區。點它們不會順便開合，鍵盤也各自停得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--with-actions&viewMode=story)）
+- 收合時用摘要放一行預覽、用數值放金額，使用者不用打開就知道裡面大概是什麼。摘要和數值會跟標題一起被念出來，寫成念得通的字。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--with-actions&viewMode=story)）
+- 驗證有錯、搜尋命中這類要把某段打開的情況，由頁面改 `expanded`，元件會跟著打開。
+- 一頁裡外觀照「外觀」表挑：頁面上的大段落用區段，卡片裡用卡片。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--appearances&viewMode=story)）
+- 箭頭要放右邊時，同一頁的收合區塊都設 `chevronPosition` 為 end。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/iframe.html?id=collapsible--chevron-end&viewMode=story)）
+
+### 不要這樣做
+
+- 在標題按鈕裡放按鈕、連結或輸入框。點它們會同時開合，報讀軟體也念不出裡面那顆。
+- 自己用 `<div>` 加點擊事件畫收合標頭。鍵盤停不到，報讀軟體也不知道它能開合，只用鍵盤的人整段內容都打不開。
+- 為了換顏色，在頁面上覆寫元件內部的 class。DS 一調整內部結構，這些頁面就跑版。
+- 同一頁有的箭頭在左、有的在右。
+- 把金額放在摘要。空間不夠時摘要最先縮，金額會被截掉一截，看起來像另一個數字。金額放數值。
+- 把使用者幾乎每段都要看的內容收起來，只是讓他多點好幾下。
+
+## 用法
+
+### Angular（v0.12.0）
+
+`app-collapsible`
+
+title（必填）· appearance: section|card|accent · chevronPosition: start|end · [disabled] · headingLevel: 1-6 · [(expanded)] · 投影 collapsibleLeading / collapsiblePrefix / collapsibleMeta / collapsibleSummary / collapsibleValue / collapsibleTrailing＋內容
+
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.0/components/?path=/docs/collapsible--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `title` | `string` | `''` | 標題文字，放在標題按鈕裡，報讀軟體會念。必填。元件會拿掉 host 上的原生 title 屬性，滑過整個區塊不會跳出瀏覽器提示。 |
+| `appearance` | `'section' \| 'card' \| 'accent'` | `'section'` | 外觀。section 是頁面上的大段落（灰底整條、標題粗體）；card 是卡片或清單項目的標頭（沒有底色、滑過淺灰）；accent 是可以拖曳排序的段落（綠底白字）。 |
+| `chevronPosition` | `'start' \| 'end'` | `'start'` | 箭頭位置。start 在標題左邊；end 在標題按鈕的最右邊（摘要、數值後面）。同一頁用同一邊。 |
+| `disabled` | `boolean` | `false` | 停用。點了、按 Enter 或空白鍵都不開合，維持原來的開合；標題按鈕輸出 aria-disabled="true"，還停得到。 |
+| `headingLevel` | `1 \| 2 \| 3 \| 4 \| 5 \| 6 \| null` | `null` | 標題層級。有值時標題按鈕外面包一層 role="heading"，aria-level 就是這個值；null 不包。 |
+| `expanded` | `boolean` | `false` | 是否展開。用 [(expanded)] 雙向綁定時由頁面控制；只給初值或不綁時，元件自己記使用者的開合。 |
+| `(expandedChange)` | `EventEmitter<boolean>` |  | 開合改變時觸發，帶出新的狀態：使用者點標題按鈕、按 Enter 或空白鍵，以及 app-collapsible-group 設了 single 而把這一段收起來。頁面自己改 expanded 不觸發。在群組裡打開一段時，被收起來的段落先發 false，打開的這段最後發 true。 |
+
+#### 程式碼範例
+
+**基本用法：頁面上的大段落，元件自己記開合**
+
+```html
+<app-collapsible title="第一段" [expanded]="true">
+  <!-- 第一段的內容 -->
+</app-collapsible>
+<app-collapsible title="第二段">
+  <!-- 第二段的內容 -->
+</app-collapsible>
+```
+
+**前置與尾端：勾選框放前置、選單放尾端，點它們不會開合；數量、摘要、數值放在標題按鈕裡**
+
+```html
+<app-collapsible appearance="card" title="項目 A" [(expanded)]="itemOpen">
+  <app-checkbox collapsibleLeading size="s" [checked]="picked" ariaLabel="選取項目 A"
+    (checkedChange)="picked = $event"></app-checkbox>
+  <app-label collapsibleMeta text="3 項"></app-label>
+  <span collapsibleSummary>收合時的一行摘要</span>
+  <span collapsibleValue>$ 1,200</span>
+  <app-icon-btn collapsibleTrailing size="16" propClass="SectionBtn" ariaLabel="更多操作">
+    <app-icon name="More" size="16"></app-icon>
+  </app-icon-btn>
+  <!-- 項目 A 的內容 -->
+</app-collapsible>
+```
+
+**頁面控制：驗證有錯時把那一段打開**
+
+```html
+<app-collapsible title="第一段" [(expanded)]="firstOpen">…</app-collapsible>
+
+// 驗證有錯時
+firstOpen = true;
+```
+
+#### Angular 注意事項
+
+- 投影的位置用屬性指定：collapsibleLeading（前置區）、collapsiblePrefix（標題前面）、collapsibleMeta（標題後面）、collapsibleSummary（靠右的摘要）、collapsibleValue（摘要右邊的數值）、collapsibleTrailing（尾端區）。沒有屬性的內容放進展開後的內容區。
+- collapsiblePrefix、collapsibleMeta、collapsibleSummary、collapsibleValue 在原生 button 裡面，只能放文字、app-label、app-icon 這類不能點的東西。要點的放 collapsibleLeading 或 collapsibleTrailing。
+- 空間不夠時先縮摘要、再截標題，數值不縮。collapsibleSummary 固定一行、放不下用刪節號，放一行預覽這類可以截的文字；金額、小計放 collapsibleValue，不縮也不換行。金額放進 collapsibleSummary 的話，會被截掉一截。
+- **注意**：頁面要控制開合時用 [(expanded)]，不要只用 [expanded]。只綁單向時，使用者收起來之後頁面的值還是 true；頁面再設 true，Angular 認為值沒變，不會重新打開。
+- 綠色外觀的尾端放 app-icon-btn 時，元件把圖示改成白色、平時透明底，滑過是白色淡底，propClass 用 SectionBtn 就好。
+- 綠色外觀的 collapsibleLeading 只放拖曳把手（app-icon 用 currentColor）。app-checkbox 放在綠底上看不清楚，要勾選就改用卡片外觀。
+- 卡片外觀的前置區、尾端區放 propClass="SectionBtn" 的 app-icon-btn 時，滑過用 --color/grey/20，比標頭滑過深一階。
+- 內容區用全域的 .ds-collapse，要載入本體的 core.scss 才有開合轉場與收合時的裁切。
+
+## 無障礙
+
+### 網頁和 APP 都要做到
+
+- **鍵盤**：Tab 依序停在每個標題按鈕；前置區、尾端區裡能操作的東西也各停一次。
+- **鍵盤**：Enter 或空白鍵開合。停用時沒反應。
+- **鍵盤**：標頭之間只用 Tab 移動，沒有方向鍵。
+- **焦點**：收起來時，內容裡的按鈕、欄位都 Tab 不到，展開後才進得去。
+- **焦點**：開合不會搬動焦點，焦點一直留在標題按鈕上。
+- **報讀軟體**：標題按鈕念出標題、「按鈕」，以及已展開或已收合。標題後資訊和摘要的字也會接在標題後面一起念。
+- **報讀軟體**：設了 `headingLevel`，報讀軟體可以從標題清單直接跳到這一段。
+- **報讀軟體**：收起來的內容整段不念。
+- **動態**：箭頭和內容一起用 300ms、`var(--ease-enter)` 轉場，內容用的是 [DS Collapse 收合動畫](ds-collapse.md)。
+- **動態**：使用者設了「減少動態」時，箭頭不轉、內容不滑，直接開合。
+
+### 網頁專屬
+
+- **ARIA 與 HTML 語意**：標題按鈕是原生 `<button>`，aria-expanded 標出開合，aria-controls 指向內容區的 id。id 由元件產生，同一頁不會重複。
+- **ARIA 與 HTML 語意**：停用用 aria-disabled="true"，按鈕還是停得到，報讀軟體才念得出它停用了。
+- **ARIA 與 HTML 語意**：`headingLevel` 有值時，標題按鈕外面包一層 role="heading"，aria-level 就是這個值；沒給就不包。
+- **ARIA 與 HTML 語意**：收起來的內容區加上 `inert`，所以鍵盤進不去、報讀軟體不念。
+- **ARIA 與 HTML 語意**：內容區不加 role="region"。一頁常常有十幾段，每段都變成地標，地標清單反而難用。
+
+## 注意事項
+
+- 標頭分成三區：前置區、標題按鈕、尾端區。只有標題按鈕會開合。勾選框、拖曳把手、「⋯」選單、刪除這些自己會動作的東西，放前置區或尾端區，點了不會順便開合。
+- 標題按鈕裡只放不能點的東西，像數量、[Label](label.md)、金額、收合時的一行摘要。這些字會跟標題一起被報讀軟體念出來，寫的時候想一下念起來通不通。
+- 空間不夠時先縮摘要，再截標題，數值不縮。所以一行預覽這類可以截的文字放摘要，金額、小計這類截掉一截就看錯的數字放數值。
+- 外觀只有三種，見下方「外觀」表。不能自己改底色：底色一換，滑過的顏色、焦點框、文字顏色都得重配，對比很容易就不夠。真的需要新外觀，先加進 DS。
+- 箭頭預設在標題左邊，`chevronPosition` 設成 end 會移到最右邊。同一頁的收合區塊放同一邊，不要左右混著用。
+- 收起來的內容還留在頁面上，只是藏起來，鍵盤進不去、報讀軟體也不念。內容不會等到第一次展開才建立，很大的表格收著也一樣會先建好。
+- 開合狀態可以讓元件自己記，也可以由頁面控制 `expanded`，例如驗證有錯時把那段打開。元件不會記住使用者上次怎麼開合，重新進頁面就回到頁面給的預設。
+- 一組裡一次只開一段，包進 [Collapsible Group](collapsible-group.md)。
+
+## 對照表
+
+### 外觀
+
+| 外觀 | 用在哪 | 底色 | 滑過 | 標題 |
+| --- | --- | --- | --- | --- |
+| 區段 `section`（預設） | 頁面上的大段落，一段接一段 | `--color/grey/20` 整條 | `--color/grey/30` | 粗體 |
+| 卡片 `card` | 卡片或清單項目的標頭；卡片已經有外框，不再加色塊 | 無 | `--color/white/20` | 中等粗 |
+| 綠色 `accent` | 可以拖曳排序的段落 | `--color/green/85`，白字 | `--color/green/90` | 中等粗 |
