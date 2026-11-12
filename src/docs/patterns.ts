@@ -467,7 +467,8 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '.catch callback 內第一件事：把載入中旗標設為 false',
           '接著 console.error 記錄失敗原因',
           'UI 顯示空白表單（使用者可手動輸入、blur 會觸發重試）',
-          '不彈 toast / dialog（避免打斷；parent 層若需 retry UI 再另外處理）',
+          '不彈 toast / dialog（避免打斷）',
+          '只適用「從空白開始填也合理」的表單。空白會讓使用者誤會（例如清單顯示「尚未新增」，其實是沒讀到）、或沒辦法繼續操作時，不用這個情境，改照 loading.load-failure-inline 原地顯示錯誤與重試',
         ],
         rationale: '永久 skeleton 是比錯誤訊息更糟的 UX；讓使用者能填表單 > 顯示錯誤',
       },
@@ -478,7 +479,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
           '讀取用的 service 層對 GET 套用重試設定 RACE_RETRY；RACE_RETRY 是使用端共用的 retry 設定常數，由使用端自行提供、不在 DS 套件內（它綁定的是後端的 retry 約定與 503 語意，屬於 app 與後端之間的協定而非 UI 行為）',
           '請求同時帶「抑制錯誤 UI」旗標（抑制 retry 期間的 503 dialog）＋「抑制 404 UI」旗標（保留 404 → null fallback 行為）',
           '順序：先重試、後做錯誤處理（404 不 retry、其他 status 跑完 retry 才進錯誤處理）',
-          'retry 用盡仍 503 → 拋給呼叫端 → 元件 catch 走 failSilent（console.error + skeleton 收起 + 不彈 dialog）',
+          'retry 用盡仍 503 → 拋給呼叫端 → 元件 catch 依區塊處理：從空白開始填也合理的表單走 failSilent（console.error + skeleton 收起 + 不彈 dialog）；清單、或空白會讓使用者誤會的區塊，走 loading.load-failure-inline（原地顯示錯誤與重試）',
           '不適用 PATCH / POST — 只適用 GET read model；寫入端的並行撞擊要用依序送出（serialize）而非 retry',
         ],
         rationale: '對齊後端 API 規格「呼叫端應有 retry 策略」的約定；指數退避讓 projection 提前就緒時更快結束，總上限約 1.4s（200×2^(n-1) 退避三次加總）對後端 race window < 1s 規格留約 40% margin。實際值以共用 const（RACE_RETRY）為準，避免每個 service 重抄 delay 數字',
@@ -512,6 +513,9 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       '#button-group',
       '#number-input',
     ],
+    relatedPatterns: [
+      'loading.load-failure-inline',
+    ],
     references: [
       {
         source: 'IBM Carbon Design System — SkeletonPlaceholder',
@@ -524,6 +528,118 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         url: 'https://atlassian.design/components/skeleton/examples',
         status: 'adopt',
         note: '「不遮原 layout、用形狀塊暗示最終內容」的原則沿用；但 Atlassian 沒討論寫入 API 的 race，本 pattern 補齊這塊',
+      },
+    ],
+  },
+
+  // KEY: loading.load-failure-inline — 區塊內容讀取失敗：原地換成 #empty-state 的錯誤版本，不留骨架、不用 dialog 或 toast；標題寫哪一塊沒載入；能重試才給重試，重試中不換回骨架
+  'loading.load-failure-inline': {
+    name: '區塊載入失敗',
+    principle: '畫面上某一塊的內容讀不到時，在那一塊原本的位置換成錯誤狀態：用 #empty-state 的錯誤版本，寫明哪一塊沒載入、下一步怎麼做。不留骨架，不跳 dialog 或 toast，也不顯示「沒有資料」。重讀有機會成功時才給重試鈕；重試中區塊維持錯誤狀態，不換回骨架。同一頁其他讀得到的區塊照常顯示、照常操作。',
+    when: '區塊的內容要從後端讀，而且讀失敗時，空白或空狀態會讓使用者誤會（以為真的沒有資料），或讓使用者沒辦法繼續操作。從空白開始填也合理的表單，讀取失敗照 loading.api-hydration-skeleton 的 failSilent 情境，不用這條。',
+    scenarios: [
+      {
+        type: 'replaceInPlace',
+        description: '區塊的內容讀取失敗（離線、逾時、伺服器錯誤）',
+        rule: [
+          '在原本內容的位置顯示 #empty-state 的錯誤版本',
+          '外框照被取代的正常內容加；用 `--es-min-height` 設成跟正常內容一樣高，重試成功時版面不跳',
+          '收起骨架或載入畫面，不跟錯誤版本同時出現',
+          '不顯示「目前無資料」「尚未新增」這類空狀態',
+          '不跳 dialog，也不跳 toast',
+          '只換掉讀不到的這一塊，同一頁其他已經讀到的區塊照常顯示',
+        ],
+        rationale: '錯誤留在出事的位置，使用者知道是哪一塊有問題，其他部分還能用。骨架會讓人一直等。空狀態會讓人以為真的沒有資料，接著做錯決定，例如重複上傳。dialog 擋住整個畫面，關掉之後那一塊還是空的；toast 幾秒後就消失，使用者回頭找不到原因。',
+        example: '附件清單讀不到時，清單的位置顯示「附件清單載入失敗」和重試鈕，上方的基本資料照常可以編輯。',
+      },
+      {
+        type: 'copy',
+        description: '標題與說明怎麼寫',
+        rule: [
+          '標題寫哪一塊沒載入，例如「附件清單載入失敗」。不知道是哪一塊時，才用預設的「載入失敗」',
+          '說明寫下一步：先請使用者重試，再寫重試沒用時找誰，例如「請重試。如果一直失敗，請聯絡系統管理員。」',
+          '不寫錯誤代碼、API 名稱這類使用者看不懂、也處理不了的詞',
+          '不寫成使用者做錯了什麼',
+        ],
+        rationale: '使用者只需要知道哪一塊沒出來、自己能做什麼。技術原因對他沒有用；沒有下一步的錯誤訊息是死路。',
+      },
+      {
+        type: 'retry',
+        description: '重試',
+        rule: [
+          '只有重讀有機會成功時才給重試鈕，例如離線、逾時、伺服器暫時錯誤。重讀也不會變的錯誤不給重試鈕，說明改寫要找誰',
+          '重試只重讀失敗的那一段，不重送已經成功的請求',
+          '重試中，區塊維持錯誤版本，重試鈕顯示載入圈和「重試中」，再按不會重送',
+          '重試成功：等這一塊的內容全部讀完，才把錯誤版本換成正常內容，中間不閃骨架',
+          '重試仍失敗：錯誤版本留著，重試鈕恢復可以按；焦點如果停在錯誤區塊上，移回重試鈕',
+          '重試成功時，焦點如果在錯誤版本裡，移到新內容的開頭',
+        ],
+        rationale: '換回骨架會讓版面閃一下，使用者也分不清重試是不是還在進行。連按重送會重複打後端。錯誤版本被換掉時，焦點會掉出區塊，鍵盤使用者得從頭找回來。',
+      },
+      {
+        type: 'notLoadFailure',
+        description: '不算載入失敗的情況',
+        rule: [
+          '讀到了，但沒有資料：用 #empty-state 的預設空狀態',
+          '讀到了，但使用者沒有讀取權限：照產品對沒有權限的規則處理（例如隱藏這一塊），不用錯誤版本，也不給重試',
+          '從空白開始填也合理的表單：照 loading.api-hydration-skeleton 的 failSilent 情境，收起骨架、顯示空白表單',
+        ],
+        rationale: '錯誤版本是在說「本來該有東西，但這次沒讀到」。沒有資料、沒有權限都是讀到之後的確定結果，給重試只會讓使用者一直按。',
+      },
+    ],
+    antiPatterns: [
+      '讀取失敗後骨架一直留著：使用者只能等，或重新整理整頁',
+      '讀取失敗時把清單當成空的：畫面顯示「尚未新增」，使用者以為真的沒有，跑去重新上傳',
+      '用 toast 或 dialog 報區塊載入失敗：toast 消失後找不到原因；dialog 擋住整個畫面，關掉之後那一塊還是空的',
+      '重試時把區塊換回骨架：版面閃一下，使用者看不出重試還在進行',
+      '沒有權限、或重讀也不會變的錯誤放重試鈕：怎麼按都一樣',
+      '錯誤版本比正常內容矮：重試成功時，下面的內容被往下推',
+    ],
+    a11y: {
+      focus: [
+        '錯誤版本出現時，焦點不自動移過去',
+        '重試中，焦點原本在重試鈕上時，移到錯誤區塊本身（#empty-state 自己會做）',
+        '重試仍失敗、重試鈕恢復時，焦點如果還停在錯誤區塊上，移回重試鈕（#empty-state 自己會做）',
+        '重試成功、錯誤版本被換掉時，焦點如果在錯誤版本裡，使用端把焦點移到新內容的開頭；新內容沒有可以操作的元素時，移到它的標題',
+        '重試後整塊不再顯示（例如確定沒有讀取權限而隱藏）時，焦點如果在錯誤版本裡，使用端把焦點移到接手的內容',
+      ],
+      screenReader: [
+        '錯誤版本是狀態訊息，報讀軟體念完目前的內容才念，不打斷',
+        '不用 alert 角色：讀取失敗不是使用者剛做的操作造成的，alert 會打斷正在念的內容，例如剛打開的對話框標題',
+      ],
+    },
+    relatedComponents: [
+      '#empty-state',
+      '#button',
+      '#page-skeleton',
+    ],
+    relatedPatterns: [
+      'loading.api-hydration-skeleton（failSilent type）',
+    ],
+    references: [
+      {
+        source: 'GitHub Primer — Degraded experiences',
+        url: 'https://primer.style/ui-patterns/degraded-experiences',
+        status: 'adopt',
+        note: '大區塊讀不到時，用說明原因的空狀態取代那一塊；小元素讀不到時，原地換成錯誤訊息；知道是哪一塊讀不到就寫出來。照這個做',
+      },
+      {
+        source: 'Atlassian Design System — Section message',
+        url: 'https://atlassian.design/components/section-message/usage',
+        status: 'adopt',
+        note: '標題寫清楚問題、錯誤訊息不留死路、不怪使用者、不只靠顏色表達嚴重程度，照這個做。Atlassian 用一條有色底的訊息框；本 DS 改用跟正常內容同外框、只有圖示是紅色的空狀態，不跟欄位填錯的紅框搶意思',
+      },
+      {
+        source: 'IBM Carbon — Notification',
+        url: 'https://carbondesignsystem.com/components/notification/usage/',
+        status: 'diverge',
+        note: 'Carbon 的行內通知放在相關內容旁邊、不自動消失，這點一致。但 Carbon 是在內容旁邊加一條通知；本 DS 直接取代讀不到的內容，不留空的區塊',
+      },
+      {
+        source: 'Ant Design — Result',
+        url: 'https://ant.design/components/result',
+        status: 'diverge',
+        note: '圖示、標題、副標題、操作區由上往下的組成照 Result。Result 用在整頁的操作結果；本 DS 用在單一區塊，圖示縮成 24 px，只放一顆重試鈕',
       },
     ],
   },

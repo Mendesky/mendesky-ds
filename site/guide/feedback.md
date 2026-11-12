@@ -17,7 +17,8 @@
 | 打開時向 API 取預填值，而且欄位 blur 或選取時會寫回後端 | 載入期間用 skeleton 蓋住整個區塊，不能操作。資料回來才換成真的表單 |
 | 只讀 API、不寫回後端 | 不必用 skeleton |
 | 從父層的快照還原，不打 API | 直接顯示，不用 skeleton |
-| API 失敗、離線、逾時 | 收起 skeleton，顯示空白表單。不跳 toast 或 Dialog |
+| API 失敗、離線、逾時，而且從空白開始填也合理 | 收起 skeleton，顯示空白表單。不跳 toast 或 Dialog |
+| API 失敗、離線、逾時，而且空白會讓人誤會或沒辦法操作 | 收起 skeleton，在原地換成 <ComponentLink id="empty-state" /> 的錯誤版本，能重試就給重試鈕。不跳 toast 或 Dialog |
 | 整頁資料載入前 | 用 <ComponentLink id="page-skeleton" /> 佔位，避免版面跳動 |
 
 ### 送出之後
@@ -145,6 +146,8 @@ this.toast.update(id, { type: 'success', message: '已開始下載' });
 
 <PatternBlock id="loading.api-hydration-skeleton" />
 
+<PatternBlock id="loading.load-failure-inline" />
+
 <PatternBlock id="mutation.feedback" />
 
 ## 相關
@@ -152,4 +155,4 @@ this.toast.update(id, { type: 'success', message: '已開始下載' });
 - [確認與破壞性動作](./confirmation)：含「復原」的 toast。
 - [浮層怎麼選](./overlays)：儲存中怎麼鎖住 Modal 的關閉。
 - [表單與錯誤提示](./forms)：在清單尾端新增自訂項後立刻送後端。
-- 元件：<ComponentLink id="page-skeleton" />、<ComponentLink id="button" />、<ComponentLink id="process-toast" />、<ComponentLink id="toast-container" />、<ComponentLink id="process-modal" />
+- 元件：<ComponentLink id="page-skeleton" />、<ComponentLink id="empty-state" />、<ComponentLink id="button" />、<ComponentLink id="process-toast" />、<ComponentLink id="toast-container" />、<ComponentLink id="process-modal" />
