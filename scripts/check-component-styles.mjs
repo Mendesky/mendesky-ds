@@ -1,7 +1,7 @@
 // 元件共用樣式檢查：styles/components/<名稱>.scss 每份都要能編譯，而且每條規則都在 .ds-<名稱> 底下。
 //
 // 這些樣式不像 Angular 的元件樣式那樣自動限定在元件內，跑到 .ds-<名稱> 外面的規則會影響整個頁面。
-// 允許的最上層：.ds-<名稱> 開頭的選擇器、@keyframes。一份都沒掃到也算失敗。
+// 允許的最上層：.ds-<名稱> 開頭的選擇器、@keyframes、裡面只有 .ds-<名稱> 規則的 @media。一份都沒掃到也算失敗。
 //
 // 用法：node scripts/check-component-styles.mjs [樣式資料夾，預設 styles/components]
 import { existsSync, readdirSync } from 'node:fs';
@@ -9,11 +9,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as sass from 'sass';
 
-/** 編譯後 CSS 的最上層區塊：[{ prelude }]（prelude 是選擇器或 @規則） */
-function topLevelPreludes(css) {
+/** 編譯後 CSS 的最上層區塊：[{ prelude, body }]（prelude 是選擇器或 @規則，body 是大括號裡的內容） */
+function topLevelBlocks(css) {
   const out = [];
   let depth = 0;
   let start = 0;
+  let bodyStart = 0;
+  let prelude = '';
   let quote = null;
   for (let i = 0; i < css.length; i++) {
     const ch = css[i];
@@ -24,14 +26,35 @@ function topLevelPreludes(css) {
     }
     if (ch === '"' || ch === "'") quote = ch;
     else if (ch === '{') {
-      if (depth === 0) out.push(css.slice(start, i).trim());
+      if (depth === 0) {
+        prelude = css.slice(start, i).trim();
+        bodyStart = i + 1;
+      }
       depth++;
     } else if (ch === '}') {
       depth--;
-      if (depth === 0) start = i + 1;
+      if (depth === 0) {
+        out.push({ prelude, body: css.slice(bodyStart, i) });
+        start = i + 1;
+      }
     }
   }
   return out;
+}
+
+/** 列出跑到 root 外面的選擇器。@media 不算一條規則：往裡面看，裡面的規則也要在 root 底下 */
+function selectorsOutside(css, root) {
+  const rootRe = new RegExp(`^${root.replace('.', '\\.')}(?![\\w-])`);
+  const outside = [];
+  for (const { prelude, body } of topLevelBlocks(css)) {
+    if (prelude.startsWith('@keyframes')) continue;
+    if (prelude.startsWith('@media')) {
+      outside.push(...selectorsOutside(body, root));
+      continue;
+    }
+    outside.push(...prelude.split(',').filter((sel) => !rootRe.test(sel.trim())));
+  }
+  return outside;
 }
 
 export function checkComponentStyles(dir) {
@@ -47,11 +70,8 @@ export function checkComponentStyles(dir) {
       failures.push(`${file}：編譯失敗：${e.message.split('\n')[0]}`);
       continue;
     }
-    for (const prelude of topLevelPreludes(css)) {
-      if (prelude.startsWith('@keyframes')) continue;
-      const outside = prelude.split(',').filter((sel) => !new RegExp(`^${root.replace('.', '\\.')}(?![\\w-])`).test(sel.trim()));
-      if (outside.length) failures.push(`${file}：規則不在 ${root} 底下：${outside.join(', ')}`);
-    }
+    const outside = selectorsOutside(css, root);
+    if (outside.length) failures.push(`${file}：規則不在 ${root} 底下：${outside.join(', ')}`);
   }
   return { checked: files.length, failures };
 }

@@ -72,7 +72,7 @@
 
 :::
 
-- `loading` 為 `true` 時，轉圈取代 icon，底色不變，點擊無效，所以不會重複送出。
+- `loading` 為 `true` 時，轉圈取代 icon，按鈕換成停用的灰底，點擊無效，所以不會重複送出。
 - 要在 loading 時換文字，用 `loadingText`。
 - <ComponentLink id="dialog" /> 的確認按鈕也有 `loading`。
 - 送出中，Wizard 的 X、ESC、背景都不能關。X 鈕傳 `disabled`；ESC、背景與自訂的「取消」按鈕，處理函式在送出中直接 return。

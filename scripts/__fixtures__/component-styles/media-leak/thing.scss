@@ -1,0 +1,6 @@
+.ds-thing {
+  .thing__part { color: red; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thing__part { animation-duration: 2.4s; }
+}

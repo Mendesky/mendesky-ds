@@ -10,7 +10,7 @@ export const processModalSpec = {
         },
         {
             type: 'info',
-            content: 'running 的訊息放在 `role="status"` 的區域裡，報讀軟體會念出訊息（預設「執行中請稍候」）。左側的 #spinner 是裝飾用，不另外念。',
+            content: 'running 的訊息放在 `role="status"` 的區域裡，報讀軟體會念出訊息（預設「執行中請稍候」）。這個區域一直存在，視窗打開時才填入訊息：區域跟視窗一起出現的話，有些報讀軟體不會念。左側的 #spinner 是裝飾用，不另外念。',
         },
     ],
     customTables: [
