@@ -261,7 +261,7 @@ const departmentOptions: SelectOption[] = [
 常用的狀態：
 
 - `disabled` 設為 `true`：停用，點了沒反應。
-- `loading` 設為 `true`：載入中。spinner 取代 icon、底色不變、點擊無效，適合送出後等待回應的期間。
+- `loading` 設為 `true`：載入中。spinner 取代 icon、按鈕換成停用的灰底、點擊無效，適合送出後等待回應的期間。
 - `loadingText`：載入中顯示的替換文字，選填。
 
 ### 停用時仍要說明原因

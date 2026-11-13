@@ -186,14 +186,35 @@
     opacity: 0.85;
   }
 
+  /* 載入轉圈：外觀對齊 #spinner（淡軌道＋弧，弧是文字色、軌道是文字色的 20%） */
   .btn__spinner {
-    width: 1em;
-    height: 1em;
-    border: 2px solid currentColor;
-    border-top-color: transparent;
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+    border: 1.5px solid color-mix(in srgb, currentColor 20%, transparent);
+    border-top-color: currentColor;
     border-radius: 50%;
-    animation: btn-spin 0.6s linear infinite;
+    animation: btn-spin 0.8s linear infinite;
     flex-shrink: 0;
+  }
+
+  .btn--m .btn__spinner {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+
+  .btn--l .btn__spinner {
+    width: 24px;
+    height: 24px;
+    border-width: 2.5px;
+  }
+
+  /* 減少動態：轉慢，不停下來（停住就看不出還在進行） */
+  @media (prefers-reduced-motion: reduce) {
+    .btn__spinner {
+      animation-duration: 2.4s;
+    }
   }
 
 
