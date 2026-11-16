@@ -108,7 +108,7 @@ restoreAttachment = () => {
 | padding | 8px 12px | 6px 10px |
 | gap | 16px | 10px |
 | border-radius | 10px | 8px |
-| Icon | [Icon](icon.md) size="36" | [Icon](icon.md) size="24" |
+| Icon | [Icon](icon.md) size="36"；loading 時是 [Spinner](spinner.md) size="36" | [Icon](icon.md) size="24"；loading 時是 [Spinner](spinner.md) size="24" |
 | 訊息文字 | 16px / medium / white | 14px / medium / white |
 | 陰影 | 0px 0px 20px rgba(0,0,0,0.2) | 同 M |
 | success 背景 | #74ae3e（全色填滿） | 同 M |

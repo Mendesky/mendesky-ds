@@ -73,6 +73,7 @@
 - [Po Process](components/po-process.md): 採購/流程節點狀態顯示。
 - [Progress Bar](components/progress-bar.md): 顯示一件分批進行的工作做到哪裡（例：批次授權「處理中 12 / 40」）。
 - [Sort Header](components/sort-header.md): 列表表頭裡可點擊排序的一格。
+- [Spinner](components/spinner.md): 一個動作已經送出、正在等結果，又不知道要等多久時用，例如等後端存檔、等檔案產生。
 
 ## 工具
 
