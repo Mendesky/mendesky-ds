@@ -8,6 +8,10 @@ export const processModalSpec = {
             type: 'info',
             content: 'running 狀態不可關閉（系統處理中阻擋操作）；congratulation 點擊背景會送出 dismissed 事件。',
         },
+        {
+            type: 'info',
+            content: 'running 的訊息放在 `role="status"` 的區域裡，報讀軟體會念出訊息（預設「執行中請稍候」）。這個區域一直存在，視窗打開時才填入訊息：區域跟視窗一起出現的話，有些報讀軟體不會念。左側的 #spinner 是裝飾用，不另外念。',
+        },
     ],
     customTables: [
         {
@@ -40,7 +44,7 @@ export const processModalSpec = {
                 ],
                 [
                     '左側',
-                    'Loading spinner icon (36×36)',
+                    '#spinner size="36"',
                     '彩帶慶祝插圖',
                 ],
                 [

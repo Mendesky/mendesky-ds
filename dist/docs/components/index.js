@@ -49,6 +49,7 @@ import { richTextEditorSpec } from './rich-text-editor.js';
 import { searchFieldSpec } from './search-field.js';
 import { selectSpec } from './select.js';
 import { sortHeaderSpec } from './sort-header.js';
+import { spinnerSpec } from './spinner.js';
 import { stepperSpec } from './stepper.js';
 import { tabsSpec } from './tabs.js';
 import { templateEditorSpec } from './template-editor.js';
@@ -110,6 +111,7 @@ export const COMPONENT_SPECS = [
     searchFieldSpec,
     selectSpec,
     sortHeaderSpec,
+    spinnerSpec,
     stepperSpec,
     tabsSpec,
     templateEditorSpec,

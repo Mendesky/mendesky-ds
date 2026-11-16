@@ -44,8 +44,8 @@ export const processToastSpec = {
                 ],
                 [
                     'Icon',
-                    '#icon size="36"',
-                    '#icon size="24"',
+                    '#icon size="36"；loading 時是 #spinner size="36"',
+                    '#icon size="24"；loading 時是 #spinner size="24"',
                 ],
                 [
                     '訊息文字',

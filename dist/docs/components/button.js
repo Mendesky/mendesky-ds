@@ -2,7 +2,7 @@ export const buttonSpec = {
     id: 'button',
     name: 'Button',
     group: '互動元件',
-    when: '畫面上能點的操作都用它，不要自己寫原生的 `<button>`。只有選單裡的選項例外，那裡改用 #menu-item，要在選項文字後面放標籤也是放在 #menu-item 裡。打開 `loading` 後，轉圈會取代圖示，按鈕變成灰色的停用狀態，點了也沒反應。如果不給 `text`、自己放內容，**裡面的文字顏色一定要繼承按鈕**，寫 `color: inherit`。寫死顏色的話，ghost 和 elevated 在滑過、按下時的文字色會套不上。之前就出過這種事：ghost 滑過後變成深灰底配黑字。',
+    when: '畫面上能點的操作都用它，不要自己寫原生的 `<button>`。只有選單裡的選項例外，那裡改用 #menu-item，要在選項文字後面放標籤也是放在 #menu-item 裡。打開 `loading` 後，#spinner 會取代圖示，按鈕變成灰色的停用狀態，點了也沒反應。如果不給 `text`、自己放內容，**裡面的文字顏色一定要繼承按鈕**，寫 `color: inherit`。寫死顏色的話，ghost 和 elevated 在滑過、按下時的文字色會套不上。之前就出過這種事：ghost 滑過後變成深灰底配黑字。',
     notes: [
         {
             type: 'info',
@@ -22,7 +22,7 @@ export const buttonSpec = {
         { name: '右側標籤', description: '文字右邊的小標籤，用 `rightLabel` 放，可以不放。' },
         { name: '右側圖示', description: '用 `rightIcon` 放，可以不放。顏色規則跟左側圖示一樣。' },
         { name: '快速鍵提示', description: '`shortcut` 只是一段提示文字，按鈕不會幫你綁快速鍵。選單裡的選項要用 #menu-item，它沒有快速鍵提示。' },
-        { name: '載入轉圈', description: '只在 `loading` 時出現。這時按鈕上只剩轉圈和 `loadingText`，其他部位都會先藏起來。' },
+        { name: '載入轉圈', description: '只在 `loading` 時出現，畫出來的是 #spinner，大小跟按鈕內建的圖示一樣：XXS、XS、S 是 12，M 是 16，L 是 24。這時按鈕上只剩轉圈和 `loadingText`，其他部位都會先藏起來。' },
     ],
     states: [
         { name: '預設', description: '底色和文字色由 `variant` 和 `color` 決定。' },
@@ -45,7 +45,7 @@ export const buttonSpec = {
             '載入中又沒給 `loadingText` 時，畫面上只剩轉圈；這時如果也沒設 `ariaLabel`，報讀軟體就念不出名稱。',
             '停用但可點的按鈕，報讀軟體會念出它是停用的，但使用者還是按得下去。按了之後跳出來的原因說明，報讀軟體不會念。',
         ],
-        motion: ['載入轉圈 0.6 秒轉一圈。使用者在系統裡開了「減少動態」，它目前還是會轉。'],
+        motion: ['載入轉圈跟 #spinner 一樣：0.8 秒轉一圈；使用者在系統裡開了「減少動態」，改成 2.4 秒轉一圈。'],
         touch: ['每個尺寸都比手機建議的觸控範圍小。iOS 建議 44 點、Android 建議 48 dp，按鈕最高的 L 也只有 40 px。'],
         aria: [
             '裡面用的是原生 `button` 元素，`type="button"`，所以放在表單裡也不會不小心送出表單。',

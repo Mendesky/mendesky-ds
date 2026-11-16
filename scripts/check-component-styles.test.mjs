@@ -21,6 +21,18 @@ test('有規則跑到 .ds-<檔名> 外面（會影響整個頁面）→ 失敗�
   assert.match(failures[0], /\.thing__part/);
 });
 
+test('@media 裡的規則都在 .ds-<檔名> 底下（例：減少動態時轉慢）→ 通過', () => {
+  const { checked, failures } = checkComponentStyles(path.join(fixtures, 'media-ok'));
+  assert.equal(checked, 1);
+  assert.deepEqual(failures, []);
+});
+
+test('@media 裡有規則跑到 .ds-<檔名> 外面 → 失敗並指出選擇器', () => {
+  const { failures } = checkComponentStyles(path.join(fixtures, 'media-leak'));
+  assert.equal(failures.length, 1);
+  assert.match(failures[0], /\.thing__part/);
+});
+
 test('資料夾裡一份樣式都沒有 → 失敗', () => {
   const { checked, failures } = checkComponentStyles(path.join(fixtures, 'missing'));
   assert.equal(checked, 0);
