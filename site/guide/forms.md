@@ -12,6 +12,7 @@
 | 某個欄位驗證沒通過 | 在欄位元件傳 `errorMessage`。有值就進入錯誤狀態，空字串就清除 | <ComponentLink id="input" />、<ComponentLink id="select" />、<ComponentLink id="date-picker" /> 等，見下一節 |
 | 按送出時條件還不足 | 主按鈕維持停用外觀但可以點，點了說明原因並捲到第一個錯誤欄位 | <ComponentLink id="button" /> 的 `clickableWhenDisabled`，見[浮層怎麼選](./overlays) |
 | 在選項清單尾端新增自訂項 | 觸發鈕原地變成輸入框，按 Enter 送出。不用 `window.prompt`，也不在 Modal 裡再疊 Dialog | <ComponentLink id="inline-add" /> |
+| 改畫面上已經有的一段文字，例如重新命名 | 點文字原地變成輸入框，按 Enter 或離開就存，按 Esc 放棄。不另開視窗 | <ComponentLink id="inline-edit" /> |
 | Wizard 或表單 Modal 裡按 Enter | 兩段式：第一次 Enter 把焦點移到主按鈕，第二次才真的送出 | 下方規則「Wizard 鍵盤導航」 |
 
 ## 欄位錯誤訊息怎麼顯示
