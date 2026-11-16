@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.12.1）
+### Angular（v0.12.2）
 
 `app-field`
 
 label hint [required] [emphasis]
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/?path=/docs/field--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/?path=/docs/field--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

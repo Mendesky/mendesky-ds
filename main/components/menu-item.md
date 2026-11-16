@@ -35,9 +35,9 @@
 - 跟這組單選不同類的動作，例如排序選單裡的「還原預設」，放在最後一列，上面用一條分隔線隔開，分隔線標成 role="separator"。
 - 刪除、封存這類危險動作，`tone` 設成 `danger`，文字也要寫清楚會做什麼，不要只靠紅色讓人看出危險。
 - 選項暫時不能用時設 `disabled`。停用的選項在選單裡鍵盤還停得到，用報讀軟體的人也聽得到有這一項。
-- 停用時把原因寫在 `description`，例如「先完成上一步才能使用」。原因一直顯示在選項下方，不用滑過或點了才看得到；報讀軟體也會在名稱之後念出來。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=menu-item--disabled&viewMode=story)）
-- 點了會在選單旁邊打開面板、選單要繼續開著的選項，設 `opensPanel`，並用 `panelOpen` 跟著面板開關。這樣才有右箭頭，點了也不會關選單。點擊要切換面板：關著就打開，開著就關，使用者再按一次才關得掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/iframe.html?id=menu-item--opens-panel&viewMode=story)）
-- 幾個選項名稱看起來很像，使用者要先知道差在哪裡才選得對時，用 `details` 分幾點寫出差異，例如每一種匯出格式包含哪些欄位、適合拿去做什麼。
+- 停用時把原因寫在 `description`，例如「先完成上一步才能使用」。原因一直顯示在選項下方，不用滑過或點了才看得到；報讀軟體也會在名稱之後念出來。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/iframe.html?id=menu-item--disabled&viewMode=story)）
+- 點了會在選單旁邊打開面板、選單要繼續開著的選項，設 `opensPanel`，並用 `panelOpen` 跟著面板開關。這樣才有右箭頭，點了也不會關選單。點擊要切換面板：關著就打開，開著就關，使用者再按一次才關得掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/iframe.html?id=menu-item--opens-panel&viewMode=story)）
+- 幾個選項名稱看起來很像，使用者要先知道差在哪裡才選得對時，用 `details` 分幾點寫出差異，例如每一種匯出格式包含哪些欄位、適合拿去做什麼。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/iframe.html?id=menu-item--details&viewMode=story)）
 - 要在文字後面標出類型或狀態，就把 [Label](label.md) 放進自訂內容。顏色設成 LightWhite 的標籤，底色變深時會自動變成淺色字，不用自己寫滑過、選中的樣式；GreyOutline、Transparent 這類灰字標籤不會跟著變，疊在深色底上會看不清楚。
 
 ### 不要這樣做
@@ -54,13 +54,13 @@
 
 ## 用法
 
-### Angular（v0.12.1）
+### Angular（v0.12.2）
 
 `app-menu-item`
 
-label（必填）· description · icon · tone: neutral|danger · [disabled] · [selected]: boolean|null（null＝一般動作）· opensPanel: 'dialog'|null · [panelOpen] · (itemClick) · 文字後面可投影 app-label
+label（必填）· description · icon · tone: neutral|danger · [disabled] · [selected]: boolean|null（null＝一般動作）· opensPanel: 'dialog'|null · [panelOpen] · [details]: string[]（補充說明面板） · (itemClick) · 文字後面可投影 app-label
 
-[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.1/components/?path=/docs/menu-item--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 10 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/?path=/docs/menu-item--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -74,6 +74,7 @@ label（必填）· description · icon · tone: neutral|danger · [disabled] ·
 | `selected` | `boolean \| null` | `null` | 不設（null）是一般動作；設成 true／false 就是一組單選裡的一個值，true 是選中（深藍實心底）。在 app-action-menu 裡輸出 role="menuitemradio" 與 aria-checked；在選單外輸出 aria-pressed。 |
 | `opensPanel` | `MenuItemPanel \| null` | `null` | 點了會在旁邊打開面板時設 'dialog'（面板裡是按鈕、輸入框這類一般內容）。右邊加 RightArrow 箭頭，內層按鈕輸出 aria-haspopup 與 aria-expanded。在 app-action-menu 裡點了不關選單，焦點留在這一項；焦點在上面時按右方向鍵也會發 itemClick。面板已經開著時按右方向鍵不發，改成把焦點移進面板（面板要用 fixedMode 加固定座標打開、ancestorAnchorEl 指回這一項）。 |
 | `panelOpen` | `boolean` | `false` | 旁邊的面板開著沒。設了 opensPanel 才有作用：輸出成 aria-expanded，true 時跟滑過一樣亮著（危險項目是淺紅底）。面板開關由使用端自己管。 |
+| `details` | `readonly string[] \| null` | `null` | 補充說明，每一個字串是一條，只能是純文字。滑過這一項，或用鍵盤移到這一項時，選單右邊出現一塊面板，標題是 label，下面列出每一條；用滑鼠點開選單時不會自己出現。滑鼠移出選單時面板留著，滑過沒有 details 的項目才收起來，選單關掉就消失。內層按鈕的 aria-describedby 另外指向藏起來的條列文字，接在 description 後面念。只在 app-action-menu 裡有作用；設了 opensPanel 時不生效。null 或空陣列不顯示。 |
 | `(itemClick)` | `EventEmitter<void>` |  | 點一下，或焦點在上面時按 Enter、空白鍵就會觸發；停用時不觸發。 |
 
 #### 程式碼範例
@@ -131,6 +132,17 @@ label（必填）· description · icon · tone: neutral|danger · [disabled] ·
 }
 ```
 
+**補充說明：名稱很像的幾個選項，用 details 分幾點寫出差異**
+
+```html
+<app-action-menu ariaLabel="匯出" (closeMenu)="exportOpen.set(false)">
+  <app-menu-item label="匯出成 CSV" (itemClick)="exportAs('csv')"
+    [details]="['只有文字與數字，沒有格式', '適合再匯入其他系統']"></app-menu-item>
+  <app-menu-item label="匯出成 PDF" (itemClick)="exportAs('pdf')"
+    [details]="['版面固定，不能再編輯', '適合寄出或存檔']"></app-menu-item>
+</app-action-menu>
+```
+
 **文字後面放標籤（自訂內容）**
 
 ```html
@@ -159,6 +171,7 @@ label（必填）· description · icon · tone: neutral|danger · [disabled] ·
 - **注意**：要聽 (itemClick)，不要在 app-menu-item 上聽 (click)。停用的項目沒有用原生 disabled，裡面按鈕的 click 事件照樣會冒到外框，(click) 在停用時也會觸發。
 - 投影進來的 app-label 用 LightWhite 時，字色來自 CSS 變數 --text/body-light。滑過、按下、選中、面板開著時元件會把這個變數改成淺色，所以標籤字會跟著變白；停用時改成灰 50，跟標題一樣。其他寫死顏色的自訂內容不會變。
 - ancestorAnchorEl 要的是元素，不是元件。用 viewChild('exportItem', { read: ElementRef }) 取到 ElementRef，傳它的 nativeElement（app-menu-item 的元素）；不傳的話，點面板裡面會把外面的選單當成點外面關掉，再按一次「匯出」也會先關掉面板、放開時又打開。
+- 補充說明面板由外層的 app-action-menu 畫，搬到 body 底下，所以一個選單同時只有一塊。面板寬 320px，放在選單右邊隔 8px、頂端對齊那一列；右邊放不下改放左邊，下面放不下往上移。左右都放不下 320px 時放在空間大的那邊、縮窄到放得下，不到 200px 就不顯示；面板不蓋住選單，疊放層級跟選單一樣。頁面捲動、選單移動或視窗大小改變時跟著重新對齊。點面板算點在選單裡：選單不關，底下的東西也不會被點到，焦點留在選單的那一項。觸控裝置上不顯示（條件是 (hover: none) and (pointer: coarse)），所以一定要知道的事不要只寫在 details。
 - 文字後面的自訂內容放在內層按鈕裡、沒有 aria-hidden，報讀軟體會把它接在 label 後面一起念進名稱，例如「項目 C 圖片 已封存」。
 
 ## 無障礙
