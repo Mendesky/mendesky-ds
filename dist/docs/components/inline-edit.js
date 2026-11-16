@@ -44,7 +44,7 @@ export const inlineEditSpec = {
         screenReader: [
             '顯示文字念成「編輯」加上 `ariaLabel`，再加目前的值，以及「按鈕」。例如「編輯名稱，目前是第一季，按鈕」。',
             '輸入框的名稱就是 `ariaLabel`。',
-            '儲存中時按鈕標成忙碌，轉圈本身不另外念。',
+            '開始儲存時念出 `ariaLabel` 加「儲存中」，例如「名稱儲存中」。按鈕同時標成忙碌，轉圈本身不另外念。',
             '錯誤訊息跟 #input 的錯誤狀態一樣念出來。',
         ],
         motion: [
@@ -54,6 +54,7 @@ export const inlineEditSpec = {
             '顯示文字是原生 `<button>`，aria-label 由 `ariaLabel` 與 `value` 組成。',
             '儲存中加 aria-busy="true" 與 aria-disabled="true"；按鈕還是停得到，報讀軟體才念得出它在忙。',
             '停用用原生 disabled。',
+            '元件裡有一個一直存在、畫面上看不到的 role="status" 區域。平常是空的，`saving` 為真時才填字，結束後清空。它不跟著轉圈一起出現：區域跟文字同一刻插入，報讀軟體常常不念。',
         ],
     },
     dos: [
