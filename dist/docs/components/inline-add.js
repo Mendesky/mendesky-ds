@@ -2,7 +2,7 @@ export const inlineAddSpec = {
     id: 'inline-add',
     name: 'Inline Add',
     group: '互動元件',
-    when: '在 chip 群組 / 清單尾端讓使用者新增「自訂項」。取代 native window.prompt；單行文字輸入不要在 modal 內再疊 dialog。',
+    when: '在 chip 群組 / 清單尾端讓使用者新增「自訂項」。取代 native window.prompt；單行文字輸入不要在 modal 內再疊 dialog。要改畫面上已經有的文字（例如重新命名）用 #inline-edit：那邊離開輸入框是存檔，這裡是取消。',
     notes: [
         {
             type: 'info',

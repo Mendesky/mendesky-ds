@@ -27,6 +27,7 @@ import { iconSpec } from './icon.js';
 import { iconBtnSpec } from './icon-btn.js';
 import { inlineAddSpec } from './inline-add.js';
 import { inlineConfirmSpec } from './inline-confirm.js';
+import { inlineEditSpec } from './inline-edit.js';
 import { inputSpec } from './input.js';
 import { kanbanMinimapSpec } from './kanban-minimap.js';
 import { keyboardHelpSpec } from './keyboard-help.js';
@@ -90,6 +91,7 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   iconBtnSpec,
   inlineAddSpec,
   inlineConfirmSpec,
+  inlineEditSpec,
   inputSpec,
   kanbanMinimapSpec,
   keyboardHelpSpec,
