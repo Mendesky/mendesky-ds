@@ -17,6 +17,7 @@
 - [Icon Button](components/icon-btn.md): 工具列、表格操作、純圖示互動。
 - [Inline Add](components/inline-add.md): 在 chip 群組 / 清單尾端讓使用者新增「自訂項」。
 - [Inline Confirm](components/inline-confirm.md): 前提依賴型確認（contextualInline）：父層需要使用者在主操作前先勾選「已確認 XXX」。
+- [Inline Edit](components/inline-edit.md): 畫面上已經有一段單行文字，使用者偶爾要改它，例如清單項目的名稱、區塊的標題。
 - [Menu Item](components/menu-item.md): 選單裡的每一項都用它。
 - [Radio Chip](components/radio-chip.md): 篩選條件單選、可取消的選項。
 - [Stepper](components/stepper.md): horizontal：多步驟 Wizard 進度指示。
