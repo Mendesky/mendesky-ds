@@ -29,6 +29,55 @@
 - 把轉圈放進已經淡化（調低不透明度）的元素裡。轉圈跟著變淡，對比會掉到 3:1 以下；要淡化的話，只淡化旁邊的元素。
 - 整個區塊在讀資料、而且版面已知時用轉圈。這種情況用骨架，使用者看得到內容大概會長什麼樣。
 
+## 用法
+
+### Angular（v0.13.0）
+
+`app-spinner`
+
+size: 12|16|24|36 · label · [decorative]
+
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.13.0/components/?path=/docs/spinner--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `size` | `'12' \| '16' \| '24' \| '36'` | `'16'` | 寬高（px），對齊圖示尺寸。線寬依序 1.5、2、2.5、3 |
+| `label` | `string` | `'載入中'` | 給報讀軟體念的文字，畫面上看不到 |
+| `decorative` | `boolean` | `false` | 旁邊已經有文字在講同一件事時設 true：整個轉圈加 aria-hidden，沒有 role="status"，也沒有報讀文字 |
+
+#### 程式碼範例
+
+**旁邊有說明文字（轉圈設成裝飾用）**
+
+```html
+<span class="saving">
+  <app-spinner size="16" [decorative]="true"></app-spinner>
+  儲存中…
+</span>
+```
+
+**畫面上只有轉圈（報讀軟體念 label）**
+
+```html
+<app-spinner size="24" label="正在讀取清單"></app-spinner>
+```
+
+**深色底：改外層文字色，轉圈跟著變**
+
+```html
+<div style="background:#535353;color:#ffffff;">
+  <app-spinner size="16" [decorative]="true"></app-spinner>
+  更新中…
+</div>
+```
+
+#### Angular 注意事項
+
+- 按鈕在等結果時，用 app-button 或 app-icon-btn 的 `loading`，不要自己把 app-spinner 放進按鈕。
+- 顏色跟著外層的 `color`：弧是文字色，軌道是同色 20%。
+
 ## 無障礙
 
 ### 網頁和 APP 都要做到

@@ -34,7 +34,7 @@
 
 - 載入中記得給 `loadingText`，像「儲存中…」這樣。不然畫面上只剩一個轉圈，用報讀軟體的人根本不知道按鈕在忙什麼。
 - 按鈕暫時不能用、又想讓使用者知道原因，就打開 `clickableWhenDisabled`，再配一句 `disabledMessage`。按鈕一樣是灰的，但點下去會在上方跳出你寫的原因，總比讓人對著一顆沒反應的按鈕猛點好。
-- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/iframe.html?id=button--full-width&viewMode=story)）
+- 想讓按鈕跟外層一樣寬，加 `fullWidth` 就好。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.13.0/components/iframe.html?id=button--full-width&viewMode=story)）
 - 做成切換鈕（按一下開、再按一下關）時，用 `ariaPressed` 告訴報讀軟體現在是按下還是沒按下。如果按鈕代表清單裡「目前這一項」，改用 `ariaCurrent`。
 - 按鈕會打開放了 [Menu Item](menu-item.md) 的選單時，`ariaHaspopup` 設成 `menu`，`ariaExpanded` 跟著選單開關設成 true 或 false。這樣報讀軟體才知道按下去會跳出選單；在 Safari 上，選單關掉後也是靠 `ariaHaspopup` 和 `ariaExpanded` 一起認出這顆按鈕、把焦點還給它，少一個就認不出來。
 
@@ -46,13 +46,13 @@
 
 ## 用法
 
-### Angular（v0.12.2）
+### Angular（v0.13.0）
 
 `app-button`
 
 variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|neutral · size: XXS|XS|S|M|L · leftIcon/rightIcon · [disabled] [fullWidth] [loading] · [clickableWhenDisabled] [disabledMessage] · ariaLabel [ariaPressed] [ariaCurrent] · ariaHaspopup [ariaExpanded] · (btnClick) (disabledClick)
 
-[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 19 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.13.0/components/?path=/docs/button--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -66,7 +66,7 @@ variant: filled|tonal|outlined|ghost|elevated · color: primary|success|danger|n
 | `rightIcon` | `string` |  | 右側 icon 名稱 |
 | `disabled` | `boolean` | `false` | 禁用狀態 |
 | `fullWidth` | `boolean` | `false` | 撐滿父容器寬度 |
-| `loading` | `boolean` | `false` | 載入中狀態；底色不變，spinner 取代 icon，點擊無效 |
+| `loading` | `boolean` | `false` | 載入中狀態；按鈕換成停用的灰底，app-spinner 取代 icon（XXS、XS、S 12px；M 16px；L 24px），點擊無效 |
 | `loadingText` | `string` | `''` | loading=true 時顯示的替換文字（選填） |
 | `description` | `string` | `''` | 雙行模式：名稱下方的說明文字。有值時 height:auto、文字靠左。選單裡的選項改用 app-menu-item 的 description |
 | `shortcut` | `string` | `''` | 鍵盤快速鍵提示（e.g. "⌘N"），顯示在按鈕右側，參考 Fluent UI secondaryContent 模式。只顯示提示，不綁定快速鍵行為。選單裡的選項要用 app-menu-item，它沒有這個設定。 |

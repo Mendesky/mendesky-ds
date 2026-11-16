@@ -12,13 +12,13 @@
 
 ## 用法
 
-### Angular（v0.12.2）
+### Angular（v0.13.0）
 
 `app-icon-btn`
 
-size: 12|16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Modal|SectionBtn|Drag|Block|Block-Transparent|Icon+Text|PrimaryFilled · label · [active] [toggle] [disabled] tooltip tooltipPos · ariaLabel · ariaHaspopup [ariaExpanded] · (btnClick)
+size: 12|16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|Modal|SectionBtn|Drag|Block|Block-Transparent|Icon+Text|PrimaryFilled · label · [active] [toggle] [disabled] [loading] loadingSize loadingLabel tooltip tooltipPos · ariaLabel · ariaHaspopup [ariaExpanded] · (btnClick)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.12.2/components/?path=/docs/icon-btn--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.13.0/components/?path=/docs/icon-btn--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -28,7 +28,10 @@ size: 12|16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|
 | `propClass` | `IconBtnClass` | `'Normal'` | Normal \| Warning \| CardBtn \| CardBtnPdSmall \| Modal \| SectionBtn \| Drag \| Block \| Block-Transparent \| Icon+Text \| PrimaryFilled。PrimaryFilled 是實心主色、白色圖示、圓角方形，給頁面主要的新增入口，搭配 size="12"；外觀同全域 .app-action-cta-btn（滑過 85% 不透明、停用 40% 不透明）。**沒有 Floating**（2026-08-18 撤除）：DS 外部化成 @mendesky/ds-angular 後該 variant 不存在。要「浮在 backdrop 上的白底圓鈕」請用 SectionBtn（size=24 剛好 44×44、透明底），白底圓形與落影由消費端的 wrapper 出（外包一層白底圓形容器並加落影）。 |
 | `active` | `boolean` |  | 啟用/高亮狀態（Normal / CardBtnPdSmall 轉綠） |
 | `toggle` | `boolean` | `false` | 切換按鈕模式；啟用後輸出 aria-pressed（隨 active 同步 true/false）。用於格式化、filter on/off 等可切換開關。 |
-| `disabled` | `boolean` |  | 禁用狀態（opacity 0.5，cursor not-allowed） |
+| `disabled` | `boolean` |  | 禁用狀態（opacity 0.5，cursor not-allowed）。同時設了 loading 時以 disabled 為準 |
+| `loading` | `boolean` | `false` | 載入中：轉圈取代圖示，點了不送出，click 也不會傳到外層。不加原生 disabled（焦點留在按鈕上），改輸出 aria-busy 與 aria-disabled；不淡化 |
+| `loadingSize` | `'12' \| '16' \| '24' \| '36' \| null` | `null` | 轉圈大小；null＝跟 size 走（12→12、16-／16→16、24／32→24、36／48→36）。投影的圖示比 size 小時，指定成圖示的大小 |
+| `loadingLabel` | `string` | `''` | 載入中念給報讀軟體聽的話（例：「產生 PDF 中…」）。設了就在按鈕外面放一個一直存在、看不見的 role="status"，載入中填字、結束清空。只換 tooltip 報讀軟體不會念 |
 | `label` | `string` |  | 文字標籤（僅 Icon+Text 模式顯示） |
 | `ariaLabel` | `string` |  | 無障礙標籤，建議每顆按鈕都設定 |
 | `ariaHaspopup` | `IconBtnAriaHaspopup \| null` | `null` | 這顆按鈕會打開選單，套在內層 button 的 aria-haspopup。目前只接受 'menu'，用在打開放了 app-menu-item 的 app-action-menu 的按鈕，例如 More；null 不輸出。Safari 關閉選單後，要同時有它和 ariaExpanded 才認得出觸發鈕、把焦點還給它。 |
@@ -36,7 +39,7 @@ size: 12|16-|16|24|32|36|48 · propClass: Normal|Warning|CardBtn|CardBtnPdSmall|
 | `tooltip` | `string` | `''` | tooltip 文字，有值才顯示 |
 | `tooltipPos` | `'Down' \| 'Top' \| 'Left' \| 'Right'` | `'Down'` | tooltip 箭頭方向（Down = tooltip 在上方，Top = 在下方） |
 | `shortcutHint` | `string` | `''` | 鍵盤快速鍵提示（e.g. "⌘N"），有值時自動 append 到 tooltip，顯示為「tooltip（shortcutHint）」。 |
-| `(btnClick)` | `EventEmitter<void>` |  | 點擊事件（disabled 時不觸發） |
+| `(btnClick)` | `EventEmitter<void>` |  | 點擊事件（disabled 或 loading 時不觸發） |
 
 #### 程式碼範例
 
