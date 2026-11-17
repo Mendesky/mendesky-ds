@@ -6,12 +6,12 @@ export const sortHeaderSpec: ComponentSpec = {
   group: '展示元件',
   when: '列表表頭裡可點擊排序的一格。點了發出這欄的 key，由呼叫端決定怎麼排、並把新的排序狀態傳回來；本元件不持有狀態，也不排序資料。不能排序的欄不要用它，放一般的表頭文字就好。',
   notes: [
-    { type: 'info', content: '欄寬由呼叫端放在元件本身元素上的 class（例：col-name）決定。' },
+    { type: 'info', content: '欄寬由呼叫端放在元件本身元素上的 class（例：col-name）決定。這個 class 如果會裁切超出的內容（給下方長文字顯示刪節號用），表頭這一格不會跟著裁：往外多出的 6px 要看得到。' },
     { type: 'info', content: 'nextSort(目前狀態, key, 預設方向)：點同一欄反轉方向，點別欄從預設方向開始。數量、日期欄通常傳 \'desc\'，第一次點就「多到少／新到舊」。' },
     { type: 'info', content: '`align` 決定這一格靠哪邊：文字欄靠左，數字欄靠右，內容置中的欄（例如狀態標籤）用置中。跟下方內容用同一種對齊。' },
-    { type: 'info', content: '靠左時按鈕往左多出 6px，欄名的左緣跟下方內容切齊；靠右時往右多出 6px，排序圖示的右緣跟下方內容切齊。滑過時的底色因此會比內容的邊緣多出 6px。置中時不往外多出。' },
+    { type: 'info', content: '靠左時按鈕往左多出 6px，欄名的左緣跟下方內容切齊；靠右時往右多出 6px，排序圖示的右緣跟下方內容切齊。滑過時的底色因此會比內容的邊緣多出 6px。置中時不往外多出。欄名很長、放不下時，按鈕最多可以比這一格寬 12px（兩側各 6px），再長就用刪節號。' },
     { type: 'info', content: '`leftIcon` 在欄名前面放一個圖示，用來標示這一欄的類別。它一直顯示，不代表排序方向。' },
-    { type: 'info', content: '列表有沒有表格結構，報讀的做法不同，見無障礙。元件只在出現的那一刻看外層是不是表格列，之後不會再判斷。' },
+    { type: 'info', content: '列表有沒有表格結構，報讀的做法不同，見無障礙。元件只在出現的那一刻看外層有沒有標成表格列（任何一層外層元素帶 role="row"），之後不會再判斷。原生的 `<tr>` 不算。' },
   ],
   anatomy: [
     { name: '前置圖示', description: '有給 `leftIcon` 才出現。12px，顏色跟欄名一樣。' },
@@ -21,7 +21,7 @@ export const sortHeaderSpec: ComponentSpec = {
   states: [
     { name: '沒在排序', description: '跟一般表頭一樣是淺灰字，看不到排序圖示。' },
     { name: '滑過', description: '淺灰底、字變深，出現排序圖示，看得出這一欄可以點。' },
-    { name: '焦點', description: '用鍵盤停到按鈕上時出現 2px `--button/action` 外框，也出現排序圖示。' },
+    { name: '焦點', description: '用鍵盤停到按鈕上時出現 2px `--button/action` 外框（離按鈕 1px），也出現排序圖示。' },
     { name: '升冪', description: '`sort` 的 key 等於這一欄、方向是升冪：動作色、半粗，顯示升冪圖示。滑過時仍是動作色。' },
     { name: '降冪', description: '同上，顯示降冪圖示。' },
   ],
@@ -46,16 +46,16 @@ export const sortHeaderSpec: ComponentSpec = {
     aria: [
       '欄名是原生 `<button>`，type 是 button，放在表單裡不會送出。',
       '排序方向寫在按鈕裡一段畫面上看不到的文字，所以它是按鈕名稱的一部分。圖示都是 aria-hidden。',
-      '元件裡有一個一直存在、畫面上看不到的 role="status" 區域，平常是空的；點了這一欄、排序狀態傳回來時才填字，換成別欄排序時清空。它不是點的時候才插入：區域跟文字同一刻出現，報讀軟體常常不念。',
+      '元件裡有一個一直存在、畫面上看不到的 role="status" 區域，平常是空的；點了這一欄、排序狀態傳回來時才填字。換成別欄排序、排序被清掉、或方向不是因為點這一欄而改變時清空。它不是點的時候才插入：區域跟文字同一刻出現，報讀軟體常常不念。',
       '外層沒有 role="row" 時，元件本身的元素不帶 role，也不帶 aria-sort：沒有表格結構的 columnheader 是孤立的，報讀軟體不一定念它的 aria-sort。',
       '外層有 role="row" 時，元件本身的元素帶 role="columnheader" 與 aria-sort（ascending、descending，沒在排序是 none）。',
     ],
   },
   dos: [
     { text: '數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。', story: 'align-end' },
-    { text: '下方內容置中的欄（例如狀態標籤），表頭也用置中。', story: 'align-center' },
+    { text: '下方內容置中的欄（例如狀態標籤），表頭也用置中。' },
     { text: '數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。', story: 'header-row' },
-    { text: '列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。', story: 'in-table-row' },
+    { text: '列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。' },
   ],
   donts: [
     { text: '自己用 `<button>` 加 aria-sort 做排序表頭。aria-sort 掛在按鈕上不合規範，報讀軟體不會念。' },
