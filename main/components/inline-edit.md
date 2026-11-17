@@ -26,10 +26,10 @@
 
 ### 可以這樣做
 
-- `ariaLabel` 寫這段文字是什麼，例如「名稱」。不要寫動作，「編輯」兩個字元件會自己加。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.14.0/components/iframe.html?id=inline-edit--default&viewMode=story)）
-- 頁面要等伺服器成功才換新值時，等待期間設 `saving`，失敗時記得設回假並告訴使用者沒存成功。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.14.0/components/iframe.html?id=inline-edit--saving&viewMode=story)）
-- 用 `errorMessage` 擋不合格的內容，訊息寫清楚哪裡不對，例如「名稱不能空白」。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.14.0/components/iframe.html?id=inline-edit--with-error&viewMode=story)）
-- 外層給顯示文字一個最大寬度，旁邊的按鈕才不會被長文字擠掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.14.0/components/iframe.html?id=inline-edit--long-text&viewMode=story)）
+- `ariaLabel` 寫這段文字是什麼，例如「名稱」。不要寫動作，「編輯」兩個字元件會自己加。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=inline-edit--default&viewMode=story)）
+- 頁面要等伺服器成功才換新值時，等待期間設 `saving`，失敗時記得設回假並告訴使用者沒存成功。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=inline-edit--saving&viewMode=story)）
+- 用 `errorMessage` 擋不合格的內容，訊息寫清楚哪裡不對，例如「名稱不能空白」。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=inline-edit--with-error&viewMode=story)）
+- 外層給顯示文字一個最大寬度，旁邊的按鈕才不會被長文字擠掉。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=inline-edit--long-text&viewMode=story)）
 
 ### 不要這樣做
 
@@ -40,13 +40,13 @@
 
 ## 用法
 
-### Angular（v0.14.0）
+### Angular（v0.15.0）
 
 `app-inline-edit`
 
 [value] [ariaLabel] [placeholder] [size:S|M] [errorMessage] [saving] [disabled] [(editing)] · (commit: string) (cancel) (closed: key|blur) (draftChange: string) — 點文字原地變輸入框，Enter 或離開就送出，Esc 放棄
 
-[在範例網站看全部 8 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.14.0/components/?path=/docs/inline-edit--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 8 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/?path=/docs/inline-edit--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

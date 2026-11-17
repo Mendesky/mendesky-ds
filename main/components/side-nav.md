@@ -27,8 +27,8 @@
 
 ### 可以這樣做
 
-- 入口少的系統用窄欄和藏起來兩種，預設藏起來，讓內容區最寬。（範例代號：rail）
-- 入口多、有分群的系統用展開和窄欄兩種，預設展開，群組標題一直看得到。（範例代號：expanded）
+- 入口少的系統用窄欄和藏起來兩種，預設藏起來，讓內容區最寬。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=side-nav--rail&viewMode=story)）
+- 入口多、有分群的系統用展開和窄欄兩種，預設展開，群組標題一直看得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=side-nav--expanded&viewMode=story)）
 - 窄螢幕把同一份項目用展開的寬度放進 [Drawer Shell](drawer-shell.md)，點了項目就換頁並關掉抽屜。
 - 把使用者上次選的寬度存起來，下次進來照用。
 
@@ -38,6 +38,80 @@
 - 藏起來只把寬度設成 0、透明度設成 0，項目還留在 Tab 順序裡。鍵盤使用者會停在看不見的項目上。
 - 把切換按鈕放在會整條藏起來的側欄裡。藏起來以後就叫不回來了。
 - 依入口數量自動換寬度。多開一個功能，整個版面就突然變了。
+
+## 用法
+
+### Angular（v0.15.0）
+
+`app-side-nav`
+
+[groups] · mode: expanded|rail|hidden · [currentId] · ariaLabel · (navigate)
+
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/?path=/docs/side-nav--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `groups` | `readonly SideNavGroup[]` |  | 必填。群組與項目：SideNavGroup 是 { id, heading?, items }，SideNavItem 是 { id, label, icon, href }。不分群就傳一個不給 heading 的群組 |
+| `mode` | `'expanded' \| 'rail' \| 'hidden'` | `'expanded'` | 寬度：展開 200px、窄欄 56px、藏起來 0。藏起來時整條加 inert |
+| `currentId` | `string \| null` | `null` | 目前頁的項目 id。對到的項目換成選中樣式，加 aria-current="page" |
+| `ariaLabel` | `string` | `'主要導覽'` | 導覽地標的名稱 |
+| `(navigate)` | `EventEmitter<SideNavItem>` |  | 左鍵單擊項目、沒按修飾鍵時送出；元件已擋掉瀏覽器換頁 |
+
+#### 事件
+
+| 名稱 | 型別 | 說明 |
+| --- | --- | --- |
+| `navigate` | `EventEmitter<SideNavItem>` | 左鍵單擊項目、沒按 Ctrl／⌘／Shift／Alt 時送出，元件已擋掉瀏覽器換頁。使用端在這裡用路由換頁 |
+
+#### 程式碼範例
+
+**窄欄和藏起來兩種，切換鈕放在側欄外面**
+
+```html
+<button type="button" aria-controls="main-nav" [attr.aria-expanded]="!hidden()" (click)="hidden.set(!hidden())">
+  切換側欄
+</button>
+<app-side-nav
+  id="main-nav"
+  [groups]="groups"
+  [mode]="hidden() ? 'hidden' : 'rail'"
+  [currentId]="currentId()"
+  (navigate)="router.navigateByUrl($event.href)">
+</app-side-nav>
+```
+
+**展開和窄欄兩種，切換鈕放進頂端區**
+
+```html
+<app-side-nav [groups]="groups" [mode]="collapsed() ? 'rail' : 'expanded'" [currentId]="currentId()"
+              (navigate)="router.navigateByUrl($event.href)">
+  <button sideNavHeader type="button" [attr.aria-expanded]="!collapsed()" (click)="collapsed.set(!collapsed())">
+    {{ collapsed() ? '展開側欄' : '收合側欄' }}
+  </button>
+</app-side-nav>
+```
+
+**窄螢幕：同一份項目用展開的寬度放進抽屜**
+
+```html
+<app-drawer-shell [isOpen]="drawerOpen()" side="left" width="min(280px, 85vw)" (close)="drawerOpen.set(false)">
+  <app-side-nav style="width:100%;height:auto" [groups]="groups" mode="expanded" [currentId]="currentId()"
+                (navigate)="router.navigateByUrl($event.href); drawerOpen.set(false)">
+  </app-side-nav>
+</app-drawer-shell>
+```
+
+#### Angular 注意事項
+
+- 頂端區用 `sideNavHeader` 屬性標記要投影的元素。
+- `currentId` 由使用端從路由算出來，例如網址開頭對到哪個項目的 href。
+- 元件高度是外層的 100%，項目多到放不下時側欄自己捲動。
+- 放進抽屜時，在外層對元件設 `width: 100%; height: auto;`，填滿抽屜寬度、高度跟著內容，捲動交給抽屜。元件不知道自己在抽屜裡，漏設就停在 200px 寬。
+- 沒接 `(navigate)` 時，點項目照連結換頁（整頁重新載入）。用路由的系統都要接。
+- 觸控裝置（`pointer: coarse`）上，展開的項目至少 44px 高；滑鼠操作維持 36px。
+- `groups` 換成新陣列才會重畫（OnPush）。
 
 ## 無障礙
 
