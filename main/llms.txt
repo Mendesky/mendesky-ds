@@ -20,6 +20,7 @@
 - [Inline Edit](components/inline-edit.md): 畫面上已經有一段單行文字，使用者偶爾要改它，例如清單項目的名稱、區塊的標題。
 - [Menu Item](components/menu-item.md): 選單裡的每一項都用它。
 - [Radio Chip](components/radio-chip.md): 篩選條件單選、可取消的選項。
+- [Side Nav](components/side-nav.md): 系統的主要導覽，放在畫面最左邊，列出系統裡的各個功能入口。
 - [Stepper](components/stepper.md): horizontal：多步驟 Wizard 進度指示。
 - [Tabs](components/tabs.md): 同一個區塊裡有幾組內容，一次只看一組，用一排頁籤切換。
 - [Toggle](components/toggle.md): 即時生效的開/關設定。
