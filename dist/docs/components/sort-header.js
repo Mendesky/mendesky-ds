@@ -55,9 +55,9 @@ export const sortHeaderSpec = {
     },
     dos: [
         { text: '數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。', story: 'align-end' },
-        { text: '下方內容置中的欄（例如狀態標籤），表頭也用置中。' },
+        { text: '下方內容置中的欄（例如狀態標籤），表頭也用置中。', story: 'align-center' },
         { text: '數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。', story: 'header-row' },
-        { text: '列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。' },
+        { text: '列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。', story: 'in-table-row' },
     ],
     donts: [
         { text: '自己用 `<button>` 加 aria-sort 做排序表頭。aria-sort 掛在按鈕上不合規範，報讀軟體不會念。' },
