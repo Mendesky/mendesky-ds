@@ -27,8 +27,8 @@
 
 ### 可以這樣做
 
-- 入口少的系統用窄欄和藏起來兩種，預設藏起來，讓內容區最寬。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=side-nav--rail&viewMode=story)）
-- 入口多、有分群的系統用展開和窄欄兩種，預設展開，群組標題一直看得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=side-nav--expanded&viewMode=story)）
+- 入口少的系統用窄欄和藏起來兩種，預設藏起來，讓內容區最寬。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/iframe.html?id=side-nav--rail&viewMode=story)）
+- 入口多、有分群的系統用展開和窄欄兩種，預設展開，群組標題一直看得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/iframe.html?id=side-nav--expanded&viewMode=story)）
 - 窄螢幕把同一份項目用展開的寬度放進 [Drawer Shell](drawer-shell.md)，點了項目就換頁並關掉抽屜。
 - 把使用者上次選的寬度存起來，下次進來照用。
 
@@ -41,13 +41,13 @@
 
 ## 用法
 
-### Angular（v0.15.0）
+### Angular（v0.16.0）
 
 `app-side-nav`
 
 [groups] · mode: expanded|rail|hidden · [currentId] · ariaLabel · (navigate)
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/?path=/docs/side-nav--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/?path=/docs/side-nav--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

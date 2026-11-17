@@ -24,10 +24,10 @@
 
 ### 可以這樣做
 
-- 數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=sort-header--align-end&viewMode=story)）
-- 下方內容置中的欄（例如狀態標籤），表頭也用置中。
-- 數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/iframe.html?id=sort-header--header-row&viewMode=story)）
-- 列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。
+- 數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/iframe.html?id=sort-header--align-end&viewMode=story)）
+- 下方內容置中的欄（例如狀態標籤），表頭也用置中。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/iframe.html?id=sort-header--align-center&viewMode=story)）
+- 數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/iframe.html?id=sort-header--header-row&viewMode=story)）
+- 列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/iframe.html?id=sort-header--in-table-row&viewMode=story)）
 
 ### 不要這樣做
 
@@ -37,13 +37,13 @@
 
 ## 用法
 
-### Angular（v0.15.0）
+### Angular（v0.16.0）
 
 `app-sort-header`
 
-label · key · [sort]: SortState | null · align: start|end · (sortChange)
+label · key · [sort]: SortState | null · align: start|center|end · leftIcon · (sortChange)
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.15.0/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.16.0/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -52,7 +52,8 @@ label · key · [sort]: SortState | null · align: start|end · (sortChange)
 | `label` | `string` | `''` | 表頭文字 |
 | `key` | `string` | `''` | 這欄的識別字，點擊時原樣發出；也用來產生 data-testid="sort-<key>" |
 | `sort` | `SortState \| null` | `null` | 列表目前的排序狀態 { key, dir }；null 表示沒有排序 |
-| `align` | `'start' \| 'end'` | `'start'` | 文字靠左（預設）或靠右（數字欄） |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | 文字靠左（預設）、置中或靠右（數字欄）。靠左、靠右時按鈕往外拉 6px，跟下方內容的邊緣對齊；置中時欄名固定在這一格的正中間（排序圖示出現在欄名右邊，不會把欄名往左推），按鈕左右各往外凸 16px，欄寬只要放得下欄名加左右各 6px |
+| `leftIcon` | `string` | `''` | 欄名前面的圖示名稱（app-icon 的 name）。12px、跟著文字色、報讀軟體不念。空字串＝不放 |
 | `(sortChange)` | `EventEmitter<string>` |  | 點擊時發出 key |
 
 #### 程式碼範例
@@ -66,6 +67,32 @@ label · key · [sort]: SortState | null · align: start|end · (sortChange)
 sort = signal<SortState | null>(null);
 onSort(key: string) { this.sort.set(nextSort(this.sort(), key)); }
 ```
+
+**數字欄靠右、欄名前面放圖示**
+
+```html
+<app-sort-header class="col-amount" label="金額" key="amount" align="end" leftIcon="Money" [sort]="sort()" (sortChange)="onSort($event)"></app-sort-header>
+```
+
+**放在有表格結構的列表裡**
+
+```html
+<div role="table" aria-label="人員">
+  <div role="row">
+    <app-sort-header class="col-name" label="姓名" key="name" [sort]="sort()" (sortChange)="onSort($event)"></app-sort-header>
+  </div>
+  <!-- 每一列 role="row"、每一格 role="cell" -->
+</div>
+```
+
+#### Angular 注意事項
+
+- 外層是不是表格列（祖先有 role="row"）只在元件建立時判斷一次。之後才把 role="row" 加上去的話，元件不會跟著變。
+- 置中的欄（align="center"）按鈕左右各往外凸 16px，靠左、靠右的欄往外凸 6px。表頭那一列離捲動容器的左右邊緣要留至少這麼多的內距（置中 16px）；貼著邊緣又沒有內距時，凸出的部分會撐出橫向捲軸，或被容器裁掉。
+- [sort] 每次改變都要傳新的物件（nextSort 回的就是新物件）。原地改同一個物件的 key 或 dir，元件收不到變更，不會念、也不會清掉上一句。
+- 點了之後要念出「已依〈欄名〉升冪排序」，需要呼叫端在 (sortChange) 之後一秒內把新的 [sort] 傳回來。先打後端再回來的列表也一樣：超過一秒才傳回來就不念。元件用時間比對，不開計時器，在 fakeAsync 的測試裡點表頭不用另外 flush。
+- 那一句念完會留在 role="status" 區域裡，直到使用者離開這一欄（按鈕失焦，或滑鼠移開）。測試要在點了之後馬上讀，不要先移開焦點。
+- 放在表格列裡時，元件本身的元素另外帶 aria-label，值是欄名。不要自己在 <app-sort-header> 上寫 aria-label、role、aria-sort，會被元件蓋掉。
 
 ## 無障礙
 
