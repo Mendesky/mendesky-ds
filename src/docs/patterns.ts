@@ -1226,4 +1226,102 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       },
     ],
   },
+  // KEY: interaction.reorder — 使用者自己調整清單順序：握把同時是按鈕，按住拖曳、點一下開移動選單；做不到的項目停用；移動後焦點回握把、報讀念出新位置
+  'interaction.reorder': {
+    name: '調整清單順序',
+    principle: '能讓使用者自己排順序的清單，每個項目放一顆 #reorder-handle。握把同時是按鈕：按住拖曳換位置，點一下打開「上移、下移、移到最上、移到最下」的選單。不能拖曳、只用鍵盤、用報讀軟體的人，靠選單一樣排得出來。移動之後焦點回到被移動項目的握把，報讀軟體念出「從第幾個移到第幾個」。',
+    when: '清單的順序由使用者決定、而且會存下來的地方，例如合約裡的費用項目、備註段落。只是看的時候依某一欄排序整份列表，用 #sort-header，不是這條。',
+    scenarios: [
+      {
+        type: 'singleList',
+        description: '一份清單，每個項目一列或一張卡片',
+        rule: [
+          '每個項目在最左邊放一顆握把',
+          '移動選單固定四項，做不到的停用、不隱藏；清單只有一項時握把停用',
+          '拖曳時，落點是同高的藍色虛線框；拿起的當下其他項目不動，拖過去時才讓位',
+          '放下或從選單移動之後，被移動的項目發一次光；選單移動時其他項目從舊位置滑過去',
+        ],
+        rationale: '只有拖曳的清單，不能精準控制滑鼠的人、只用鍵盤的人都排不了（WCAG 2.5.7、2.1.1）。選單項目停用而不隱藏，四項的位置就不會因為項目在頭尾而變來變去。',
+        example: '合約的費用項目：每列左邊一顆握把，第一列的「上移」「移到最上」停用。',
+      },
+      {
+        type: 'nested',
+        description: '清單裡面還有清單，例如公司底下有規劃、規劃底下有項目',
+        rule: [
+          '每一層都放握把，項目只在自己那一層移動',
+          '上一層的握把在深色標頭上時，用反白外觀',
+          '整組巢狀清單外面放一個 #reorder-status',
+        ],
+        rationale: '後端通常以上一層為單位存順序。讓項目跨層移動，等於換了它的歸屬，不是排序。',
+      },
+      {
+        type: 'collapsible',
+        description: '每個項目是一張可以收合的卡片',
+        rule: [
+          '用 #collapsible 的綠色外觀，握把放前置區，「⋯」放尾端區',
+          '握把不放進標題按鈕；點握把不開合',
+          '「⋯」只放其他動作（例如刪除），不放移動',
+        ],
+        rationale: '標題按鈕裡再放按鈕，點握把會順便開合，報讀軟體也念不出握把。移動只放在握把，同一頁的清單才一致。',
+        example: '合約的服務備註：綠色收合卡片，左邊握把、右邊「⋯」裡只有「移除」。',
+      },
+    ],
+    antiPatterns: [
+      '只做拖曳，沒有不用拖的方法',
+      '握把只能拖，移動的選項放在「⋯」：同一頁有的清單在握把排、有的在「⋯」排',
+      '做不到的移動選項直接隱藏：項目在頭尾時選單變短，使用者要重新找',
+      '自己量高度畫落點：落點高度在拖曳開始時就定了，之後才量出來的高度會讓其他項目讓錯位置',
+      '用 toast 告訴報讀軟體排好了：toast 會消失，報讀軟體不一定念得到',
+      '報讀區用條件判斷，等到要念時才放上頁面：同一刻出現的區域，報讀軟體常常不念',
+    ],
+    a11y: {
+      keyboard: [
+        'Tab 停到握把，Enter 或空白鍵打開移動選單，選了就移動',
+        '握把上不攔方向鍵：方向鍵直接移動容易誤觸，而且跟頁面捲動衝突',
+      ],
+      focus: [
+        '選單移動之後，焦點回到被移動那個項目的握把',
+        '存檔失敗、順序退回時，焦點留在原處',
+      ],
+      screenReader: [
+        '握把念「移動『名稱』，按鈕」，並念出它會打開選單',
+        '移動之後念「『名稱』已從第 a 個移到第 b 個，共 n 個」；名稱跟著位置改變時，再念新名稱',
+      ],
+      motion: [
+        '讓位、滑回 250ms，選單移動的滑動 300ms，都是 var(--ease-enter)；放下發光 600ms',
+        '「減少動態」時直接到位、不發光',
+      ],
+    },
+    relatedComponents: [
+      '#reorder-handle',
+      '#reorder-status',
+      '#collapsible',
+      '#action-menu',
+      '#menu-item',
+    ],
+    relatedPatterns: [
+      'popup.keyboard',
+      'mutation.feedback（排序存檔：先換畫面，失敗退回）',
+    ],
+    references: [
+      {
+        source: 'Atlassian Design System — Pragmatic drag and drop: Accessibility guidelines',
+        url: 'https://atlassian.design/components/pragmatic-drag-and-drop/accessibility-guidelines',
+        status: 'adopt',
+        note: '一定要有不用拖的方法、拖曳握把可以做成開移動選單的按鈕、移動後焦點回到原本的按鈕、用報讀區念出名稱與新舊位置、不建議用方向鍵直接移動，照這些做',
+      },
+      {
+        source: 'Atlassian Design System — Pragmatic drag and drop: Accessibility guidelines（同一頁）',
+        url: 'https://atlassian.design/components/pragmatic-drag-and-drop/accessibility-guidelines',
+        status: 'diverge',
+        note: 'Atlassian 規定一個項目不能同時有「⋯」和握把選單，已經有「⋯」時移動選項放進「⋯」。本 DS 一律放在握把：同一頁有的清單沒有「⋯」，移動選項放在不同地方，使用者要每份清單重找（2026-11-17 定案）',
+      },
+      {
+        source: 'WCAG 2.2 — 2.5.7 Dragging Movements',
+        url: 'https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html',
+        status: 'adopt',
+        note: '用拖曳完成的事，要有單點就能完成的方法：握把的移動選單',
+      },
+    ],
+  },
 };
