@@ -6,6 +6,7 @@ export * from './utils/clipboard.util.js';
 export * from './utils/inline-trigger.js';
 export * from './utils/pdf-render.util.js';
 export * from './utils/print-pdf.util.js';
+export * from './utils/reorder.util.js';
 export * from './utils/safe-uuid.util.js';
 export * from './utils/template-text.util.js';
 export * from './utils/template-var-key.js';
