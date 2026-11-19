@@ -1,4 +1,4 @@
-import { captureReorder, moveInArray, reorderMessage, reorderTarget, REORDER_DIRECTIONS } from './reorder.util.js';
+import { captureReorder, moveInArray, reorderMessage, reorderTarget, settleReorder, REORDER_DIRECTIONS } from './reorder.util.js';
 
 describe('reorderTarget', () => {
   it('第一個：上移、移到最上做不到；下移、移到最下可以', () => {
@@ -105,5 +105,76 @@ describe('captureReorder', () => {
     const snap = captureReorder(host);
     snap.play();
     expect(a.classList.contains('ds-sortable-flip')).toBe(false);
+  });
+
+  it('記位置之後整份清單被捲動或推移（順序沒變）：不滑', () => {
+    const [a, b, c] = Array.from(host.children) as HTMLElement[];
+    const snap = captureReorder(host);
+    host.style.marginTop = '120px'; // 等同外層捲動區捲了 120px
+    snap.play();
+    for (const el of [a, b, c]) {
+      expect(el.classList.contains('ds-sortable-flip')).toBe(false);
+      expect(el.style.transform).toBe('');
+    }
+  });
+
+  it('清單被推移、同時換了順序：只滑順序造成的距離', () => {
+    const [a, , c] = Array.from(host.children) as HTMLElement[];
+    const snap = captureReorder(host);
+    host.style.marginTop = '120px';
+    host.insertBefore(c, a); // c, a, b
+    let seen = '';
+    Object.defineProperty(c.style, 'transform', {
+      configurable: true, get: () => '', set: (v: string) => { if (v) seen = v; },
+    });
+    snap.play(c);
+    expect(seen).toBe('translateY(80px)');
+  });
+
+  describe('使用者設了「減少動態」', () => {
+    let restore: () => void;
+    beforeEach(() => {
+      const original = window.matchMedia;
+      window.matchMedia = ((q: string) => ({ ...original.call(window, q), matches: q.includes('reduce') })) as typeof window.matchMedia;
+      restore = () => { window.matchMedia = original; };
+    });
+    afterEach(() => restore());
+
+    it('不滑、也不發光', () => {
+      const [a, b, c] = Array.from(host.children) as HTMLElement[];
+      const snap = captureReorder(host);
+      host.insertBefore(c, a);
+      snap.play(c);
+      for (const el of [a, b, c]) {
+        expect(el.classList.contains('ds-sortable-flip')).toBe(false);
+        expect(el.style.transform).toBe('');
+      }
+      expect(c.classList.contains('ds-sortable-settled')).toBe(false);
+    });
+
+    it('settleReorder 也不發光', () => {
+      const [a] = Array.from(host.children) as HTMLElement[];
+      settleReorder(a);
+      expect(a.classList.contains('ds-sortable-settled')).toBe(false);
+    });
+  });
+});
+
+describe('settleReorder', () => {
+  it('拖曳放下後只讓被移動的項目發一次光，不加任何位移', () => {
+    const host = document.createElement('div');
+    host.innerHTML = '<div style="height:40px">a</div><div style="height:40px">b</div>';
+    document.body.appendChild(host);
+    const [a, b] = Array.from(host.children) as HTMLElement[];
+    settleReorder(b);
+    expect(b.classList.contains('ds-sortable-settled')).toBe(true);
+    expect(b.style.transform).toBe('');
+    expect(a.classList.contains('ds-sortable-settled')).toBe(false);
+    expect(a.classList.contains('ds-sortable-flip')).toBe(false);
+    host.remove();
+  });
+
+  it('沒有項目時不出錯', () => {
+    expect(() => settleReorder(null)).not.toThrow();
   });
 });

@@ -598,7 +598,8 @@ button {
 .ds-sortable.cdk-drop-list-dragging > :not(.cdk-drag-placeholder) > .cdk-drag:not(.cdk-drag-placeholder) {
   transition: transform 250ms var(--ease-enter);
 }
-.ds-sortable .cdk-drag-animating {
+/* 預覽由拖曳工具搬到 body（不在清單容器裡），所以直接選預覽本身；Angular CDK 只在預覽加 cdk-drag-animating */
+.ds-sortable-preview.cdk-drag-animating {
   transition: transform 250ms var(--ease-enter);
 }
 
@@ -623,7 +624,7 @@ button {
   .drag-settled { animation: none !important; }
   /* 可排序清單：讓位、滑回、選單移動都直接到位，不發光 */
   .ds-sortable .cdk-drag,
-  .ds-sortable .cdk-drag-animating,
+  .ds-sortable-preview.cdk-drag-animating,
   .ds-sortable-flip { transition-duration: 0ms !important; }
   .ds-sortable-settled { animation: none !important; }
   /* Dashboard card drag */
