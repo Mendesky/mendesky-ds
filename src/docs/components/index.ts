@@ -10,6 +10,7 @@ import { carouselDotSpec } from './carousel-dot.js';
 import { cellBtnSpec } from './cell-btn.js';
 import { checkChipSpec } from './check-chip.js';
 import { checkboxSpec } from './checkbox.js';
+import { commandPaletteSpec } from './command-palette.js';
 import { collapsibleSpec } from './collapsible.js';
 import { collapsibleGroupSpec } from './collapsible-group.js';
 import { ctrlBarSpec } from './ctrl-bar.js';
@@ -48,6 +49,7 @@ import { processModalSpec } from './process-modal.js';
 import { processToastSpec } from './process-toast.js';
 import { progressBarSpec } from './progress-bar.js';
 import { radioChipSpec } from './radio-chip.js';
+import { resultListSpec } from './result-list.js';
 import { richTextEditorSpec } from './rich-text-editor.js';
 import { searchFieldSpec } from './search-field.js';
 import { selectSpec } from './select.js';
@@ -75,6 +77,7 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   cellBtnSpec,
   checkChipSpec,
   checkboxSpec,
+  commandPaletteSpec,
   collapsibleSpec,
   collapsibleGroupSpec,
   ctrlBarSpec,
@@ -113,6 +116,7 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   processToastSpec,
   progressBarSpec,
   radioChipSpec,
+  resultListSpec,
   richTextEditorSpec,
   searchFieldSpec,
   selectSpec,
