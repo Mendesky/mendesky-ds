@@ -25,9 +25,9 @@
 
 ### 可以這樣做
 
-- 白底的項目用預設外觀，深色標頭用反白外觀。（範例代號：appearances）
-- 巢狀清單每一層都放握把，各層的項目只在自己那一層移動。（範例代號：nested）
-- 收合區塊要能排序時，用 [Collapsible](collapsible.md) 的綠色外觀，握把放前置區、「⋯」放尾端區。綠色外觀會把前置區的握把換成白色，不用另外設反白。（範例代號：in-collapsible）
+- 白底的項目用預設外觀，深色標頭用反白外觀。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/iframe.html?id=reorder-handle--appearances&viewMode=story)）
+- 巢狀清單每一層都放握把，各層的項目只在自己那一層移動。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/iframe.html?id=reorder-handle--nested&viewMode=story)）
+- 收合區塊要能排序時，用 [Collapsible](collapsible.md) 的綠色外觀，握把放前置區、「⋯」放尾端區。綠色外觀會把前置區的握把換成白色，不用另外設反白。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/iframe.html?id=reorder-handle--in-collapsible&viewMode=story)）
 - 用選單移動時，用 `captureReorder` 讓其他項目滑到新位置；拖曳放下用 `settleReorder`，只發光。
 
 ### 不要這樣做
@@ -36,6 +36,85 @@
 - 把移動選項放進「⋯」，握把只能拖。同一頁有的清單在握把排、有的在「⋯」排，使用者要每份清單重新找。
 - 把握把放進會開合的標題按鈕裡。按鈕裡面不能再放按鈕：點握把會順便開合，報讀軟體也念不出握把。
 - 自己量高度畫一個落點。落點的高度在拖曳開始時就定了，之後才量出來的高度會讓其他項目讓錯位置。
+
+## 用法
+
+### Angular（v0.18.0）
+
+`app-reorder-handle`
+
+label · index · count · appearance: default|inverse · disabled · (move): ReorderMoveEvent
+
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/?path=/docs/reorder-handle--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `label` | `string` | `''` | 項目的完整名稱，必填。報讀念「移動『名稱』」，不要截斷 |
+| `index` | `number` | `0` | 這個項目目前在第幾個（從 0 起），必填 |
+| `count` | `number` | `0` | 清單共幾個項目，必填。小於 2 時握把停用 |
+| `appearance` | `'default' \| 'inverse'` | `'default'` | 預設：白底用的灰色圖示（淺灰底上對比不足，不要用）。反白：深色標頭用的白色圖示，焦點框也改白 |
+| `disabled` | `boolean` | `false` | 停用：不能拖，點了不開選單 |
+| `(move)` | `EventEmitter<ReorderMoveEvent>` |  | 從選單移動時送出 { direction, previousIndex, currentIndex }。欄位名稱跟 CDK 的 cdkDropListDropped 事件相同 |
+
+#### 程式碼範例
+
+**一份清單：拖曳和選單用同一個處理函式**
+
+```html
+<div class="list ds-sortable" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="onMove($event)">
+  @for (item of items(); track item.id; let i = $index) {
+    <div class="row" cdkDrag cdkDragPreviewClass="ds-sortable-preview" [cdkDragStartDelay]="{ touch: 250, mouse: 0 }">
+      <app-reorder-handle [label]="item.name" [index]="i" [count]="items().length" (move)="onMove($event)"></app-reorder-handle>
+      {{ item.name }}
+    </div>
+  }
+</div>
+<app-reorder-status #status></app-reorder-status>
+
+// component
+@ViewChild('status') status!: ReorderStatusComponent;
+onMove(e: { previousIndex: number; currentIndex: number }) {
+  const before = this.items();
+  const name = before[e.previousIndex].name;
+  this.items.set(moveInArray(before, e.previousIndex, e.currentIndex));
+  this.status.announce(reorderMessage({ name, from: e.previousIndex, to: e.currentIndex, count: before.length }));
+  // 接著存檔；失敗時 this.items.set(before)
+}
+```
+
+**移動後的動態：選單移動時其他項目滑過去；拖曳放下只讓被移動的項目發光**
+
+```html
+onMove(e: ReorderMoveEvent | CdkDragDrop<unknown>, list: HTMLElement) {
+  // 只有選單移動要記位置；拖曳放下時預覽已經滑回落點、其他項目也讓好位了
+  const snap = 'direction' in e ? captureReorder(list, ':scope > .row') : null;
+  const moved = list.querySelectorAll(':scope > .row')[e.previousIndex] as HTMLElement;
+  this.items.set(moveInArray(this.items(), e.previousIndex, e.currentIndex));
+  afterNextRender(() => (snap ? snap.play(moved) : settleReorder(moved)), { injector: this.injector });
+}
+```
+
+**放在收合區塊的前置區**
+
+```html
+<app-collapsible appearance="accent" [title]="note.title">
+  <app-reorder-handle collapsibleLeading [label]="note.title" [index]="i" [count]="notes().length" (move)="onMove($event)"></app-reorder-handle>
+  ...
+</app-collapsible>
+```
+
+#### Angular 注意事項
+
+- 元件本身就是 CDK 的拖曳握把（帶了 cdkDragHandle），不用另外加 cdkDragHandle。要拖曳時，項目要有 cdkDrag、清單要有 cdkDropList；只要選單、不要拖曳時，不放 cdkDrag 也可以用。
+- 清單容器加 class ds-sortable、cdkDrag 加 cdkDragPreviewClass="ds-sortable-preview"，落點與拖曳預覽的樣式才會一致。不要用 *cdkDragPlaceholder 自己畫落點：CDK 在拖曳開始時就量好落點高度，之後才變的高度會讓其他項目讓錯位置。
+- 不要在可排序清單上加 appFlipReorder：它在項目被搬動時一律從舊位置滑過去，拖曳放下時其他項目已經讓好位，會再滑一次。選單移動用 captureReorder；拖曳放下用 settleReorder，只發光。拖曳放下不要用 captureReorder：放下的當下 CDK 已經把項目放回拖曳前的位置，量到的是舊位置，會從頭再滑一次。
+- cdkDrag 設 [cdkDragStartDelay]="{ touch: 250, mouse: 0 }"：觸控時按住 250ms 才開始拖；滑鼠不用等。CDK 會把握把的 touch-action 設成 none，不設延遲的話，手指從握把一滑就變成拖曳，放開就改了順序。
+- 捲動容器不是整頁時，在那個容器加 cdkScrollable，拖到邊緣才會自動捲動。
+- 從選單移動後，選單關閉時焦點回到握把按鈕。@for 要用不會變的 track（項目的 id），項目被搬動時才是同一個元件；track $index 的話焦點會落在原位置的另一個項目上。
+- 存檔失敗要退回順序時，項目會再被搬一次，焦點會掉到頁面上。只在焦點原本在握把上、或掉到頁面最外層（document.body）時放回：退回後先讓清單當場重畫（ChangeDetectorRef.detectChanges()），再呼叫該項目握把的 focusButton()。使用者已經移到別處（例如在編輯器裡打字），不要把焦點搶回來。不要等 afterNextRender：緊接著跳出的錯誤 toast 會先更新畫面，提早執行它，那時項目還沒搬回去。
+- 巢狀清單：每一層各自是一個 cdkDropList，cdkDrag 不設 cdkDropListConnectedTo，項目就只在自己那一層移動。
 
 ## 無障礙
 

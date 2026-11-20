@@ -8,12 +8,48 @@
 
 ### 可以這樣做
 
-- 放在清單容器的旁邊，跟清單包在同一個外層裡。（範例代號：default）
+- 放在清單容器的旁邊，跟清單包在同一個外層裡。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/iframe.html?id=reorder-status--default&viewMode=story)）
 
 ### 不要這樣做
 
 - 用條件判斷，等到要念的時候才把它放上頁面。報讀軟體常常不念同一刻出現的區域。
 - 用 toast 告訴報讀軟體排好了。toast 會自己消失，也不一定念得到；排序已存檔的 toast 照常跳，報讀用這個。
+
+## 用法
+
+### Angular（v0.18.0）
+
+`app-reorder-status`
+
+announce(text) · clear()
+
+[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/?path=/docs/reorder-status--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+沒有輸入屬性。
+
+#### 程式碼範例
+
+**放在清單旁邊，移動後念結果**
+
+```html
+<div class="wrap">
+  <div class="list ds-sortable" cdkDropList (cdkDropListDropped)="onMove($event)">…</div>
+  <app-reorder-status #status></app-reorder-status>
+</div>
+
+// component
+@ViewChild('status') status!: ReorderStatusComponent;
+this.status.announce(reorderMessage({ name, from, to, count }));
+```
+
+#### Angular 注意事項
+
+- 用 @ViewChild 取得元件，呼叫 announce(句子) 念、clear() 清空。不要包在 @if 裡：它要比句子先出現在頁面上。
+- 「離開」以它的父元素為準：焦點移到父元素外面，或滑鼠移出父元素，就清空。所以父元素要包住整份清單（巢狀清單包住最外層）。
+- 在 app-modal-shell 裡的清單，把它放在 modal 的內容裡，不要放到 body。
+- 測試：announce 之後馬上讀元素的文字；元件不開計時器，fakeAsync 不用另外 flush。
 
 ## 無障礙
 
