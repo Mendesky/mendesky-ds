@@ -24,7 +24,7 @@
 | `<select>` | <ComponentLink id="select" />、<ComponentLink id="autocomplete" /> | 固定選項用 <ComponentLink id="select" />；要先搜尋、再動態篩選選項時用 <ComponentLink id="autocomplete" /> |
 | `<textarea>` | <ComponentLink id="textarea" /> | 備註、描述等多行輸入 |
 | 自刻 dropdown／menu | <ComponentLink id="action-menu" />、<ComponentLink id="menu-item" /> | 右鍵或「更多」按鈕展開的選單用 <ComponentLink id="action-menu" />；選單裡的每一項都用 <ComponentLink id="menu-item" /> |
-| 自刻頁籤列（底線分頁、tab 列） | <ComponentLink id="tabs" />、<ComponentLink id="button-group" /> | 同一個區塊裡切換幾組內容、不送出的用 <ComponentLink id="tabs" />；從幾個值裡選一個、這個值會送出或存起來的用 <ComponentLink id="button-group" /> |
+| 自刻頁籤列（底線分頁、tab 列） | <ComponentLink id="tabs" />、<ComponentLink id="button-group" /> | 同一個區塊裡切換幾組內容、不送出的用 <ComponentLink id="tabs" />；從幾個值裡選一個、這個值會送出或存起來的用 <ComponentLink id="button-group" />；同一份資料換一種呈現方式（表格、看板）、內容不變的，用 <ComponentLink id="button-group" /> 的 view 型 |
 | 自刻收合標頭（點標題開合的區塊） | <ComponentLink id="collapsible" />、<ComponentLink id="collapsible-group" /> | 點標頭開合一段內容用 <ComponentLink id="collapsible" />；一組裡一次只開一段時，外面再包 <ComponentLink id="collapsible-group" /> |
 | 自刻側欄導覽（左側功能入口列） | <ComponentLink id="side-nav" /> | 系統的主要導覽，有展開、窄欄、藏起來三種寬度；窄螢幕把同一份放進 <ComponentLink id="drawer-shell" /> |
 | 自刻 overlay＋card | <ComponentLink id="modal-shell" /> | 所有自訂 modal 的容器 |
