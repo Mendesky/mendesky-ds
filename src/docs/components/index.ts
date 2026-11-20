@@ -49,6 +49,8 @@ import { processModalSpec } from './process-modal.js';
 import { processToastSpec } from './process-toast.js';
 import { progressBarSpec } from './progress-bar.js';
 import { radioChipSpec } from './radio-chip.js';
+import { reorderHandleSpec } from './reorder-handle.js';
+import { reorderStatusSpec } from './reorder-status.js';
 import { resultListSpec } from './result-list.js';
 import { richTextEditorSpec } from './rich-text-editor.js';
 import { searchFieldSpec } from './search-field.js';
@@ -116,6 +118,8 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   processToastSpec,
   progressBarSpec,
   radioChipSpec,
+  reorderHandleSpec,
+  reorderStatusSpec,
   resultListSpec,
   richTextEditorSpec,
   searchFieldSpec,
