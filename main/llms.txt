@@ -44,6 +44,7 @@
 
 ## 浮層元件
 
+- [Command Palette](components/command-palette.md): 從一大批資料裡找出一筆並開啟它：按一個按鈕或快速鍵，跳出一個對話框，上面是搜尋框，下面是結果，打字、用上下鍵選、按 Enter 就開。
 - [Dialog](components/dialog.md): 不可逆操作前確認（刪除、封存），或錯誤提示 alert（showCancel:false）。
 - [Doc Preview 文件預覽](components/doc-preview.md): 預覽已上傳的附件（表單檔案、掃描文件）。
 - [Drawer Shell](components/drawer-shell.md): 所有 Drawer 的容器。
@@ -75,6 +76,7 @@
 - [Page Skeleton](components/page-skeleton.md): 頁面 loading 時的佔位符。
 - [Po Process](components/po-process.md): 採購/流程節點狀態顯示。
 - [Progress Bar](components/progress-bar.md): 顯示一件分批進行的工作做到哪裡（例：批次授權「處理中 12 / 40」）。
+- [Result List](components/result-list.md): 使用者在輸入框打字，下面列出結果，用上下鍵選一列、按 Enter 開啟：搜尋結果、最近開啟、建議清單都是這種。
 - [Sort Header](components/sort-header.md): 列表表頭裡可點擊排序的一格。
 - [Spinner](components/spinner.md): 一個動作已經送出、正在等結果，又不知道要等多久時用，例如等後端存檔、等檔案產生。
 
