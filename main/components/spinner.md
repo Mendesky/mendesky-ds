@@ -31,13 +31,13 @@
 
 ## 用法
 
-### Angular（v0.18.0）
+### Angular（v0.19.0）
 
 `app-spinner`
 
 size: 12|16|24|36 · label · [decorative]
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.18.0/components/?path=/docs/spinner--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/?path=/docs/spinner--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
