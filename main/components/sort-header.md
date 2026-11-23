@@ -24,10 +24,10 @@
 
 ### 可以這樣做
 
-- 數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/iframe.html?id=sort-header--align-end&viewMode=story)）
-- 下方內容置中的欄（例如狀態標籤），表頭也用置中。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/iframe.html?id=sort-header--align-center&viewMode=story)）
-- 數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/iframe.html?id=sort-header--header-row&viewMode=story)）
-- 列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/iframe.html?id=sort-header--in-table-row&viewMode=story)）
+- 數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.1/components/iframe.html?id=sort-header--align-end&viewMode=story)）
+- 下方內容置中的欄（例如狀態標籤），表頭也用置中。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.1/components/iframe.html?id=sort-header--align-center&viewMode=story)）
+- 數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.1/components/iframe.html?id=sort-header--header-row&viewMode=story)）
+- 列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.19.1/components/iframe.html?id=sort-header--in-table-row&viewMode=story)）
 
 ### 不要這樣做
 
@@ -37,13 +37,13 @@
 
 ## 用法
 
-### Angular（v0.19.0）
+### Angular（v0.19.1）
 
 `app-sort-header`
 
 label · key · [sort]: SortState | null · align: start|center|end · leftIcon · (sortChange)
 
-[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.19.1/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,19 +6,19 @@
 
 ## 用法
 
-### Angular（v0.19.0）
+### Angular（v0.19.1）
 
 `app-label`
 
 color: White|GreyOutline|Grey70|SoftBlue|Salmon|Golden|SeaGreen|Red|Purple|GreenOutline|Kanban×5 等（完整值域見 props）· size: XXS|XS|S|M|L · text · [showLeftIcon] leftIconName（指定左側 app-icon，覆蓋內建打勾）· [wrap] 長文字折行 / [truncate] 單行省略
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.19.0/components/?path=/docs/label--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.19.1/components/?path=/docs/label--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `color` | `LabelColor` | `'LightWhite'` | White \| Transparent \| GreyOutline \| LightWhite \| SoftBlue \| Red \| Salmon \| Green \| Grey25 \| Blue \| SeaGreen \| Grey70 \| Grey16 \| Error \| GreenAll \| Golden \| Purple (#8b5c91 實心白字) \| GreenOutline (白底 #5a8c2c 框與字、字重 600) \| KanbanDraft (#d3d3d3) \| KanbanOpened (#bac6fd) \| KanbanDealClosed (#8293da) \| KanbanArchiving (#5866a0) \| KanbanArchived (#333d66) |
+| `color` | `LabelColor` | `'LightWhite'` | White \| Transparent \| GreyOutline \| LightWhite \| SoftBlue \| Red \| Salmon \| Salmon90 (#794234 實心白字，深一階的 Salmon) \| Green \| Grey25 \| Blue \| SeaGreen \| Grey70 \| Grey16 \| Error \| GreenAll \| Golden \| Purple (#8b5c91 實心白字) \| GreenOutline (白底 #5a8c2c 框與字、字重 600) \| KanbanDraft (#d3d3d3) \| KanbanOpened (#bac6fd) \| KanbanDealClosed (#8293da) \| KanbanArchiving (#5866a0) \| KanbanArchived (#333d66) |
 | `size` | `LabelSize` | `'L'` | XXS（12px/500，欄位 badge 用）\| XS \| S \| M \| L |
 | `text` | `string` | `'Label'` | 顯示文字 |
 | `showLeftIcon` | `boolean` | `false` | 顯示內建左側打勾 icon（Done-OK 樣式） |
