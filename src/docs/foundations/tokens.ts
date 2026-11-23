@@ -237,6 +237,11 @@ export const DS_TOKENS: TokenGroup[] = [
         desc: 'Salmon（鮭魚色）',
       },
       {
+        name: '--label\\/accent-salmon-dark',
+        value: '#794234',
+        desc: '深鮭魚色標籤（Color/Salmon/90）。跟 Salmon 需要在同一畫面分開時用',
+      },
+      {
         name: '--label\\/accent-green',
         value: '#5da26b',
         desc: 'Sea Green（海綠）',
