@@ -136,6 +136,11 @@ export const DS_TOKENS: TokenGroup[] = [
         desc: '主色藍亮色（Calm Blue 50）',
       },
       {
+        name: '--button\\/action-hover',
+        value: '#287ea9',
+        desc: '藍底白字按鈕的滑過色（Calm Blue 75）。主色藍配白字只有 3.08:1，這一階配白字 4.52:1',
+      },
+      {
         name: '--button\\/neutral',
         value: '#939393',
         desc: '中性色',
@@ -894,6 +899,10 @@ export const DS_TOKENS: TokenGroup[] = [
       {
         name: '--color\\/calmblue\\/80',
         value: '#1a6489',
+      },
+      {
+        name: '--color\\/calmblue\\/75',
+        value: '#287ea9',
       },
       {
         name: '--color\\/calmblue\\/70',
