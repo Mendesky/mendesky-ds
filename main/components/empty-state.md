@@ -39,13 +39,13 @@
 
 ## 用法
 
-### Angular（v0.20.0）
+### Angular（v0.20.2）
 
 `app-empty-state`
 
 variant（empty／error）· message · title · description · retryText · retrying · (retry) · ng-content default slot（投影 CTA 按鈕或自訂內容）
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/?path=/docs/empty-state--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/empty-state--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

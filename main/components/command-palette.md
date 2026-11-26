@@ -39,13 +39,13 @@
 
 ## 用法
 
-### Angular（v0.20.0）
+### Angular（v0.20.2）
 
 `app-command-palette`
 
 isOpen · ariaLabel（必填） · inputLabel placeholder · [(query)] · groups state itemTemplate · [autoActivateFirst] [wrap] · listLabel loadingText emptyText errorTitle errorDescription retryText announcement · [showHints] selectHint · width maxHeight · (itemSelect) (querySubmit) (retry) (closeRequest) (afterLeave) · [paletteEnd] 投影到搜尋框右邊
 
-[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/?path=/docs/command-palette--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 3 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/command-palette--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

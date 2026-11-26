@@ -25,9 +25,9 @@
 
 ### 可以這樣做
 
-- 白底的項目用預設外觀，深色標頭用反白外觀。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/iframe.html?id=reorder-handle--appearances&viewMode=story)）
-- 巢狀清單每一層都放握把，各層的項目只在自己那一層移動。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/iframe.html?id=reorder-handle--nested&viewMode=story)）
-- 收合區塊要能排序時，用 [Collapsible](collapsible.md) 的綠色外觀，握把放前置區、「⋯」放尾端區。綠色外觀會把前置區的握把換成白色，不用另外設反白。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/iframe.html?id=reorder-handle--in-collapsible&viewMode=story)）
+- 白底的項目用預設外觀，深色標頭用反白外觀。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/iframe.html?id=reorder-handle--appearances&viewMode=story)）
+- 巢狀清單每一層都放握把，各層的項目只在自己那一層移動。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/iframe.html?id=reorder-handle--nested&viewMode=story)）
+- 收合區塊要能排序時，用 [Collapsible](collapsible.md) 的綠色外觀，握把放前置區、「⋯」放尾端區。綠色外觀會把前置區的握把換成白色，不用另外設反白。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/iframe.html?id=reorder-handle--in-collapsible&viewMode=story)）
 - 用選單移動時，用 `captureReorder` 讓其他項目滑到新位置；拖曳放下用 `settleReorder`，只發光。
 
 ### 不要這樣做
@@ -39,13 +39,13 @@
 
 ## 用法
 
-### Angular（v0.20.0）
+### Angular（v0.20.2）
 
 `app-reorder-handle`
 
 label · index · count · appearance: default|inverse · disabled · (move): ReorderMoveEvent
 
-[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/?path=/docs/reorder-handle--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/reorder-handle--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.20.0）
+### Angular（v0.20.2）
 
 `app-number-input`
 
 size: S|M|L · placeholder decimalPlaces min max step initialValue suffix errorMessage errorPosition: top|bottom · [disabled] [allowEmpty] · (valueChange: number|null) · (valueCommit: number|null)
 
-[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.0/components/?path=/docs/number-input--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 7 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/number-input--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
@@ -31,7 +31,7 @@ size: S|M|L · placeholder decimalPlaces min max step initialValue suffix errorM
 | `errorMessage` | `string` | `''` | 錯誤訊息；有值時切換 error 狀態 |
 | `errorPosition` | `'top' \| 'bottom'` | `'bottom'` | 錯誤 tooltip 顯示方向（浮動，不佔版面） |
 | `(valueChange)` | `EventEmitter<number \| null>` |  | 值即時變更（每次 step / 打字 / 清空皆 emit）；用於即時計算總和顯示 |
-| `(valueCommit)` | `EventEmitter<number \| null>` |  | 使用者完成輸入後才 emit（debounce 600ms）；打 API 請接這個，不要接 (inputBlur)。觸發時機：⑴ 連點/連按 ↑↓ → 600ms 後 ⑵ 失焦（blur flush）⑶ 元件銷毀（destroy flush）⑷ clearValue → 立即 emit null。 |
+| `(valueCommit)` | `EventEmitter<number \| null>` |  | 使用者完成輸入後才 emit（debounce 600ms）；打 API 請接這個，不要接 (inputBlur)。觸發時機：⑴ 連點/連按 ↑↓ → 600ms 後（這 600ms 內點進輸入框就改成離開時才送，送的是離開當下的值；改回按 ↑↓ 前的值則不送）⑵ 失焦（blur flush）⑶ 元件銷毀（destroy flush）⑷ clearValue → 立即 emit null。 |
 | `(inputBlur)` | `EventEmitter<void>` |  | 純失焦事件（focus 離開元件）。不再用於 commit；commit 請接 (valueCommit) |
 
 #### 程式碼範例
