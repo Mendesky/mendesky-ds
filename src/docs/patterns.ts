@@ -330,8 +330,9 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
         rule: [
           '第一次 Enter（選項未選中）→ preventDefault，切換為該選項',
           '第二次 Enter（焦點在已選中的選項）→ 不 preventDefault，事件冒泡給外層 wizard 的 onFormEnter，由 wizard 把焦點丟到下一步按鈕',
-          'Space 鍵一律只做「切換選項」，不冒泡（a11y 慣例：Space = 切換 control，Enter = 預設動作）',
+          'Space 鍵只做「切換選項」，不冒泡（a11y 慣例：Space = 切換 control，Enter = 預設動作）',
           '方向鍵 ← → ↑ ↓ 仍僅在 button-group 內循環移動焦點',
+          '例外：選中、帶選單的選項（只有 view 型能帶，form 型不能）按 Space、Enter 都是開關選單，Enter 不冒泡給 wizard，見 #button-group',
         ],
         rationale: '保留「用 Enter 切換選項」的鍵盤能力，同時讓「已確認選擇」的使用者能用第二次 Enter 離開 button-group；符合使用者「再按一次 Enter」的直覺語意',
       },
@@ -381,7 +382,7 @@ export const DS_PATTERNS: Record<string, PatternDoc> = {
       keyboard: [
         'Tab / Shift+Tab：正常進 / 出 wizard 各欄位',
         'Enter：兩段式（欄位 → 按鈕 → 送出）',
-        'Space：在 button-group 上純切換，不觸發跳焦',
+        'Space：在 button-group 上純切換，不觸發跳焦（選中、帶選單的選項例外：Space、Enter 開關選單）',
         '← → ↑ ↓：僅在 roving tabindex 元件內移動焦點（button-group、radio-chip 等）',
         'ESC：關閉 wizard（或叫出「要儲存嗎」二次確認，視 dismissal pattern）',
       ],

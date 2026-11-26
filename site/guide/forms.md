@@ -173,7 +173,7 @@ Wizard 的 Enter 分兩段，避免使用者打完一格就誤觸換頁：
 - 焦點在多行文字框（textarea）時，Enter 保留換行。
 - 輸入法正在選字時，Enter 是確認選字，不攔截。
 
-<ComponentLink id="button-group" /> 已內建對應的鍵盤行為：方向鍵在選項之間移動，Space 只切換選項。對未選中的選項按 Enter 會切換過去；對已選中的選項再按一次 Enter，事件會往外傳給 Wizard，由 Wizard 把焦點移到下一步按鈕。
+<ComponentLink id="button-group" /> 已內建對應的鍵盤行為：方向鍵在選項之間移動，Space 只切換選項。對未選中的選項按 Enter 會切換過去；對已選中的選項再按一次 Enter，事件會往外傳給 Wizard，由 Wizard 把焦點移到下一步按鈕。例外是選中、帶選單的選項：Space 和 Enter 都是開關選單，Enter 不會往外傳。只有 view 型的選項能帶選單，表單用的 form 型不會遇到。
 
 下面的範例可以用方向鍵、Space、Enter 試試看。範例外層沒有 Wizard，所以對已選中的選項再按 Enter 不會有反應。
 
