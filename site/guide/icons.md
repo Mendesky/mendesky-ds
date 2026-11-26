@@ -85,7 +85,7 @@
 ```
 
 - 圖示放在按鈕或 chip 裡時，會跟著文字色變色。
-- 少數圖示帶固定顏色，不會跟著 `color` 變。例如多色品牌 logo `M365Color`，以及右上角帶紅點的 `Alerts`。
+- 少數圖示帶固定顏色，不會跟著 `color` 變。例如多色品牌 logo `M365Color`，以及右上角帶紅點的 `Alerts`。要放一個會跟著變色、沒有紅點的響鈴（例如導覽列），用 `BellRing`。
 
 圖示專用的顏色 token：
 
@@ -123,12 +123,23 @@ export const ICON_REGISTRY: Record<string, string> = {
 };
 ```
 
+### 線條粗細和大小要跟其他圖示一致
+
+DS 的圖示是線條畫法：在 24×24 格線上線寬 2px，端點和轉角都是圓的，裡面不塗實心色塊。側欄一排圖示並在一起時，只要有一個線寬不同、或多了一塊實心，看起來就是亂。
+
+- 從 Figma 複製下來的圖示，線條通常已經轉成填色的外框。量一下外框內外兩條邊的距離，要是 2px。
+- 要從第三方補圖示，先找 Lucide。Lucide 預設就是 2px、圓端點，放進來不用調。線條屬性寫在每個元素上，`FolderArchive` 是現成的例子。
+- Heroicons outline 的線寬是 1.5px，會比旁邊的圖示細。registry 裡還有一些 1.5px 的舊圖示，例如編輯器工具列那組和 `UserGroup`，新加的不要照著做。
+
+大小也一樣要對齊。線條的中心線要留在中間 20×20 的範圍裡，也就是四邊各空 2px；連同線寬，畫出來最大大約 22×22。之前 `Key` 畫滿整個 24×24，放在側欄就比旁邊的圖示大一號。反過來也會出事：Lucide 0.460.0 的喇叭寬 20px、高只有 15px，沒有超出範圍，放在側欄卻小一截。所以放進來之前，跟要並排的那幾個圖示擺在一起看一次，光量數字看不出這種差別。
+
 ### 第三方來源要標註授權
 
 取自第三方圖示庫的圖示，依其原授權使用。新增時：
 
-1. 在 registry 的註解寫明來源與授權，例如 `Heroicons v2 outline megaphone, MIT`。
+1. 在 registry 的註解寫明來源與授權，例如 `Lucide megaphone, lucide-static 1.80.0, ISC`。
 2. 同步更新 repo 根目錄的 `THIRD-PARTY-NOTICES.md`，在表格加上圖示 key、來源與授權。
+3. Lucide 的圖示要先查是不是衍生自 Feather：打開 Lucide repo 的 `icons/<名稱>.json`，`contributors` 裡有 Feather 的作者 `colebemis`，就放進「衍生自 Feather」那一列，授權是 MIT。例如 `Person`（user）、`Pulse`（activity）。
 
 目前用到的第三方來源：
 
