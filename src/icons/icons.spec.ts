@@ -65,12 +65,27 @@ describe('ICON_REGISTRY — 垂直置中', () => {
 /**
  * 線條粗細回歸測試
  *
- * 背景：平台主控台側欄的 Megaphone、Shield 原本是 Heroicons 1.5px 線條，Account、Role
+ * 背景：側欄用到的 Megaphone、Shield 原本是 Heroicons 1.5px 線條，Account、Role
  * 帶實心色塊，Key 畫滿整個 24×24，跟其他 2px 線條圖示並排時粗細、大小都不一。
  * 這幾個（加上側欄新用到的 BellRing）改成 Lucide 2px 線條。側欄子選單與麵包屑新增的子頁面圖示
  * （Person … VersionTag）一開始就用 Lucide 2px 線條。這裡鎖住：
  * 每個圖形元素都是 2px 圓端點描邊、不塗實心（小圓點除外），線條中心線留在中間 20×20（四邊各空 2px）。
  */
+describe('ICON_REGISTRY — SVG 標記', () => {
+  // 同一個元素寫兩次同名屬性：HTML 解析只取第一個，XML 解析直接報錯（例：匯出成 .svg 檔）
+  it('每個元素沒有重複的屬性', () => {
+    const dup: string[] = [];
+    for (const [name, svg] of Object.entries(ICON_REGISTRY)) {
+      for (const tag of svg.match(/<[a-zA-Z][^<>]*>/g) ?? []) {
+        const attrs = Array.from(tag.matchAll(/\s([\w:-]+)=/g), m => m[1]);
+        const repeated = attrs.filter((a, i) => attrs.indexOf(a) !== i);
+        if (repeated.length) dup.push(`${name}: ${repeated.join(',')}`);
+      }
+    }
+    expect(dup).toEqual([]);
+  });
+});
+
 describe('ICON_REGISTRY — 2px 線條', () => {
   const LINE_ICONS = [
     'Account', 'Role', 'Megaphone', 'Shield', 'Key', 'BellRing',
