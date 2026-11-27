@@ -1,0 +1,130 @@
+# Sort Header（sort-header）
+
+分組：展示元件
+
+列表表頭裡可點擊排序的一格。點了發出這欄的 key，由呼叫端決定怎麼排、並把新的排序狀態傳回來；本元件不持有狀態，也不排序資料。不能排序的欄不要用它，放一般的表頭文字就好。
+
+## 部位
+
+1. **前置圖示**：有給 `leftIcon` 才出現。12px，顏色跟欄名一樣。
+2. **欄名**：`label` 的文字。固定一行，放不下時尾端用刪節號。
+3. **排序圖示**：12px，接在欄名後面。沒在排序時是通用的排序符號，平常看不到；正在排序時是升冪或降冪的方向圖示，一直顯示。
+
+## 狀態
+
+| 狀態 | 長怎樣、什麼時候出現 |
+| --- | --- |
+| 沒在排序 | 跟一般表頭一樣是淺灰字，看不到排序圖示。 |
+| 滑過 | 淺灰底、字變深，出現排序圖示，看得出這一欄可以點。 |
+| 焦點 | 用鍵盤停到按鈕上時出現 2px `--button/action` 外框（離按鈕 1px），也出現排序圖示。 |
+| 升冪 | `sort` 的 key 等於這一欄、方向是升冪：動作色、半粗，顯示升冪圖示。滑過時仍是動作色。 |
+| 降冪 | 同上，顯示降冪圖示。 |
+
+## 可以這樣做、不要這樣做
+
+### 可以這樣做
+
+- 數字欄用靠右，並讓下方的數字也靠右，位數才對得齊。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=sort-header--align-end&viewMode=story)）
+- 下方內容置中的欄（例如狀態標籤），表頭也用置中。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=sort-header--align-center&viewMode=story)）
+- 數量、金額、日期這類欄位，第一次點就從「多到少／新到舊」開始，把 nextSort 的預設方向設成降冪。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=sort-header--header-row&viewMode=story)）
+- 列表有表格結構時，把它放在 role="row" 的表頭列裡，報讀軟體才會把它當成欄標頭。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=sort-header--in-table-row&viewMode=story)）
+
+### 不要這樣做
+
+- 自己用 `<button>` 加 aria-sort 做排序表頭。aria-sort 掛在按鈕上不合規範，報讀軟體不會念。
+- 把 `leftIcon` 拿來表示排序方向。方向由元件自己的排序圖示表達，兩個圖示都在動使用者分不出來。
+- 點了之後不把新的排序狀態傳回來。畫面上這一欄不會變成作用中，報讀軟體也不會念。
+
+## 用法
+
+### Angular（v0.21.0）
+
+`app-sort-header`
+
+label · key · [sort]: SortState | null · align: start|center|end · leftIcon · (sortChange)
+
+[在範例網站看全部 9 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/sort-header--%E8%AA%AA%E6%98%8E)
+
+#### 屬性
+
+| 名稱 | 型別 | 預設 | 說明 |
+| --- | --- | --- | --- |
+| `label` | `string` | `''` | 表頭文字 |
+| `key` | `string` | `''` | 這欄的識別字，點擊時原樣發出；也用來產生 data-testid="sort-<key>" |
+| `sort` | `SortState \| null` | `null` | 列表目前的排序狀態 { key, dir }；null 表示沒有排序 |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | 文字靠左（預設）、置中或靠右（數字欄）。靠左、靠右時按鈕往外拉 6px，跟下方內容的邊緣對齊；置中時欄名固定在這一格的正中間（排序圖示出現在欄名右邊，不會把欄名往左推），按鈕左右各往外凸 16px，欄寬只要放得下欄名加左右各 6px |
+| `leftIcon` | `string` | `''` | 欄名前面的圖示名稱（app-icon 的 name）。12px、跟著文字色、報讀軟體不念。空字串＝不放 |
+| `(sortChange)` | `EventEmitter<string>` |  | 點擊時發出 key |
+
+#### 程式碼範例
+
+**搭配 nextSort 切換方向**
+
+```html
+<app-sort-header class="col-name" label="姓名" key="name" [sort]="sort()" (sortChange)="onSort($event)"></app-sort-header>
+
+// component
+sort = signal<SortState | null>(null);
+onSort(key: string) { this.sort.set(nextSort(this.sort(), key)); }
+```
+
+**數字欄靠右、欄名前面放圖示**
+
+```html
+<app-sort-header class="col-amount" label="金額" key="amount" align="end" leftIcon="Money" [sort]="sort()" (sortChange)="onSort($event)"></app-sort-header>
+```
+
+**放在有表格結構的列表裡**
+
+```html
+<div role="table" aria-label="人員">
+  <div role="row">
+    <app-sort-header class="col-name" label="姓名" key="name" [sort]="sort()" (sortChange)="onSort($event)"></app-sort-header>
+  </div>
+  <!-- 每一列 role="row"、每一格 role="cell" -->
+</div>
+```
+
+#### Angular 注意事項
+
+- 外層是不是表格列（祖先有 role="row"）只在元件建立時判斷一次。之後才把 role="row" 加上去的話，元件不會跟著變。
+- 置中的欄（align="center"）按鈕左右各往外凸 16px，靠左、靠右的欄往外凸 6px。表頭那一列離捲動容器的左右邊緣要留至少這麼多的內距（置中 16px）；貼著邊緣又沒有內距時，凸出的部分會撐出橫向捲軸，或被容器裁掉。
+- [sort] 每次改變都要傳新的物件（nextSort 回的就是新物件）。原地改同一個物件的 key 或 dir，元件收不到變更，不會念、也不會清掉上一句。
+- 點了之後要念出「已依〈欄名〉升冪排序」，需要呼叫端在 (sortChange) 之後一秒內把新的 [sort] 傳回來。先打後端再回來的列表也一樣：超過一秒才傳回來就不念。元件用時間比對，不開計時器，在 fakeAsync 的測試裡點表頭不用另外 flush。
+- 那一句念完會留在 role="status" 區域裡，直到使用者離開這一欄（按鈕失焦，或滑鼠移開）。測試要在點了之後馬上讀，不要先移開焦點。
+- 放在表格列裡時，元件本身的元素另外帶 aria-label，值是欄名。不要自己在 <app-sort-header> 上寫 aria-label、role、aria-sort，會被元件蓋掉。
+
+## 無障礙
+
+### 網頁和 APP 都要做到
+
+- **鍵盤**：按 Tab 停到欄名按鈕，按 Enter 或空白鍵等於點一下。
+- **焦點**：點了之後焦點留在同一顆按鈕上，可以接著再按一次反轉方向。
+- **報讀軟體**：沒在排序的欄只念欄名，例如「姓名，按鈕」。
+- **報讀軟體**：正在排序的欄，欄名後面多念排序方向，例如「姓名，升冪排序，按鈕」。前置圖示與排序圖示都不念。
+- **報讀軟體**：點了這一欄、新的排序狀態傳回來之後，念一句「已依姓名升冪排序」。焦點還在同一顆按鈕上，按鈕的名稱變了多半不會重念，所以另外念這一句。
+- **報讀軟體**：那一句只念一次。使用者離開這一欄（焦點移走，或滑鼠移開）之後，逐項往下讀不會再讀到它。
+- **報讀軟體**：不是因為點了這一欄而排到這一欄（例如畫面一開始的預設排序、從別的入口選了排序），不念那一句。
+- **報讀軟體**：呼叫端在點了之後一秒內沒有把新的排序狀態傳回來，就不念。
+- **報讀軟體**：列表有表格結構時（外層是表格列），排序方向改由欄標頭的排序狀態表達，欄名後面不再重複念方向。欄標頭的名稱固定是欄名，點了之後的那一句不會混進去。
+- **動態**：底色、文字色與排序圖示的出現用 150ms 淡入；使用者設了「減少動態」時直接切換。
+
+### 網頁專屬
+
+- **ARIA 與 HTML 語意**：欄名是原生 `<button>`，type 是 button，放在表單裡不會送出。
+- **ARIA 與 HTML 語意**：排序方向寫在按鈕裡一段畫面上看不到的文字，所以它是按鈕名稱的一部分。圖示都是 aria-hidden。
+- **ARIA 與 HTML 語意**：元件裡有一個一直存在、畫面上看不到的 role="status" 區域，平常是空的；點了這一欄、排序狀態傳回來時才填字。使用者離開這一欄（按鈕失焦，或滑鼠移開）、換成別欄排序、排序被清掉、方向不是因為點這一欄而改變、或欄名被換掉時清空。它不是點的時候才插入：區域跟文字同一刻出現，報讀軟體常常不念。
+- **ARIA 與 HTML 語意**：外層沒有 role="row" 時，元件本身的元素不帶 role，也不帶 aria-sort：沒有表格結構的 columnheader 是孤立的，報讀軟體不一定念它的 aria-sort。
+- **ARIA 與 HTML 語意**：外層有 role="row" 時，元件本身的元素帶 role="columnheader"、aria-sort（ascending、descending，沒在排序是 none）與 aria-label（值是欄名）。有 aria-label，欄標頭的名稱才不會把 role="status" 區域裡的那一句也算進去。
+
+## 注意事項
+
+- 欄寬由呼叫端放在元件本身元素上的 class（例：col-name）決定。這個 class 如果會裁切超出的內容（給下方長文字顯示刪節號用），表頭這一格不會跟著裁：往外多出的 6px 要看得到。
+- 排序狀態每次改變都要給新的一份（nextSort 回的就是新的）。原地改同一份，元件不會知道它變了。
+- nextSort(目前狀態, key, 預設方向)：點同一欄反轉方向，點別欄從預設方向開始。數量、日期欄通常傳 'desc'，第一次點就「多到少／新到舊」。
+- `align` 決定這一格靠哪邊：文字欄靠左，數字欄靠右，內容置中的欄（例如狀態標籤）用置中。跟下方內容用同一種對齊。
+- 置中時，欄名本身固定在這一格的正中間。排序圖示出現在欄名右邊，不會把欄名往左推；為此按鈕左邊留了一塊跟圖示一樣寬的空位，滑過時的底色左邊會多出這一塊。這塊空位和圖示的位置都不佔欄寬：按鈕左右各比它佔的版面多出 16px，欄寬只要放得下欄名加左右各 6px。有前置圖示時，置中的是「前置圖示加欄名」。
+- **注意**：往外多出的部分需要空間：表頭那一列離容器的左右邊緣，靠左、靠右的欄要留至少 6px，置中的欄要留至少 16px。貼著邊緣又沒有留空時，多出的部分會撐出橫向捲軸，或被容器裁掉。
+- 靠左時按鈕往左多出 6px，欄名的左緣跟下方內容切齊；靠右時往右多出 6px，排序圖示的右緣跟下方內容切齊。滑過時的底色因此會比內容的邊緣多出 6px。置中時不往外多出。欄名很長、放不下時，按鈕最多比這一格寬 6px（就是往外多出的那一側），另一側切齊這一格，再長就用刪節號。
+- `leftIcon` 在欄名前面放一個圖示，用來標示這一欄的類別。它一直顯示，不代表排序方向。
+- 列表有沒有表格結構，報讀的做法不同，見無障礙。元件只在出現的那一刻看外層有沒有標成表格列（任何一層外層元素帶 role="row"），之後不會再判斷。原生的 `<tr>` 不算。
