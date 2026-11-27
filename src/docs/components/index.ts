@@ -4,6 +4,7 @@ import { actionMenuSpec } from './action-menu.js';
 import { autocompleteSpec } from './autocomplete.js';
 import { avatarSpec } from './avatar.js';
 import { badgeSpec } from './badge.js';
+import { breadcrumbSpec } from './breadcrumb.js';
 import { buttonSpec } from './button.js';
 import { buttonGroupSpec } from './button-group.js';
 import { carouselDotSpec } from './carousel-dot.js';
@@ -73,6 +74,7 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
   autocompleteSpec,
   avatarSpec,
   badgeSpec,
+  breadcrumbSpec,
   buttonSpec,
   buttonGroupSpec,
   carouselDotSpec,
