@@ -80,8 +80,8 @@ export const breadcrumbSpec = {
         ],
     },
     dos: [
-        { text: '同一區有幾個頁面時，最後一節帶同區頁面，用切換選單取代頁面上方的分頁。' },
-        { text: '每一節的圖示跟 #side-nav 同一個區、同一個頁面用同一顆。' },
+        { text: '同一區有幾個頁面時，最後一節帶同區頁面，用切換選單取代頁面上方的分頁。', story: 'with-switch' },
+        { text: '每一節的圖示跟 #side-nav 同一個區、同一個頁面用同一顆。', story: 'default' },
     ],
     donts: [
         { text: '最後一節做成連結。使用者已經在這一頁，點了只會重新載入。' },
