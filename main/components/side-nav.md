@@ -30,11 +30,11 @@
 
 ### 可以這樣做
 
-- 入口少的系統用窄欄和藏起來兩種，預設藏起來，讓內容區最寬。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/iframe.html?id=side-nav--rail&viewMode=story)）
-- 入口多、有分群的系統用展開和窄欄兩種，預設展開，群組標題一直看得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/iframe.html?id=side-nav--expanded&viewMode=story)）
+- 入口少的系統用窄欄和藏起來兩種，預設藏起來，讓內容區最寬。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=side-nav--rail&viewMode=story)）
+- 入口多、有分群的系統用展開和窄欄兩種，預設展開，群組標題一直看得到。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=side-nav--expanded&viewMode=story)）
 - 窄螢幕把同一份項目用展開的寬度放進 [Drawer Shell](drawer-shell.md)，點了項目就換頁並關掉抽屜。
 - 把使用者上次選的寬度存起來，下次進來照用。
-- 同一區有幾個頁面時，用子頁面收在一個母項目底下，母項目的網址給第一個子頁面。
+- 同一區有幾個頁面時，用子頁面收在一個母項目底下，母項目的網址給第一個子頁面。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=side-nav--with-children&viewMode=story)）
 
 ### 不要這樣做
 
@@ -47,29 +47,29 @@
 
 ## 用法
 
-### Angular（v0.20.2）
+### Angular（v0.21.0）
 
 `app-side-nav`
 
 [groups] · mode: expanded|rail|hidden · [currentId] · ariaLabel · (navigate)
 
-[在範例網站看全部 4 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/side-nav--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 5 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/side-nav--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
 | 名稱 | 型別 | 預設 | 說明 |
 | --- | --- | --- | --- |
-| `groups` | `readonly SideNavGroup[]` |  | 必填。群組與項目：SideNavGroup 是 { id, heading?, items }，SideNavItem 是 { id, label, icon, href }。不分群就傳一個不給 heading 的群組 |
+| `groups` | `readonly SideNavGroup[]` |  | 必填。群組與項目：SideNavGroup 是 { id, heading?, items }，SideNavItem 是 { id, label, icon, href, children? }，children 是子頁面 SideNavLink { id, label, icon, href }，只有一層。不分群就傳一個不給 heading 的群組 |
 | `mode` | `'expanded' \| 'rail' \| 'hidden'` | `'expanded'` | 寬度：展開 200px、窄欄 56px、藏起來 0。藏起來時整條加 inert |
-| `currentId` | `string \| null` | `null` | 目前頁的項目 id。對到的項目換成選中樣式，加 aria-current="page" |
+| `currentId` | `string \| null` | `null` | 目前頁的項目或子頁面 id。對到的換成選中樣式，加 aria-current="page"。目前頁是子頁面時，窄欄的母項目也換成選中樣式 |
 | `ariaLabel` | `string` | `'主要導覽'` | 導覽地標的名稱 |
-| `(navigate)` | `EventEmitter<SideNavItem>` |  | 左鍵單擊項目、沒按修飾鍵時送出；元件已擋掉瀏覽器換頁 |
+| `(navigate)` | `EventEmitter<SideNavLink>` |  | 左鍵單擊項目或子頁面、沒按修飾鍵時送出；元件已擋掉瀏覽器換頁 |
 
 #### 事件
 
 | 名稱 | 型別 | 說明 |
 | --- | --- | --- |
-| `navigate` | `EventEmitter<SideNavItem>` | 左鍵單擊項目、沒按 Ctrl／⌘／Shift／Alt 時送出，元件已擋掉瀏覽器換頁。使用端在這裡用路由換頁 |
+| `navigate` | `EventEmitter<SideNavLink>` | 左鍵單擊項目或子頁面、沒按 Ctrl／⌘／Shift／Alt 時送出，元件已擋掉瀏覽器換頁。使用端在這裡用路由換頁 |
 
 #### 程式碼範例
 
@@ -111,6 +111,8 @@
 
 #### Angular 注意事項
 
+- 子頁面放在項目的 `children`。母項目的 `href` 給第一個子頁面的網址，`currentId` 給子頁面的 id。
+- `navigate` 送出的是 `SideNavLink`（項目或子頁面）。原本把參數型別寫成 `SideNavItem` 的處理函式不用改。
 - 頂端區用 `sideNavHeader` 屬性標記要投影的元素。
 - `currentId` 由使用端從路由算出來，例如網址開頭對到哪個項目的 href。
 - 元件高度是外層的 100%，項目多到放不下時側欄自己捲動。

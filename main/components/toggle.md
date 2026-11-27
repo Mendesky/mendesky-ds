@@ -16,13 +16,13 @@
 
 ## 用法
 
-### Angular（v0.20.2）
+### Angular（v0.21.0）
 
 `app-toggle`
 
 [checked] [disabled] · ariaLabel · (checkedChange)
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/toggle--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/toggle--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

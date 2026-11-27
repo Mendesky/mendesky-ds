@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.20.2）
+### Angular（v0.21.0）
 
 `app-ctrl-bar`
 
 slot=left · slot=right · flex 佈局容器，左右分佈操作列內容
 
-[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/ctrl-bar--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/ctrl-bar--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

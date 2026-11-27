@@ -8,7 +8,7 @@
 
 ### 可以這樣做
 
-- 放在清單容器的旁邊，跟清單包在同一個外層裡。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/iframe.html?id=reorder-status--default&viewMode=story)）
+- 放在清單容器的旁邊，跟清單包在同一個外層裡。（範例：[Angular 版](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/iframe.html?id=reorder-status--default&viewMode=story)）
 
 ### 不要這樣做
 
@@ -17,13 +17,13 @@
 
 ## 用法
 
-### Angular（v0.20.2）
+### Angular（v0.21.0）
 
 `app-reorder-status`
 
 announce(text) · clear()
 
-[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/reorder-status--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 1 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/reorder-status--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

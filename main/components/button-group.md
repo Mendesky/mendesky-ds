@@ -6,13 +6,13 @@
 
 ## 用法
 
-### Angular（v0.20.2）
+### Angular（v0.21.0）
 
 `app-button-group`
 
 type: form|round|view · size: S|M|L · color: progress|primary|neutral（form、view）· options: ButtonGroupOption[]（可放 icon；view 的文字選項可帶 menu）· value · [disabled] errorMessage errorPosition: top|bottom · [menuOpen] (menuToggle) · (valueChange)
 
-[在範例網站看全部 11 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/button-group--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 11 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/button-group--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 

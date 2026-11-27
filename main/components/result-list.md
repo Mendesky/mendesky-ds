@@ -42,13 +42,13 @@
 
 ## 用法
 
-### Angular（v0.20.2）
+### Angular（v0.21.0）
 
 `app-result-list`
 
 ariaLabel（必填） · groups: ResultListGroup[] · state: ready|loading|empty|error · listId · [(activeId)] · [autoActivateFirst] [wrap] · itemTemplate · loadingText emptyText errorTitle errorDescription retryText [showRetry] announcement · (itemSelect) (activeOptionIdChange) (retry) · handleKeydown() resetActive()
 
-[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.20.2/components/?path=/docs/result-list--%E8%AA%AA%E6%98%8E)
+[在範例網站看全部 6 個範例](https://mendesky.github.io/mendesky-ds-angular/v0.21.0/components/?path=/docs/result-list--%E8%AA%AA%E6%98%8E)
 
 #### 屬性
 
