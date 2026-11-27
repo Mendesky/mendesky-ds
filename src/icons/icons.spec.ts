@@ -68,7 +68,7 @@ describe('ICON_REGISTRY — 垂直置中', () => {
  * 背景：側欄用到的 Megaphone、Shield 原本是 Heroicons 1.5px 線條，Account、Role
  * 帶實心色塊，Key 畫滿整個 24×24，跟其他 2px 線條圖示並排時粗細、大小都不一。
  * 這幾個（加上側欄新用到的 BellRing）改成 Lucide 2px 線條。側欄子選單與麵包屑新增的子頁面圖示
- * （Person … VersionTag）一開始就用 Lucide 2px 線條。這裡鎖住：
+ * （Person … VersionTag）與之後新增的 Stamp 一開始就用 Lucide 2px 線條。這裡鎖住：
  * 每個圖形元素都是 2px 圓端點描邊、不塗實心（小圓點除外），線條中心線留在中間 20×20（四邊各空 2px）。
  */
 describe('ICON_REGISTRY — SVG 標記', () => {
@@ -90,6 +90,7 @@ describe('ICON_REGISTRY — 2px 線條', () => {
   const LINE_ICONS = [
     'Account', 'Role', 'Megaphone', 'Shield', 'Key', 'BellRing',
     'Person', 'IdCard', 'SignIn', 'FileKey', 'Pulse', 'Mails', 'MessageText', 'AppWindow', 'VersionTag',
+    'Stamp',
   ];
 
   function shapesOf(name: string): Element[] {

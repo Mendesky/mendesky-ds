@@ -11,7 +11,7 @@
 | `Bold`、`Italic`、`Underline`、`Strikethrough`、`Heading`、`TextColor`、`BulletList`、`OrderedList`、`TableCells`、`Image`（Editor Toolbar 區段） | Heroicons v2 outline | MIT |
 | `UserGroup` | Heroicons v2 outline | MIT |
 | `FolderArchive`（folder-archive） | Lucide | ISC |
-| `Megaphone`（megaphone）、`Shield`（shield-check）、`Account`（user-cog）、`Role`（square-user）、`Key`（key-round）、`BellRing`（bell-ring）、`IdCard`（id-card）、`FileKey`（file-key）、`Mails`（mails）、`MessageText`（message-square-text）、`AppWindow`（app-window） | Lucide 1.80.0 | ISC |
+| `Megaphone`（megaphone）、`Shield`（shield-check）、`Account`（user-cog）、`Role`（square-user）、`Key`（key-round）、`BellRing`（bell-ring）、`IdCard`（id-card）、`FileKey`（file-key）、`Mails`（mails）、`MessageText`（message-square-text）、`AppWindow`（app-window）、`Stamp`（stamp） | Lucide 1.80.0 | ISC |
 | `Link`（link）、`Refresh`（refresh-ccw）、`Person`（user）、`SignIn`（log-in）、`Pulse`（activity）、`VersionTag`（tag） | Lucide，這幾個圖示衍生自 Feather | MIT（Feather） |
 
 ---
