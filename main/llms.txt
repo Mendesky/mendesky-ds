@@ -6,6 +6,7 @@
 
 ## 互動元件
 
+- [Breadcrumb](components/breadcrumb.md): 告訴使用者現在在系統的哪一層，並讓他點回上一層。
 - [Button](components/button.md): 畫面上能點的操作都用它，不要自己寫原生的 `<button>`。
 - [Button Group](components/button-group.md): 2–5 個互斥選項，且視覺需連成一排時用。
 - [Carousel Dot](components/carousel-dot.md): 圖片輪播指示、kanban 分頁點。
