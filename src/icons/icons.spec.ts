@@ -90,6 +90,7 @@ describe('ICON_REGISTRY — 2px 線條', () => {
   const LINE_ICONS = [
     'Account', 'Role', 'Megaphone', 'Shield', 'Key', 'BellRing',
     'Person', 'IdCard', 'SignIn', 'FileKey', 'Pulse', 'Mails', 'MessageText', 'AppWindow', 'VersionTag',
+    'Stamp',
   ];
 
   function shapesOf(name: string): Element[] {
